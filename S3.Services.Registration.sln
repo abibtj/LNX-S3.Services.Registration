@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LNX-S3.Services.Registration", "LNX-S3.Services.Registration", "{21AF07F6-83B3-4F8C-B471-9B9344518692}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BBE537FD-EB11-4DC4-908A-D828CF33163C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E2852766-505B-4CDC-AA5D-00E7289B8296}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3.Services.Registration", "src\S3.Services.Registration\S3.Services.Registration.csproj", "{015793C3-11E5-427E-88BE-5E5766D14435}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{015793C3-11E5-427E-88BE-5E5766D14435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{015793C3-11E5-427E-88BE-5E5766D14435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{015793C3-11E5-427E-88BE-5E5766D14435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{015793C3-11E5-427E-88BE-5E5766D14435}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BBE537FD-EB11-4DC4-908A-D828CF33163C} = {21AF07F6-83B3-4F8C-B471-9B9344518692}
+		{E2852766-505B-4CDC-AA5D-00E7289B8296} = {21AF07F6-83B3-4F8C-B471-9B9344518692}
+		{015793C3-11E5-427E-88BE-5E5766D14435} = {E2852766-505B-4CDC-AA5D-00E7289B8296}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {11B8595B-E861-4CE7-8551-A99B5E2DBBC5}
+	EndGlobalSection
+EndGlobal
