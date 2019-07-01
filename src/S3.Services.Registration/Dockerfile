@@ -3,7 +3,7 @@ WORKDIR /app
 COPY ./bin/Release/netcoreapp2.2 .
 ENV ASPNETCORE_URLS http://*:80
 #ENV ASPNETCORE_URLS https://*:443
-#ENV ASPNETCORE_ENVIRONMENT docker
+ENV ASPNETCORE_ENVIRONMENT docker
 EXPOSE 80
 ENTRYPOINT dotnet S3.Services.Registration.dll
 

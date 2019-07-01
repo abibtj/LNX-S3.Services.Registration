@@ -1,63 +1,85 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Consul;
+using S3.Common;
+using S3.Common.Consul;
+using S3.Common.Dispatchers;
+using S3.Common.Jaeger;
+using S3.Common.Mongo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using S3.Common.Mvc;
+using S3.Common.RabbitMq;
+using S3.Common.RestEase;
+using S3.Services.Registration.Domain;
+using S3.Services.Registration.Metrics;
+using S3.Services.Registration.Services;
+using OpenTracing;
+using S3.Services.Registration.Schools.Commands;
+using S3.Services.Registration.Schools.Events;
 
 namespace S3.Services.Registration
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        public IContainer Container { get; private set; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            services.AddCustomMvc();
+            services.AddInitializers(typeof(IMongoDbInitializer));
+            services.AddConsul();
+            services.AddJaeger();
+            services.RegisterServiceForwarder<IOrdersService>("orders-service");
+            services.AddTransient<IMetricsRegistry, MetricsRegistry>();
 
+            var builder = new ContainerBuilder();
+            builder.RegisterAssemblyTypes(typeof(Startup).Assembly)
+                .AsImplementedInterfaces();
+            builder.Populate(services);
+            builder.AddDispatchers();
+            builder.AddMongo();
+            builder.AddMongoRepository<School>("Schools");
+            builder.AddRabbitMq();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            Container = builder.Build();
+
+            return new AutofacServiceProvider(Container);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            IApplicationLifetime applicationLifetime, IStartupInitializer initializer,
+            IConsulClient consulClient)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.EnvironmentName == "local")
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
+            initializer.InitializeAsync();
+            app.UseMvc();
+            app.UseRabbitMq()
+                .SubscribeCommand<CreateSchoolCommand>(onError: (cmd, ex)
+                    => new CreateSchoolRejectedEvent(cmd.Name, ex.Message, "school_name_already_exists"))
+                //.SubscribeEvent<CustomerCreated>(@namespace: "customers")
+                //.SubscribeEvent<OrderCompleted>(@namespace: "orders")
+                ;
+            var serviceId = app.UseConsul();
 
-            app.UseMvc(routes =>
+            applicationLifetime.ApplicationStopped.Register(() =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                consulClient.Agent.ServiceDeregister(serviceId);
+                Container.Dispose();
             });
         }
     }

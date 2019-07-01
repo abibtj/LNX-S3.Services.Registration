@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -16,9 +16,7 @@
 
 
   <ItemGroup>
-    <Reference Include="S3.Common">
-      <HintPath>..\..\..\LNX-S3.Common\src\S3.Common\bin\Release\netstandard2.0\S3.Common.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\..\LNX-S3.Common\src\S3.Common\S3.Common.csproj" />
   </ItemGroup>
 
 </Project>
