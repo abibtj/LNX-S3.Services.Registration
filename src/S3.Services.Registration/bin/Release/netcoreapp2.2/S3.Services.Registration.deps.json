@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "08209ef60018cd23378cb171740a89dd7d03c928"
+    "signature": "dee0147c59d56474f83ae5ff9864d327eecb4766"
   },
   "compilationOptions": {
     "defines": [
@@ -27,6 +27,7 @@
           "Microsoft.AspNetCore.App": "2.2.0",
           "Microsoft.NETCore.App": "2.2.0",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.7.9",
+          "OpenTracing.Contrib.NetCore": "0.6.0",
           "S3.Common_": "2.0.5"
         },
         "runtime": {
@@ -1001,6 +1002,25 @@
         },
         "compile": {
           "lib/netstandard2.0/OpenTracing.dll": {}
+        }
+      },
+      "OpenTracing.Contrib.NetCore/0.6.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Hosting.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Logging": "2.2.0",
+          "Microsoft.Extensions.Options": "2.2.0",
+          "OpenTracing": "0.12.0",
+          "System.Data.SqlClient": "4.6.0"
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/OpenTracing.Contrib.NetCore.dll": {
+            "assemblyVersion": "0.6.0.0",
+            "fileVersion": "0.6.0.0"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp2.0/OpenTracing.Contrib.NetCore.dll": {}
         }
       },
       "Polly/7.1.0": {
@@ -5541,6 +5561,13 @@
       "sha512": "sha512-bGp7SSFE6YEUCts3npTvyAVnU4QznXLWKwkhhdlFnCD4bwgtxcNHTfE+KFYUPS0oR8j5L3YfQHUO2Ar2xjFBew==",
       "path": "opentracing/0.12.0",
       "hashPath": "opentracing.0.12.0.nupkg.sha512"
+    },
+    "OpenTracing.Contrib.NetCore/0.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Nz+X3l+QJ5UzBMB1FeU81cQ9lOlqHL5V+HuSawSjOk0RPrUF4b30ik0ukjsT9ZPO4V+jkN0vX+lbxQte97RwCA==",
+      "path": "opentracing.contrib.netcore/0.6.0",
+      "hashPath": "opentracing.contrib.netcore.0.6.0.nupkg.sha512"
     },
     "Polly/7.1.0": {
       "type": "package",

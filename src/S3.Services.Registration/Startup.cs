@@ -12,15 +12,19 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using S3.Common.Authentication;
 using S3.Common.Mvc;
 using S3.Common.RabbitMq;
+using S3.Common.Redis;
 using S3.Common.RestEase;
+using S3.Common.Swagger;
 using S3.Services.Registration.Domain;
 using S3.Services.Registration.Metrics;
-using S3.Services.Registration.Services;
 using OpenTracing;
 using S3.Services.Registration.Schools.Commands;
 using S3.Services.Registration.Schools.Events;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace S3.Services.Registration
 {
@@ -29,35 +33,52 @@ namespace S3.Services.Registration
         public IConfiguration Configuration { get; }
         public IContainer Container { get; private set; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("appsettings.docker.json", optional: true)
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
         }
+        //public Startup(IConfiguration configuration)
+        //{
+        //    Configuration = configuration;
+        //}
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddCustomMvc();
+            services.AddSwaggerDocs();
             services.AddInitializers(typeof(IMongoDbInitializer));
             services.AddConsul();
-            services.AddJaeger();
-            services.RegisterServiceForwarder<IOrdersService>("orders-service");
+            services.AddJwt();
+            services.AddOpenTracing();
+            services.AddRedis();
+            //services.AddJaeger(); // Throwing exception
+            //services.RegisterServiceForwarder<IOrdersService>("orders-service");
             services.AddTransient<IMetricsRegistry, MetricsRegistry>();
 
             var builder = new ContainerBuilder();
-            builder.RegisterAssemblyTypes(typeof(Startup).Assembly)
-                .AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
+                    .AsImplementedInterfaces();
+            //builder.RegisterAssemblyTypes(typeof(Startup).Assembly)
+            //    .AsImplementedInterfaces();
             builder.Populate(services);
-            builder.AddDispatchers();
             builder.AddMongo();
             builder.AddMongoRepository<School>("Schools");
             builder.AddRabbitMq();
+            builder.AddDispatchers();
 
             Container = builder.Build();
 
             return new AutofacServiceProvider(Container);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env,
             IApplicationLifetime applicationLifetime, IStartupInitializer initializer,
             IConsulClient consulClient)
         {
@@ -66,14 +87,24 @@ namespace S3.Services.Registration
                 app.UseDeveloperExceptionPage();
             }
 
-            initializer.InitializeAsync();
+            //await initializer.InitializeAsync();
             app.UseMvc();
+            app.UseAllForwardedHeaders();
+            app.UseSwaggerDocs();
+            app.UseErrorHandler();
+            app.UseAuthentication();
+            app.UseAccessTokenValidator();
+            app.UseServiceId();
             app.UseRabbitMq()
                 .SubscribeCommand<CreateSchoolCommand>(onError: (cmd, ex)
                     => new CreateSchoolRejectedEvent(cmd.Name, ex.Message, "school_name_already_exists"))
-                //.SubscribeEvent<CustomerCreated>(@namespace: "customers")
-                //.SubscribeEvent<OrderCompleted>(@namespace: "orders")
+                .SubscribeCommand<UpdateSchoolCommand>(onError: (cmd, ex)
+                    => new UpdateSchoolRejectedEvent(cmd.Name, ex.Message, "school_name_already_exists"))
+                 .SubscribeCommand<DeleteSchoolCommand>(onError: (cmd, ex)
+                    => new DeleteSchoolRejectedEvent(cmd.Id.ToString(), ex.Message, "unable_to_delete_school"))
+                //.SubscribeEvent<SchoolCreatedEvent>(@namespace: "registration")
                 ;
+
             var serviceId = app.UseConsul();
 
             applicationLifetime.ApplicationStopped.Register(() =>
@@ -81,6 +112,8 @@ namespace S3.Services.Registration
                 consulClient.Agent.ServiceDeregister(serviceId);
                 Container.Dispose();
             });
+
+            await initializer.InitializeAsync();
         }
     }
 }

@@ -1,32 +1,61 @@
 ﻿using S3.Common.Types;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace S3.Services.Registration.Domain
 {
-    public class School: IIdentifiable
+    public class School: BaseEntity
     {
-        public Guid Id { get; private set; }
         public string Name { get; private set; }
         public string Category { get; private set; } // Primary, Secondary //***TODO: an enumeration might be better
-        public string Address { get; private set; } //***TODO: create an address object
-        public DateTime CreatedAt { get; private set; }
+        public Address Address { get; private set; } //***TODO: create an address object
 
-        private School()
+        //private School()
+        //{
+
+        //}
+
+        public School(Guid id, string name, string category, Address address)
+         : base(id)
         {
-
+            SetName(name);
+            SetCategory(category);
+            SetAddress(address);
         }
 
-        public School(Guid id, string name, string category, string address, DateTime createdAt)
+        public void SetName(string name)
         {
-            //***TODO: Do proper validation of the parameters before assignment
-            Id = id;
-            Name = name;
-            Category = category;
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new S3Exception("empty_school_name",
+                    "School name cannot be empty.");
+            }
+
+            Name = name.Trim().ToLowerInvariant();
+            SetUpdatedDate();
+        }
+
+        public void SetCategory(string category)
+        {
+            if (string.IsNullOrEmpty(category))
+            {
+                throw new S3Exception("empty_category_name",
+                    "School category cannot be empty.");
+            }
+
+            Category = category.Trim().ToLowerInvariant();
+            SetUpdatedDate();
+        }
+
+        public void SetAddress(Address address)
+        {
+            if (address is null)
+            {
+                throw new S3Exception("empty_school_address",
+                    "School address cannot be empty.");
+            }
+
             Address = address;
-            CreatedAt = createdAt ;
+            SetUpdatedDate();
         }
     }
 }

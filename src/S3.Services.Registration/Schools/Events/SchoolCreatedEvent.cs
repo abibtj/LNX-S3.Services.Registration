@@ -1,6 +1,7 @@
 using System;
 using S3.Common.Messages;
 using Newtonsoft.Json;
+using S3.Common.Types;
 
 namespace S3.Services.Registration.Schools.Events
 {
@@ -8,18 +9,15 @@ namespace S3.Services.Registration.Schools.Events
     public class SchoolCreatedEvent : IEvent
     {
         public Guid Id { get; }
-        public Guid CustomerId { get; }
-        public string Code { get; }
-        public double Percentage { get; }
+        public string Name { get; }
+        public Address Address { get; }
 
         [JsonConstructor]
-        public SchoolCreatedEvent(Guid id, Guid customerId,
-            string code, double percentage)
+        public SchoolCreatedEvent(Guid id, string name, Address address)
         {
             Id = id;
-            CustomerId = customerId;
-            Code = code;
-            Percentage = percentage;
+            Name = name;
+            Address = address;
         }
     }
 }
