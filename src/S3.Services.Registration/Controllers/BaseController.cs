@@ -14,9 +14,8 @@ using S3.Common.Dispatchers;
 
 namespace S3.Services.Registration.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    [JwtAuth]
     public abstract class BaseController : ControllerBase
     {
         private static readonly string AcceptLanguageHeader = "accept-language";
@@ -37,26 +36,6 @@ namespace S3.Services.Registration.Controllers
 
         protected async Task<TResult> QueryAsync<TResult>(IQuery<TResult> query)
             => await _dispatcher.QueryAsync<TResult>(query);
-
-        //protected ActionResult<T> Single<T>(T data)
-        //{
-        //    if (data == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(data);
-        //}
-
-        //protected ActionResult<PagedResult<T>> Collection<T>(PagedResult<T> pagedResult)
-        //{
-        //    if (pagedResult == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(pagedResult);
-        //}
 
         protected IActionResult Single<T>(T data, Func<T, bool> criteria = null)
         {

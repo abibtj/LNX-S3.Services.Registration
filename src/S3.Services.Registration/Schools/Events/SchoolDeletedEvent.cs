@@ -9,9 +9,6 @@ namespace S3.Services.Registration.Schools.Events
         public Guid Id { get; }
 
         [JsonConstructor]
-        public SchoolDeletedEvent(Guid id)
-        {
-            Id = id;
-        }
+        public SchoolDeletedEvent(Guid id) => Id = id;
     }
 }

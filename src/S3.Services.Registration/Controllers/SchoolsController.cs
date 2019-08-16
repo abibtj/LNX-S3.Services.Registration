@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OpenTracing;
+using S3.Common.Authentication;
 using S3.Common.Dispatchers;
 using S3.Common.Mvc;
 using S3.Common.RabbitMq;
@@ -16,8 +17,7 @@ using S3.Services.Registration.Schools.Queries;
 
 namespace S3.Services.Registration.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    //[JwtAuth(Roles = "superadmin")]
     public class SchoolsController : BaseController
     {
         public SchoolsController(IBusPublisher busPublisher, IDispatcher dispatcher, ITracer tracer) 
@@ -27,7 +27,8 @@ namespace S3.Services.Registration.Controllers
 
         [HttpGet("browse")]
         public async Task<IActionResult> GetAllAsync([FromQuery] BrowseSchoolsQuery query)
-            => Collection(await QueryAsync(query));
+            => Ok( await QueryAsync(query));
+        //=> Collection(await QueryAsync(query));
 
         [HttpGet("get/{id:guid}")]
         public async Task<IActionResult> GetByIdAsync(Guid id)
@@ -43,8 +44,7 @@ namespace S3.Services.Registration.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return await SendAsync(command,
-                resourceId: command.Id, resource: "school");
+                return await SendAsync(command, resource: "school");
         }
 
         [HttpPut("update")]

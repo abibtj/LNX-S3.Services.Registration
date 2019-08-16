@@ -12,12 +12,9 @@ namespace S3.Services.Registration.Schools.Commands
     public class DeleteSchoolCommand : ICommand
     {
         [Required]
-        public Guid Id { get; private set; }
+        public Guid Id { get; }
 
         [JsonConstructor]
-        public DeleteSchoolCommand(Guid id)
-        {
-            Id = id;
-        }
+        public DeleteSchoolCommand(Guid id) => Id = id;
     }
 }

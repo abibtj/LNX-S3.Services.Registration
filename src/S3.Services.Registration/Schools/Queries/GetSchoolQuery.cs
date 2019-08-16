@@ -8,21 +8,13 @@ namespace S3.Services.Registration.Schools.Queries
 {
     public class GetSchoolQuery : IQuery<SchoolDto>
     {
-        public Guid Id { get; private set; }
-        public string Name { get; private set; }
+        public Guid Id { get; }
+        public string Name { get; }
 
         [JsonConstructor]
-        public GetSchoolQuery(Guid id)
-        {
-            Id = id;
-            Name = string.Empty;
-        }
+        public GetSchoolQuery(Guid id) => (Id, Name) = (id, string.Empty);
 
         [JsonConstructor]
-        public GetSchoolQuery(string name)
-        {
-            Id = Guid.Empty;
-            Name = name;
-        }
+        public GetSchoolQuery(string name) => (Id, Name) = (Guid.Empty, name);
     }
 }

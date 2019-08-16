@@ -1,61 +1,27 @@
-﻿using S3.Common.Types;
+﻿using S3.Common;
+using S3.Common.Types;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace S3.Services.Registration.Domain
 {
-    public class School: BaseEntity
+    public class School : BaseEntity
     {
-        public string Name { get; private set; }
-        public string Category { get; private set; } // Primary, Secondary //***TODO: an enumeration might be better
-        public Address Address { get; private set; } //***TODO: create an address object
-
-        //private School()
-        //{
-
-        //}
-
-        public School(Guid id, string name, string category, Address address)
-         : base(id)
+        public School()
         {
-            SetName(name);
-            SetCategory(category);
-            SetAddress(address);
+            Classes = new HashSet<Class>();
+            Teachers = new HashSet<Teacher>();
+            Students = new HashSet<Student>();
         }
+        //public Guid Id { get; private set; }
+        public string Name { get; set; } = default!;
+        public string Category { get; set; } = default!; // Primary, Secondary //***TODO: an enumeration might be better
+        public Address Address { get; set; }
 
-        public void SetName(string name)
-        {
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new S3Exception("empty_school_name",
-                    "School name cannot be empty.");
-            }
-
-            Name = name.Trim().ToLowerInvariant();
-            SetUpdatedDate();
-        }
-
-        public void SetCategory(string category)
-        {
-            if (string.IsNullOrEmpty(category))
-            {
-                throw new S3Exception("empty_category_name",
-                    "School category cannot be empty.");
-            }
-
-            Category = category.Trim().ToLowerInvariant();
-            SetUpdatedDate();
-        }
-
-        public void SetAddress(Address address)
-        {
-            if (address is null)
-            {
-                throw new S3Exception("empty_school_address",
-                    "School address cannot be empty.");
-            }
-
-            Address = address;
-            SetUpdatedDate();
-        }
+        public virtual ICollection<Teacher> Teachers { get; set; }
+        public virtual ICollection<Class> Classes { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
     }
 }

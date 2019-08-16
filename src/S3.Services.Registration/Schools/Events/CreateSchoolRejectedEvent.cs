@@ -12,10 +12,6 @@ namespace S3.Services.Registration.Schools.Events
 
         [JsonConstructor]
         public CreateSchoolRejectedEvent(string schoolName, string reason, string code)
-        {
-            SchoolName = schoolName;
-            Reason = reason;
-            Code = code;
-        }
+            => (SchoolName, Reason, Code) = (schoolName, reason, code);
     }
 }

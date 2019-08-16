@@ -1,38 +1,34 @@
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using S3.Common;
 using S3.Common.Handlers;
 using S3.Common.Mongo;
 using S3.Services.Registration.Domain;
 using S3.Services.Registration.Dto;
-using S3.Services.Registration.Repositories;
+using S3.Services.Registration.Utility;
 
 namespace S3.Services.Registration.Schools.Queries
 {
     public class GetSchoolQueryHandler : IQueryHandler<GetSchoolQuery, SchoolDto>
     {
-        private readonly ISchoolRepository _schoolRepository;
-        public GetSchoolQueryHandler(ISchoolRepository schoolRepository)
-        {
-           _schoolRepository = schoolRepository;
-        }
-        
+        private readonly IMapper _mapper;
+        private readonly RegistrationDbContext _db;
+
+        public GetSchoolQueryHandler(RegistrationDbContext db, IMapper mapper)
+            => (_db, _mapper) = (db, mapper);
+
         public async Task<SchoolDto> HandleAsync(GetSchoolQuery query)
         {
-            var school = query.Name == string.Empty ? 
-                await _schoolRepository.GetAsync(query.Id) :
-                await _schoolRepository.GetAsync(query.Name);
+            var school = query.Name == string.Empty ?
+               await _db.Schools.Include(x => x.Address).FirstOrDefaultAsync(x => x.Id == query.Id) :
+               await _db.Schools.Include(x => x.Address).FirstOrDefaultAsync(x => x.Name.ToLowerInvariant()
+               == Normalizer.NormalizeSpaces(query.Name).ToLowerInvariant());
 
             if (school is null)
-                return null;
+                return null!;
 
-            return new SchoolDto
-            {
-                Address = school.Address,
-                Category = school.Category,
-                CreatedDate = school.CreatedDate,
-                Id = school.Id,
-                Name = school.Name,
-                UpdatedDate = school.UpdatedDate
-            };
+            return _mapper.Map<SchoolDto>(school);
         }
     }
 }

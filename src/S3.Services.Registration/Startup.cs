@@ -18,13 +18,25 @@ using S3.Common.RabbitMq;
 using S3.Common.Redis;
 using S3.Common.RestEase;
 using S3.Common.Swagger;
-using S3.Services.Registration.Domain;
-using S3.Services.Registration.Metrics;
 using OpenTracing;
 using S3.Services.Registration.Schools.Commands;
 using S3.Services.Registration.Schools.Events;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using FluentValidation.AspNetCore;
+using S3.Services.Registration.Schools.Commands.Validators;
+using Microsoft.EntityFrameworkCore;
+using S3.Services.Registration.Teachers.Commands;
+using S3.Services.Registration.Teachers.Events;
+using S3.Services.Registration.Students.Commands;
+using S3.Services.Registration.Students.Events;
+using AutoMapper;
+using S3.Services.Registration.Utility;
+using S3.Services.Registration.Parents.Commands;
+using S3.Services.Registration.Parents.Events;
+using S3.Services.Registration.Classes.Commands;
+using S3.Services.Registration.Classes.Events;
+using S3.Services.Registration.Subjects.Commands;
 
 namespace S3.Services.Registration
 {
@@ -44,23 +56,30 @@ namespace S3.Services.Registration
 
             Configuration = builder.Build();
         }
-        //public Startup(IConfiguration configuration)
-        //{
-        //    Configuration = configuration;
-        //}
-
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddCustomMvc();
+            // Add DbContext using SQL Server Provider
+            services.AddDbContext<RegistrationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("registration-service-db")));
+            services.AddCustomMvc()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>()); // Enable fluent validation;
             services.AddSwaggerDocs();
-            services.AddInitializers(typeof(IMongoDbInitializer));
             services.AddConsul();
             services.AddJwt();
             services.AddOpenTracing();
             services.AddRedis();
             //services.AddJaeger(); // Throwing exception
             //services.RegisterServiceForwarder<IOrdersService>("orders-service");
-            services.AddTransient<IMetricsRegistry, MetricsRegistry>();
+            services.AddScoped<IRegistrationDbInitialiser, RegistrationDbInitialiser>();
+
+            // Auto Mapper Configurations
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
@@ -68,8 +87,6 @@ namespace S3.Services.Registration
             //builder.RegisterAssemblyTypes(typeof(Startup).Assembly)
             //    .AsImplementedInterfaces();
             builder.Populate(services);
-            builder.AddMongo();
-            builder.AddMongoRepository<School>("Schools");
             builder.AddRabbitMq();
             builder.AddDispatchers();
 
@@ -80,11 +97,20 @@ namespace S3.Services.Registration
 
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env,
             IApplicationLifetime applicationLifetime, IStartupInitializer initializer,
-            IConsulClient consulClient)
+            IConsulClient consulClient, IRegistrationDbInitialiser dbInitialiser)
         {
             if (env.IsDevelopment() || env.EnvironmentName == "local")
             {
                 app.UseDeveloperExceptionPage();
+                // Initialise the database
+                try
+                {
+                    //dbInitialiser.Initialise();
+                }
+                catch (Exception)
+                {
+                    //Log.Error("Error, {Name}", ex.ToString(), LogEventLevel.Error);
+                }
             }
 
             //await initializer.InitializeAsync();
@@ -102,8 +128,41 @@ namespace S3.Services.Registration
                     => new UpdateSchoolRejectedEvent(cmd.Name, ex.Message, "school_name_already_exists"))
                  .SubscribeCommand<DeleteSchoolCommand>(onError: (cmd, ex)
                     => new DeleteSchoolRejectedEvent(cmd.Id.ToString(), ex.Message, "unable_to_delete_school"))
-                //.SubscribeEvent<SchoolCreatedEvent>(@namespace: "registration")
-                ;
+                 //.SubscribeEvent<SchoolCreatedEvent>(@namespace: "registration")
+                 .SubscribeCommand<CreateTeacherCommand>(onError: (cmd, ex)
+                    => new CreateTeacherRejectedEvent(cmd.LastName + " " + cmd.FirstName, ex.Message, "unable_to_create_teacher"))
+                .SubscribeCommand<UpdateTeacherCommand>(onError: (cmd, ex)
+                    => new UpdateTeacherRejectedEvent(cmd.LastName + " " + cmd.FirstName, ex.Message, "unable_to_update_teacher"))
+                 .SubscribeCommand<DeleteTeacherCommand>(onError: (cmd, ex)
+                    => new DeleteTeacherRejectedEvent(cmd.Id.ToString(), ex.Message, "unable_to_delete_teacher"))
+                //.SubscribeEvent<TeacherCreatedEvent>(@namespace: "registration")
+                .SubscribeCommand<CreateStudentCommand>(onError: (cmd, ex)
+                    => new CreateStudentRejectedEvent(cmd.LastName + " " + cmd.FirstName, ex.Message, "unable_to_create_student"))
+                .SubscribeCommand<UpdateStudentCommand>(onError: (cmd, ex)
+                    => new UpdateStudentRejectedEvent(cmd.LastName + " " + cmd.FirstName, ex.Message, "unable_to_update_student"))
+                 .SubscribeCommand<DeleteStudentCommand>(onError: (cmd, ex)
+                    => new DeleteStudentRejectedEvent(cmd.Id.ToString(), ex.Message, "unable_to_delete_student"))
+                //.SubscribeEvent<StudentCreatedEvent>(@namespace: "registration")
+                .SubscribeCommand<CreateParentCommand>(onError: (cmd, ex)
+                    => new CreateParentRejectedEvent(cmd.LastName + " " + cmd.FirstName, ex.Message, "unable_to_create_parent"))
+                .SubscribeCommand<UpdateParentCommand>(onError: (cmd, ex)
+                    => new UpdateParentRejectedEvent(cmd.LastName + " " + cmd.FirstName, ex.Message, "unable_to_update_parent"))
+                 .SubscribeCommand<DeleteParentCommand>(onError: (cmd, ex)
+                    => new DeleteParentRejectedEvent(cmd.Id.ToString(), ex.Message, "unable_to_delete_parent"))
+                //.SubscribeEvent<ParentCreatedEvent>(@namespace: "registration")
+                .SubscribeCommand<CreateClassCommand>(onError: (cmd, ex)
+                    => new CreateClassRejectedEvent(cmd.Name, ex.Message, "unable_to_create_class"))
+                .SubscribeCommand<UpdateClassCommand>(onError: (cmd, ex)
+                    => new UpdateClassRejectedEvent(cmd.Name, ex.Message, "unable_to_update_class"))
+                 .SubscribeCommand<DeleteClassCommand>(onError: (cmd, ex)
+                    => new DeleteClassRejectedEvent(cmd.Id.ToString(), ex.Message, "unable_to_delete_class"))
+                //.SubscribeEvent<ClassCreatedEvent>(@namespace: "registration")
+                .SubscribeCommand<CreateSubjectCommand>()
+                .SubscribeCommand<UpdateSubjectCommand>()
+                 .SubscribeCommand<DeleteSubjectCommand>()
+                //.SubscribeEvent<SubjectCreatedEvent>(@namespace: "registration")
+
+            ;
 
             var serviceId = app.UseConsul();
 
