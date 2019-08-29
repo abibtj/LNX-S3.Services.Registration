@@ -22,10 +22,7 @@ namespace S3.Services.Registration.Classes.Queries
         {
             var _class = await _db.Classes.FirstOrDefaultAsync(x => x.Id == query.Id);
 
-            if (_class is null)
-                return null!;
-
-            return _mapper.Map<ClassDto>(_class);
+            return _class is null ? null! : _mapper.Map<ClassDto>(_class);
         }
     }
 }

@@ -11,10 +11,10 @@ namespace S3.Services.Registration.Schools.Events
     {
         public Guid Id { get; }
         public string Name { get; }
-        public Address Address { get; }
+        public SchoolAddress Address { get; }
 
         [JsonConstructor]
-        public SchoolCreatedEvent(Guid id, string name, Address address)
+        public SchoolCreatedEvent(Guid id, string name, SchoolAddress address)
             => (Id, Name, Address) = (id, name, address);
     }
 }

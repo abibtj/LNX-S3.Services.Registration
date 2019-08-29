@@ -4,10 +4,10 @@ using System;
 
 namespace S3.Services.Registration.Dto
 {
-    public class SchoolDto : BaseDto
+    public class SchoolDto : BaseEntityDto
     {
         public string Name { get; set; }
         public string Category { get; set; } // Primary, Secondary //***TODO: an enumeration might be better
-        public AddressDto Address { get; set; } //***TODO: create an address object
+        public SchoolAddressDto Address { get; set; } 
     }
 }

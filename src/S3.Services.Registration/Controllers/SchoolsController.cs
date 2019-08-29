@@ -21,14 +21,11 @@ namespace S3.Services.Registration.Controllers
     public class SchoolsController : BaseController
     {
         public SchoolsController(IBusPublisher busPublisher, IDispatcher dispatcher, ITracer tracer) 
-            : base(busPublisher, dispatcher, tracer )
-        {
-        }
+            : base(busPublisher, dispatcher, tracer ) { }
 
         [HttpGet("browse")]
         public async Task<IActionResult> GetAllAsync([FromQuery] BrowseSchoolsQuery query)
             => Ok( await QueryAsync(query));
-        //=> Collection(await QueryAsync(query));
 
         [HttpGet("get/{id:guid}")]
         public async Task<IActionResult> GetByIdAsync(Guid id)
@@ -40,29 +37,14 @@ namespace S3.Services.Registration.Controllers
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateSchoolCommand command)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-                return await SendAsync(command, resource: "school");
-        }
+            => await SendAsync(command, resource: "school");
 
         [HttpPut("update")]
         public async Task<IActionResult> Update(UpdateSchoolCommand command)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            return await SendAsync(command,
-              resourceId: command.Id, resource: "school");
-        }
+            => await SendAsync(command, resourceId: command.Id, resource: "school");
 
         [HttpDelete("delete/{id:guid}")]
-        public async Task<IActionResult> Delete(Guid id) => await SendAsync(new DeleteSchoolCommand(id),
-                resourceId: id, resource: "school");
-
-        //[HttpDelete("delete")]
-        //public async Task<IActionResult> Delete(DeleteSchoolCommand command) => await SendAsync(command,
-        //       resourceId: command.Id, resource: "school");
+        public async Task<IActionResult> Delete(Guid id) 
+            => await SendAsync(new DeleteSchoolCommand(id), resourceId: id, resource: "school");
     }
 }

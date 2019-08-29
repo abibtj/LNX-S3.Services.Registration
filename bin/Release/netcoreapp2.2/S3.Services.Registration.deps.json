@@ -24,13 +24,12 @@
     ".NETCoreApp,Version=v2.2": {
       "S3.Services.Registration/1.0.0": {
         "dependencies": {
-          "AutoMapper": "8.1.1",
           "Microsoft.AspNetCore.App": "2.2.0",
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
           "Microsoft.NETCore.App": "2.2.0",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.7.9",
           "OpenTracing.Contrib.NetCore": "0.6.0",
-          "S3.Common_": "2.0.5"
+          "S3.Common_": "1.0.0"
         },
         "runtime": {
           "S3.Services.Registration.dll": {}
@@ -2074,7 +2073,7 @@
           "lib/netstandard2.0/VaultSharp.dll": {}
         }
       },
-      "S3.Common_/2.0.5": {
+      "S3.Common_/1.0.0": {
         "dependencies": {
           "App.Metrics.AspNetCore": "3.1.0",
           "App.Metrics.AspNetCore.Core": "3.1.0",
@@ -2096,6 +2095,7 @@
           "App.Metrics.Reporting.Console": "3.1.0",
           "App.Metrics.Reporting.Http": "3.1.0",
           "App.Metrics.Reporting.InfluxDB": "3.1.0",
+          "AutoMapper": "8.1.1",
           "Autofac": "4.9.2",
           "Autofac.Extensions.DependencyInjection": "4.4.0",
           "Consul": "0.7.2.6",
@@ -6016,7 +6016,7 @@
       "path": "vaultsharp/0.11.1002",
       "hashPath": "vaultsharp.0.11.1002.nupkg.sha512"
     },
-    "S3.Common_/2.0.5": {
+    "S3.Common_/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

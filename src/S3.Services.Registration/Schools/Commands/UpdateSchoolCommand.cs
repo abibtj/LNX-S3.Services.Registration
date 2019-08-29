@@ -16,10 +16,10 @@ namespace S3.Services.Registration.Schools.Commands
         [Required(ErrorMessage = "School's category is required.")]
         public string Category { get; } // Primary, Secondary //***TODO: an enumeration might be better
         [Required(ErrorMessage = "School's address is required.")]
-        public Address Address { get; }
+        public SchoolAddress Address { get; }
 
         [JsonConstructor]
-        public UpdateSchoolCommand(Guid id, string name, string category, Address address)
+        public UpdateSchoolCommand(Guid id, string name, string category, SchoolAddress address)
             => (Id, Name, Category, Address)
             = (id, name, category, address);
     }

@@ -25,10 +25,7 @@ namespace S3.Services.Registration.Schools.Queries
                await _db.Schools.Include(x => x.Address).FirstOrDefaultAsync(x => x.Name.ToLowerInvariant()
                == Normalizer.NormalizeSpaces(query.Name).ToLowerInvariant());
 
-            if (school is null)
-                return null!;
-
-            return _mapper.Map<SchoolDto>(school);
+            return school is null ? null! : _mapper.Map<SchoolDto>(school);
         }
     }
 }

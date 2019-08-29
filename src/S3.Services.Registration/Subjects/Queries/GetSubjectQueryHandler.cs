@@ -22,10 +22,7 @@ namespace S3.Services.Registration.Subjects.Queries
         {
             var subject = await _db.Subjects.FirstOrDefaultAsync(x => x.Id == query.Id);
 
-            if (subject is null)
-                return null!;
-
-            return _mapper.Map<SubjectDto>(subject);
+            return subject is null ? null! : _mapper.Map<SubjectDto>(subject);
         }
     }
 }

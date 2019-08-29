@@ -1,5 +1,6 @@
 ﻿
 using FluentValidation;
+using S3.Services.Registration.Utility;
 using System;
 
 namespace S3.Services.Registration.Students.Commands.Validators
@@ -28,6 +29,8 @@ namespace S3.Services.Registration.Students.Commands.Validators
 
             RuleFor(x => x.SchoolId)
                   .NotEmpty().WithMessage("School's Id is required.");
+
+            RuleFor(x => x.Address).SetValidator(new AddressValidator());
         }
     }
 }

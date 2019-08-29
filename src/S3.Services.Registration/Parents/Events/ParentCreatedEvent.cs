@@ -10,10 +10,10 @@ namespace S3.Services.Registration.Parents.Events
     {
         public Guid Id { get; }
         public string Name { get; }
-        public Address? Address { get; }
+        public ParentAddress? Address { get; }
 
         [JsonConstructor]
-        public ParentCreatedEvent(Guid id, string name, Address? address)
+        public ParentCreatedEvent(Guid id, string name, ParentAddress? address)
             => (Id, Name, Address) = (id, name, address);
     }
 }

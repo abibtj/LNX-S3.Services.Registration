@@ -22,7 +22,9 @@ namespace S3.Services.Registration.Students.Queries
 
         public async Task<IEnumerable<StudentDto>> HandleAsync(BrowseStudentsQuery query)
         {
-            var students = _mapper.Map<IEnumerable<StudentDto>>(_db.Students.Include(x => x.Address).AsEnumerable());
+            var students = query.SchoolId is null ?
+                _mapper.Map<IEnumerable<StudentDto>>(_db.Students.Include(x => x.Address).Include(y => y.Class).Include(z => z.Parent).AsEnumerable()):
+                _mapper.Map<IEnumerable<StudentDto>>(_db.Students.Where(x => x.SchoolId == query.SchoolId).Include(x => x.Address).Include(y => y.Class).Include(z => z.Parent).AsEnumerable());
            
             bool ascending = true;
             if (!string.IsNullOrEmpty(query.SortOrder) &&

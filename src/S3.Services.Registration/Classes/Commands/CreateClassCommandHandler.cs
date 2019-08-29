@@ -29,7 +29,7 @@ namespace S3.Services.Registration.Classes.Commands
             {
                 Name = Normalizer.NormalizeSpaces(command.Name),
                 SchoolId = command.SchoolId,
-                TeacherId = command.TeacherId,
+                ClassTeacherId = command.TeacherId,
                 SubjectIds = string.Join(",", command.SubjectIds)
             };
 

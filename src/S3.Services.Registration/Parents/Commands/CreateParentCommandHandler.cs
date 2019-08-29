@@ -29,7 +29,7 @@ namespace S3.Services.Registration.Parents.Commands
             {
                 Address = command.Address,
                 FirstName = Normalizer.NormalizeSpaces(command.FirstName),
-                MiddleName = Normalizer.NormalizeSpaces(command.MiddleName),
+                MiddleName = string.IsNullOrEmpty(command.MiddleName)? null! : Normalizer.NormalizeSpaces(command.MiddleName),
                 LastName = Normalizer.NormalizeSpaces(command.LastName),
                 Gender = command.Gender,
                 DateOfBirth = command.DateOfBirth,

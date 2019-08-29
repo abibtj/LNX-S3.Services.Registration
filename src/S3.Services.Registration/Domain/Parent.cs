@@ -13,7 +13,7 @@ namespace S3.Services.Registration.Domain
         {
             Students = new HashSet<Student>();
         }
-       
+        public ParentAddress? Address { get; set; }
         public virtual ICollection<Student> Students { get; set; }
     }
 }

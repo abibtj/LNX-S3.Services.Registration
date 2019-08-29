@@ -14,7 +14,7 @@ namespace S3.Services.Registration.Students.Commands
         public Guid Id { get; }
         [Required(ErrorMessage = "First name is required.")]
         public string FirstName { get; }
-        public string MiddleName { get; }
+        public string? MiddleName { get; }
         [Required(ErrorMessage = "Last name is required.")]
         public string LastName { get; }
         [Required(ErrorMessage = "Gender name is required.")]
@@ -26,12 +26,12 @@ namespace S3.Services.Registration.Students.Commands
         public Guid SchoolId { get; }
         public Guid? ClassId { get; }
         public Guid? ParentId { get; }
-        public Address? Address { get; }
+        public StudentAddress? Address { get; }
         public List<Guid>? SubjectIds { get; } // List of subjects offered by this student
 
         [JsonConstructor]
         public UpdateStudentCommand(
-            Guid id, string firstName, string middleName, string lastName, string gender, DateTime dateOfBirth, string phoneNumber, Guid schoolId, Guid? classId, Guid? parentId, Address? address, List<Guid>? subjectIds)
+            Guid id, string firstName, string middleName, string lastName, string gender, DateTime dateOfBirth, string phoneNumber, Guid schoolId, Guid? classId, Guid? parentId, StudentAddress? address, List<Guid>? subjectIds)
             => (Id, FirstName, MiddleName, LastName, Gender, DateOfBirth, PhoneNumber, SchoolId, ClassId, ParentId, Address, SubjectIds)
             = (id, firstName, middleName, lastName, gender, dateOfBirth, phoneNumber, schoolId, classId, parentId, address, subjectIds);
     }

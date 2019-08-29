@@ -6,14 +6,14 @@ using System.Text.RegularExpressions;
 
 namespace S3.Services.Registration.Dto
 {
-    public class PersonDto : BaseDto
+    public class PersonDto : BaseEntityDto
     {
         public string FirstName { get; set; } 
-        public string MiddleName { get; set; } 
+        public string? MiddleName { get; set; } 
         public string LastName { get; set; } 
         public string Gender { get; set; }
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string? Email { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        public AddressDto? Address { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace S3.Services.Registration.Students.Commands
             {
                 Address = command.Address,
                 FirstName = Normalizer.NormalizeSpaces(command.FirstName),
-                MiddleName = Normalizer.NormalizeSpaces(command.MiddleName),
+                MiddleName = string.IsNullOrEmpty(command.MiddleName)? null! : Normalizer.NormalizeSpaces(command.MiddleName),
                 LastName = Normalizer.NormalizeSpaces(command.LastName),
                 Gender = command.Gender,
                 DateOfBirth = command.DateOfBirth,
@@ -37,7 +37,8 @@ namespace S3.Services.Registration.Students.Commands
                 SchoolId = command.SchoolId,
                 ClassId = command.ClassId,
                 ParentId = command.ParentId,
-                SubjectIds = string.Join(",", command.SubjectIds)
+                SubjectIds = command.SubjectIds
+                //SubjectIds = string.Join(",", command.SubjectIds)
             };
 
             await _db.Students.AddAsync(student);

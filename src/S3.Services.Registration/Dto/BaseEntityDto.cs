@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace S3.Services.Registration.Dto
 {
-    public class BaseDto
+    public class BaseEntityDto
     {
         public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; }

@@ -22,10 +22,7 @@ namespace S3.Services.Registration.Students.Queries
         {
             var student = await _db.Students.Include(x => x.Address).FirstOrDefaultAsync(x => x.Id == query.Id);
 
-            if (student is null)
-                return null!;
-
-            return _mapper.Map<StudentDto>(student);
+            return student is null ? null! : _mapper.Map<StudentDto>(student);
         }
     }
 }

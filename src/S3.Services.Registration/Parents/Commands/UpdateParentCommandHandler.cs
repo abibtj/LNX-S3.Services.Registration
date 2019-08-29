@@ -31,9 +31,8 @@ namespace S3.Services.Registration.Parents.Commands
                 throw new S3Exception(ExceptionCodes.NotFound,
                     $"Parent with id: '{command.Id}' was not found.");
 
-            parent.Address = command.Address;
             parent.FirstName = Normalizer.NormalizeSpaces(command.FirstName);
-            parent.MiddleName = Normalizer.NormalizeSpaces(command.MiddleName);
+            parent.MiddleName = string.IsNullOrEmpty(command.MiddleName) ? null! : Normalizer.NormalizeSpaces(command.MiddleName);
             parent.LastName = Normalizer.NormalizeSpaces(command.LastName);
             parent.Gender = command.Gender;
             parent.DateOfBirth = command.DateOfBirth;

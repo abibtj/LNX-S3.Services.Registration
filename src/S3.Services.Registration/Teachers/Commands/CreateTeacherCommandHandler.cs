@@ -9,6 +9,7 @@ using S3.Common;
 using System;
 using Microsoft.EntityFrameworkCore;
 using S3.Services.Registration.Utility;
+using System.Collections.Generic;
 
 namespace S3.Services.Registration.Teachers.Commands
 {
@@ -29,7 +30,7 @@ namespace S3.Services.Registration.Teachers.Commands
             {
                 Address = command.Address,
                 FirstName = Normalizer.NormalizeSpaces(command.FirstName),
-                MiddleName = Normalizer.NormalizeSpaces(command.MiddleName),
+                MiddleName = string.IsNullOrEmpty(command.MiddleName) ? null! : Normalizer.NormalizeSpaces(command.MiddleName),
                 LastName = Normalizer.NormalizeSpaces(command.LastName),
                 PhoneNumber = command.PhoneNumber,
                 Gender = command.Gender,
@@ -40,6 +41,28 @@ namespace S3.Services.Registration.Teachers.Commands
             };
 
             await _db.Teachers.AddAsync(teacher);
+
+            if (!(command.ScoresEntries is null) && command.ScoresEntries.Count > 0)
+            {
+                var scoresEntryTasks = new List<ScoresEntryTask> { };
+                foreach (var entry in command.ScoresEntries) // Create new scores entry task
+                {
+                    if (await _db.ScoresEntryTasks.AnyAsync(x => x.ClassId == entry.ClassId && x.SubjectId == entry.SubjectId))
+                        throw new S3Exception("task_already_exists",
+                            $"The system cannot create duplicate tasks.");
+
+                    scoresEntryTasks.Add(new ScoresEntryTask
+                    {
+                        ClassId = entry.ClassId,
+                        SubjectId = entry.SubjectId,
+                        TeacherId = teacher.Id
+                    });
+                }
+
+
+                await _db.ScoresEntryTasks.AddRangeAsync(scoresEntryTasks);
+            }
+
             await _db.SaveChangesAsync();
 
             await _busPublisher.PublishAsync(new TeacherCreatedEvent(teacher.Id, 

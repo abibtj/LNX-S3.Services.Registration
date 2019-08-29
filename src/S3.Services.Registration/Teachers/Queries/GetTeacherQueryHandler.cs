@@ -22,10 +22,7 @@ namespace S3.Services.Registration.Teachers.Queries
         {
             var teacher = await _db.Teachers.Include(x => x.Address).FirstOrDefaultAsync(x => x.Id == query.Id);
 
-            if (teacher is null)
-                return null!;
-
-            return _mapper.Map<TeacherDto>(teacher);
+            return teacher is null ? null! : _mapper.Map<TeacherDto>(teacher);
         }
     }
 }

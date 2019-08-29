@@ -33,7 +33,7 @@ namespace S3.Services.Registration.Classes.Commands
 
             _class.Name = Normalizer.NormalizeSpaces(command.Name);
             _class.SchoolId = command.SchoolId;
-            _class.TeacherId = command.TeacherId;
+            _class.ClassTeacherId = command.TeacherId;
             _class.SubjectIds = string.Join(",", command.SubjectIds);
             _class.SetUpdatedDate();
 

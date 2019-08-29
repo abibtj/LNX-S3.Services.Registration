@@ -19,8 +19,10 @@ namespace S3.Services.Registration.Domain
         // Navigation properties 
         public Guid SchoolId { get; set; }
         public virtual School School { get; set; }
-        public Guid? TeacherId { get; set; }
-        public virtual Teacher Teacher { get; set; }
+        public Guid? ClassTeacherId { get; set; }
+        public virtual Teacher ClassTeacher { get; set; }
+        public Guid? AssistantTeacherId { get; set; }
+        public virtual Teacher AssistantTeacher { get; set; }
 
         public virtual ICollection<Student> Students { get; set; }
     }

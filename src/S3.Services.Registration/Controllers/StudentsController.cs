@@ -21,9 +21,7 @@ namespace S3.Services.Registration.Controllers
     public class StudentsController : BaseController
     {
         public StudentsController(IBusPublisher busPublisher, IDispatcher dispatcher, ITracer tracer) 
-            : base(busPublisher, dispatcher, tracer )
-        {
-        }
+            : base(busPublisher, dispatcher, tracer ) { }
 
         [HttpGet("browse")]
         public async Task<IActionResult> GetAllAsync([FromQuery] BrowseStudentsQuery query)
@@ -35,25 +33,14 @@ namespace S3.Services.Registration.Controllers
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateStudentCommand command)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-                return await SendAsync(command, resource: "student");
-        }
+            => await SendAsync(command, resource: "student");
 
         [HttpPut("update")]
         public async Task<IActionResult> Update(UpdateStudentCommand command)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            return await SendAsync(command,
-              resourceId: command.Id, resource: "student");
-        }
+        => await SendAsync(command, resourceId: command.Id, resource: "student");
 
         [HttpDelete("delete/{id:guid}")]
-        public async Task<IActionResult> Delete(Guid id) => await SendAsync(new DeleteStudentCommand(id),
-                resourceId: id, resource: "student");
+        public async Task<IActionResult> Delete(Guid id)
+            => await SendAsync(new DeleteStudentCommand(id), resourceId: id, resource: "student");
     }
 }

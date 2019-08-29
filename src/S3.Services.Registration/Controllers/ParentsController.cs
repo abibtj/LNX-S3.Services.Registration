@@ -21,9 +21,7 @@ namespace S3.Services.Registration.Controllers
     public class ParentsController : BaseController
     {
         public ParentsController(IBusPublisher busPublisher, IDispatcher dispatcher, ITracer tracer) 
-            : base(busPublisher, dispatcher, tracer )
-        {
-        }
+            : base(busPublisher, dispatcher, tracer ) { }
 
         [HttpGet("browse")]
         public async Task<IActionResult> GetAllAsync([FromQuery] BrowseParentsQuery query)
@@ -35,25 +33,14 @@ namespace S3.Services.Registration.Controllers
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateParentCommand command)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-                return await SendAsync(command, resource: "parent");
-        }
+            => await SendAsync(command, resource: "parent");
 
         [HttpPut("update")]
         public async Task<IActionResult> Update(UpdateParentCommand command)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            return await SendAsync(command,
-              resourceId: command.Id, resource: "parent");
-        }
+            => await SendAsync(command, resourceId: command.Id, resource: "parent");
 
         [HttpDelete("delete/{id:guid}")]
-        public async Task<IActionResult> Delete(Guid id) => await SendAsync(new DeleteParentCommand(id),
-                resourceId: id, resource: "parent");
+        public async Task<IActionResult> Delete(Guid id) 
+            => await SendAsync(new DeleteParentCommand(id), resourceId: id, resource: "parent");
     }
 }

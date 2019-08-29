@@ -22,14 +22,12 @@ namespace S3.Services.Registration.Teachers.Commands
 
         public async Task HandleAsync(DeleteTeacherCommand command, ICorrelationContext context)
         {
-            var teacher = await _db.Teachers.Include(x => x.Address).FirstOrDefaultAsync(x => x.Id == command.Id);
+            var teacher = await _db.Teachers.FirstOrDefaultAsync(x => x.Id == command.Id);
             if (teacher is null)
                 throw new S3Exception(ExceptionCodes.NotFound,
                     $"Teacher with id: '{command.Id}' was not found.");
 
             _db.Teachers.Remove(teacher);
-            if (teacher.Address != null)
-                _db.Address.Remove(teacher.Address);
 
             await _db.SaveChangesAsync();
 

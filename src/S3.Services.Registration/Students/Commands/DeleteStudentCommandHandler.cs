@@ -23,23 +23,15 @@ namespace S3.Services.Registration.Students.Commands
 
         public async Task HandleAsync(DeleteStudentCommand command, ICorrelationContext context)
         {
-            var student = await _db.Students.Include(x => x.Address).Include(y => y.Parent).ThenInclude(z => z.Address).Include(x => x.Parent).ThenInclude(z => z.Students).FirstOrDefaultAsync(x => x.Id == command.Id);
+            var student = await _db.Students.Include(x => x.Parent).ThenInclude(y => y.Students).FirstOrDefaultAsync(x => x.Id == command.Id);
             if (student is null)
                 throw new S3Exception(ExceptionCodes.NotFound,
                     $"Student with id: '{command.Id}' was not found.");
 
             _db.Students.Remove(student);
 
-            if (student.Address != null)
-                _db.Address.Remove(student.Address);
-
             if (!student.Parent.Students.Any(x => x.Id != student.Id)) // This parent has no more student, remove them
-            {
                 _db.Parents.Remove(student.Parent);
-
-                if (student.Parent.Address != null)
-                    _db.Address.Remove(student.Parent.Address);
-            }
 
             await _db.SaveChangesAsync();
 

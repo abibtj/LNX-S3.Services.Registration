@@ -7,20 +7,22 @@ using System.Text.RegularExpressions;
 
 namespace S3.Services.Registration.Dto
 {
-    public class ClassDto : BaseDto
+    public class ClassDto : BaseEntityDto
     {
-        public ClassDto()
-        {
-            Students = new HashSet<StudentDto>();
-        }
+        //public ClassDto()
+        //{
+        //    Students = new HashSet<StudentDto>();
+        //}
         public string Name { get; set; }
         public string SubjectIds { get; set; }
 
         // Navigation properties
         public Guid SchoolId { get; set; }
         public virtual SchoolDto School { get; set; }
-        public Guid? TeacherId { get; set; }
-        public virtual TeacherDto Teacher { get; set; }
+        public Guid? ClassTeacherId { get; set; }
+        public virtual TeacherDto ClassTeacher { get; set; }
+        public Guid? AssistantTeacherId { get; set; }
+        public virtual TeacherDto AssistantTeacher { get; set; }
 
         public virtual ICollection<StudentDto> Students { get; set; }
     }

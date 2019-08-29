@@ -105,7 +105,8 @@ namespace S3.Services.Registration
                 // Initialise the database
                 try
                 {
-                    //dbInitialiser.Initialise();
+                    if (Configuration.GetSection("seedDatabase").Value == "true")
+                        dbInitialiser.Initialise();
                 }
                 catch (Exception)
                 {
@@ -113,7 +114,6 @@ namespace S3.Services.Registration
                 }
             }
 
-            //await initializer.InitializeAsync();
             app.UseMvc();
             app.UseAllForwardedHeaders();
             app.UseSwaggerDocs();

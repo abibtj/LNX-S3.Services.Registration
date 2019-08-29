@@ -1,5 +1,6 @@
 ﻿
 using FluentValidation;
+using S3.Services.Registration.Utility;
 using System;
 
 namespace S3.Services.Registration.Parents.Commands.Validators
@@ -25,6 +26,8 @@ namespace S3.Services.Registration.Parents.Commands.Validators
 
             RuleFor(x => x.DateOfBirth)
               .LessThanOrEqualTo(DateTime.Now).WithMessage("Invalid date of birth.");
+
+            RuleFor(x => x.Address).SetValidator(new AddressValidator());
         }
     }
 }

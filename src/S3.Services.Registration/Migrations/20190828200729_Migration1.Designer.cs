@@ -10,14 +10,14 @@ using S3.Services.Registration.Utility;
 namespace S3.Services.Registration.Migrations
 {
     [DbContext(typeof(RegistrationDbContext))]
-    [Migration("20190815150408_Migration1")]
+    [Migration("20190828200729_Migration1")]
     partial class Migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -29,6 +29,9 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasMaxLength(20);
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
 
                     b.Property<string>("Line1")
                         .IsRequired()
@@ -48,12 +51,18 @@ namespace S3.Services.Registration.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Address");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Address");
                 });
 
             modelBuilder.Entity("S3.Services.Registration.Domain.Class", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("AssistantTeacherId");
+
+                    b.Property<Guid?>("ClassTeacherId");
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -65,15 +74,15 @@ namespace S3.Services.Registration.Migrations
 
                     b.Property<string>("SubjectIds");
 
-                    b.Property<Guid?>("TeacherId");
-
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolId");
+                    b.HasIndex("AssistantTeacherId");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("ClassTeacherId");
+
+                    b.HasIndex("SchoolId");
 
                     b.ToTable("Classes");
                 });
@@ -83,11 +92,12 @@ namespace S3.Services.Registration.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("AddressId");
-
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime?>("DateOfBirth");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(50);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -111,8 +121,6 @@ namespace S3.Services.Registration.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
-
                     b.ToTable("Parents");
                 });
 
@@ -120,8 +128,6 @@ namespace S3.Services.Registration.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<Guid?>("AddressId");
 
                     b.Property<string>("Category")
                         .IsRequired()
@@ -137,12 +143,32 @@ namespace S3.Services.Registration.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
-
                     b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("Schools");
+                });
+
+            modelBuilder.Entity("S3.Services.Registration.Domain.ScoresEntryTask", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("ClassId");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<Guid>("SubjectId");
+
+                    b.Property<Guid>("TeacherId");
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("ScoresEntryTasks");
                 });
 
             modelBuilder.Entity("S3.Services.Registration.Domain.Student", b =>
@@ -150,13 +176,14 @@ namespace S3.Services.Registration.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("AddressId");
-
                     b.Property<Guid?>("ClassId");
 
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime?>("DateOfBirth");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(50);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -185,8 +212,6 @@ namespace S3.Services.Registration.Migrations
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.HasIndex("ClassId");
 
@@ -223,17 +248,19 @@ namespace S3.Services.Registration.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("AddressId");
-
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime?>("DateOfBirth");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(50);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(30);
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasMaxLength(6);
 
                     b.Property<double>("GradeLevel");
@@ -256,45 +283,89 @@ namespace S3.Services.Registration.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
-
                     b.HasIndex("SchoolId");
 
                     b.ToTable("Teachers");
                 });
 
+            modelBuilder.Entity("S3.Services.Registration.Domain.ParentAddress", b =>
+                {
+                    b.HasBaseType("S3.Services.Registration.Domain.Address");
+
+                    b.Property<Guid>("ParentId");
+
+                    b.HasIndex("ParentId")
+                        .IsUnique()
+                        .HasFilter("[ParentId] IS NOT NULL");
+
+                    b.HasDiscriminator().HasValue("ParentAddress");
+                });
+
+            modelBuilder.Entity("S3.Services.Registration.Domain.SchoolAddress", b =>
+                {
+                    b.HasBaseType("S3.Services.Registration.Domain.Address");
+
+                    b.Property<Guid>("SchoolId");
+
+                    b.HasIndex("SchoolId")
+                        .IsUnique()
+                        .HasFilter("[SchoolId] IS NOT NULL");
+
+                    b.HasDiscriminator().HasValue("SchoolAddress");
+                });
+
+            modelBuilder.Entity("S3.Services.Registration.Domain.StudentAddress", b =>
+                {
+                    b.HasBaseType("S3.Services.Registration.Domain.Address");
+
+                    b.Property<Guid>("StudentId");
+
+                    b.HasIndex("StudentId")
+                        .IsUnique()
+                        .HasFilter("[StudentId] IS NOT NULL");
+
+                    b.HasDiscriminator().HasValue("StudentAddress");
+                });
+
+            modelBuilder.Entity("S3.Services.Registration.Domain.TeacherAddress", b =>
+                {
+                    b.HasBaseType("S3.Services.Registration.Domain.Address");
+
+                    b.Property<Guid>("TeacherId");
+
+                    b.HasIndex("TeacherId")
+                        .IsUnique()
+                        .HasFilter("[TeacherId] IS NOT NULL");
+
+                    b.HasDiscriminator().HasValue("TeacherAddress");
+                });
+
             modelBuilder.Entity("S3.Services.Registration.Domain.Class", b =>
                 {
+                    b.HasOne("S3.Services.Registration.Domain.Teacher", "AssistantTeacher")
+                        .WithMany()
+                        .HasForeignKey("AssistantTeacherId");
+
+                    b.HasOne("S3.Services.Registration.Domain.Teacher", "ClassTeacher")
+                        .WithMany()
+                        .HasForeignKey("ClassTeacherId");
+
                     b.HasOne("S3.Services.Registration.Domain.School", "School")
                         .WithMany("Classes")
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
 
+            modelBuilder.Entity("S3.Services.Registration.Domain.ScoresEntryTask", b =>
+                {
                     b.HasOne("S3.Services.Registration.Domain.Teacher", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId");
-                });
-
-            modelBuilder.Entity("S3.Services.Registration.Domain.Parent", b =>
-                {
-                    b.HasOne("S3.Services.Registration.Domain.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
-                });
-
-            modelBuilder.Entity("S3.Services.Registration.Domain.School", b =>
-                {
-                    b.HasOne("S3.Services.Registration.Domain.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
+                        .WithMany("ScoresEntryTasks")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("S3.Services.Registration.Domain.Student", b =>
                 {
-                    b.HasOne("S3.Services.Registration.Domain.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
-
                     b.HasOne("S3.Services.Registration.Domain.Class", "Class")
                         .WithMany("Students")
                         .HasForeignKey("ClassId");
@@ -306,18 +377,46 @@ namespace S3.Services.Registration.Migrations
                     b.HasOne("S3.Services.Registration.Domain.School", "School")
                         .WithMany("Students")
                         .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("S3.Services.Registration.Domain.Teacher", b =>
                 {
-                    b.HasOne("S3.Services.Registration.Domain.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
-
                     b.HasOne("S3.Services.Registration.Domain.School", "School")
                         .WithMany("Teachers")
                         .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("S3.Services.Registration.Domain.ParentAddress", b =>
+                {
+                    b.HasOne("S3.Services.Registration.Domain.Parent", "Parent")
+                        .WithOne("Address")
+                        .HasForeignKey("S3.Services.Registration.Domain.ParentAddress", "ParentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("S3.Services.Registration.Domain.SchoolAddress", b =>
+                {
+                    b.HasOne("S3.Services.Registration.Domain.School", "School")
+                        .WithOne("Address")
+                        .HasForeignKey("S3.Services.Registration.Domain.SchoolAddress", "SchoolId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("S3.Services.Registration.Domain.StudentAddress", b =>
+                {
+                    b.HasOne("S3.Services.Registration.Domain.Student", "Student")
+                        .WithOne("Address")
+                        .HasForeignKey("S3.Services.Registration.Domain.StudentAddress", "StudentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("S3.Services.Registration.Domain.TeacherAddress", b =>
+                {
+                    b.HasOne("S3.Services.Registration.Domain.Teacher", "Teacher")
+                        .WithOne("Address")
+                        .HasForeignKey("S3.Services.Registration.Domain.TeacherAddress", "TeacherId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

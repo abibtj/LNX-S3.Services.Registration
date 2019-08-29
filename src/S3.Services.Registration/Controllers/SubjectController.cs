@@ -21,9 +21,7 @@ namespace S3.Services.Registration.Controllers
     public class SubjectsController : BaseController
     {
         public SubjectsController(IBusPublisher busPublisher, IDispatcher dispatcher, ITracer tracer) 
-            : base(busPublisher, dispatcher, tracer )
-        {
-        }
+            : base(busPublisher, dispatcher, tracer ) { }
 
         [HttpGet("browse")]
         public async Task<IActionResult> GetAllAsync([FromQuery] BrowseSubjectsQuery query)
@@ -35,25 +33,14 @@ namespace S3.Services.Registration.Controllers
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateSubjectCommand command)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-                return await SendAsync(command, resource: "subject");
-        }
+            => await SendAsync(command, resource: "subject");
 
         [HttpPut("update")]
         public async Task<IActionResult> Update(UpdateSubjectCommand command)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            return await SendAsync(command,
-              resourceId: command.Id, resource: "subject");
-        }
+            => await SendAsync(command, resourceId: command.Id, resource: "subject");
 
         [HttpDelete("delete/{id:guid}")]
-        public async Task<IActionResult> Delete(Guid id) => await SendAsync(new DeleteSubjectCommand(id),
-                resourceId: id, resource: "subject");
+        public async Task<IActionResult> Delete(Guid id)
+            => await SendAsync(new DeleteSubjectCommand(id), resourceId: id, resource: "subject");
     }
 }

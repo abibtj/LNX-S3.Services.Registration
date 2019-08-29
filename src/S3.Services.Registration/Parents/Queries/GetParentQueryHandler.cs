@@ -22,10 +22,7 @@ namespace S3.Services.Registration.Parents.Queries
         {
             var parent = await _db.Parents.Include(x => x.Address).FirstOrDefaultAsync(x => x.Id == query.Id);
 
-            if (parent is null)
-                return null!;
-
-            return _mapper.Map<ParentDto>(parent);
+            return parent is null ? null! : _mapper.Map<ParentDto>(parent);
         }
     }
 }

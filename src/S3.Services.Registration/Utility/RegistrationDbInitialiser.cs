@@ -20,8 +20,8 @@ namespace S3.Services.Registration.Utility
             _context.Database.Migrate();
             _context.Database.EnsureCreated();
 
-            SeedSchool();
             SeedSubject();
+            SeedSchool();
             _context.SaveChanges();
         }
 
@@ -34,13 +34,12 @@ namespace S3.Services.Registration.Utility
                 new Subject { Name = "Yoruba"},
             };
             _context.Subjects.AddRange(subjects);
-            //_context.SaveChanges();
         }
 
         private void SeedSchool()
         {
             #region Addresses
-            var gwarinpa = new Address
+            var gwarinpa = new ParentAddress
             {
                 Line1 = "75, 4th Avenue, Gwarinpa",
                 Town = "Abuja",
@@ -48,7 +47,7 @@ namespace S3.Services.Registration.Utility
                 Country = "Nigeria"
             };
 
-            var ikeja = new Address
+            var ikeja = new ParentAddress
             {
                 Line1 = "22, Ijoba close",
                 Town = "Ikeja",
@@ -56,11 +55,20 @@ namespace S3.Services.Registration.Utility
                 Country = "Nigeria"
             };
 
-            var mowe = new Address
+            var mowe = new ParentAddress
             {
                 Line1 = "Km 4, Lagos-Ibadan express way",
                 Town = "Mowe",
                 State = "Ogun",
+                Country = "Nigeria"
+            };
+
+            var oyo = new StudentAddress
+            {
+                Line1 = "57, Agbabiaka avenue",
+                Line2 = "Mobolaje",
+                Town = "Oyo",
+                State = "Oyo",
                 Country = "Nigeria"
             };
 
@@ -129,7 +137,8 @@ namespace S3.Services.Registration.Utility
                 MiddleName = "Ngozi",
                 LastName = "Ale",
                 Gender = "Female",
-                Parent = mrsGrace
+                Parent = mrsGrace,
+                Address = oyo
             };
 
             #endregion
@@ -141,14 +150,25 @@ namespace S3.Services.Registration.Utility
                 MiddleName = "Olamide",
                 LastName = "Olatunji",
                 Gender = "Male",
-                //CreatedDate = DateTime.UtcNow,
-                //UpdatedDate = DateTime.UtcNow,
-                Address = new Address
+                Address = new TeacherAddress
                 {
                     Line1 = "12, Aminu Kano Crescent",
                     Town = "Banex",
                     State = "FCT",
                     Country = "Nigeria"
+                },
+                ScoresEntryTasks = new List<ScoresEntryTask>
+                {
+                    new ScoresEntryTask
+                    {
+                        ClassId = Guid.NewGuid(),
+                        SubjectId = Guid.NewGuid()
+                    },
+                     new ScoresEntryTask
+                    {
+                        ClassId = Guid.NewGuid(),
+                        SubjectId = Guid.NewGuid()
+                    }
                 }
             };
 
@@ -158,9 +178,7 @@ namespace S3.Services.Registration.Utility
                 MiddleName = "Bolanle",
                 LastName = "Salimon",
                 Gender = "Female",
-                //CreatedDate = DateTime.UtcNow,
-                //UpdatedDate = DateTime.UtcNow,
-                Address = new Address
+                Address = new TeacherAddress
                 {
                     Line1 = "Km 8, Nnamdi Azikiwe express way",
                     Town = "Gwrinpa",
@@ -175,9 +193,7 @@ namespace S3.Services.Registration.Utility
                 MiddleName = "Olatunji",
                 LastName = "Liadi",
                 Gender = "Male",
-                //CreatedDate = DateTime.UtcNow,
-                //UpdatedDate = DateTime.UtcNow,
-                Address = new Address
+                Address = new TeacherAddress
                 {
                     Line1 = "33, Tjay close",
                     Town = "Ibadan",
@@ -216,7 +232,7 @@ namespace S3.Services.Registration.Utility
                 Classes = new List<Class> { pry1, pry2 },
                 Students = new List<Student> { azeez1, azeez2, grace },
                 Teachers = new List<Teacher> { bob, tunji },
-                Address = new Address
+                Address = new SchoolAddress
                 {
                     Line1 = "112, Adewale Crescent",
                     Town = "Kubwa",
@@ -232,7 +248,7 @@ namespace S3.Services.Registration.Utility
                 Classes = new List<Class> { nur1 },
                 Students = new List<Student> { olatunji },
                 Teachers = new List<Teacher> { bola },
-                Address = new Address
+                Address = new SchoolAddress
                 {
                     Line1 = "5, Pmagbe Layout",
                     Town = "Ushafa",
@@ -246,9 +262,7 @@ namespace S3.Services.Registration.Utility
             {
                 Name = "Olatunji International Colleges",
                 Category = "Secondary",
-                //CreatedDate = DateTime.UtcNow,
-                //UpdatedDate = DateTime.UtcNow,
-                Address = new Address
+                Address = new SchoolAddress
                 {
                     Line1 = "44, Independent Avenue",
                     Town = "Osogbo",
@@ -265,7 +279,6 @@ namespace S3.Services.Registration.Utility
             #endregion
 
             _context.Schools.AddRange(schools);
-            //_context.SaveChanges();
         }
     }
 }

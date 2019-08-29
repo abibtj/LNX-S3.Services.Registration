@@ -23,15 +23,12 @@ namespace S3.Services.Registration.Parents.Commands
 
         public async Task HandleAsync(DeleteParentCommand command, ICorrelationContext context)
         {
-            var parent = await _db.Parents.Include(x => x.Address).Include(y => y.Students).FirstOrDefaultAsync(z => z.Id == command.Id);
+            var parent = await _db.Parents.Include(y => y.Students).FirstOrDefaultAsync(z => z.Id == command.Id); // Include the students so that their ParentId properties can be set to null
             if (parent is null)
                 throw new S3Exception(ExceptionCodes.NotFound,
                     $"Parent with id: '{command.Id}' was not found.");
 
             _db.Parents.Remove(parent); // The students ParentId properties has been configured to be set to null on parent removal
-
-            if (parent.Address != null)
-                _db.Address.Remove(parent.Address);
 
             await _db.SaveChangesAsync();
 

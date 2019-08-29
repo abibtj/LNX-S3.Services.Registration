@@ -30,9 +30,8 @@ namespace S3.Services.Registration.Students.Commands
                 throw new S3Exception(ExceptionCodes.NotFound,
                     $"Student with id: '{command.Id}' was not found.");
 
-            student.Address = command.Address;
             student.FirstName = Normalizer.NormalizeSpaces(command.FirstName);
-            student.MiddleName = Normalizer.NormalizeSpaces(command.MiddleName);
+            student.MiddleName = string.IsNullOrEmpty(command.MiddleName) ? null! : Normalizer.NormalizeSpaces(command.MiddleName);
             student.LastName = Normalizer.NormalizeSpaces(command.LastName);
             student.Gender = command.Gender;
             student.DateOfBirth = command.DateOfBirth;
@@ -49,6 +48,7 @@ namespace S3.Services.Registration.Students.Commands
                 _db.Address.Remove(student.Address);
             }
             student.Address = command.Address;
+
             await _db.SaveChangesAsync();
 
             //await _busPublisher.PublishAsync(new StudentUpdatedEvent(command.Id, command.Name), context);
