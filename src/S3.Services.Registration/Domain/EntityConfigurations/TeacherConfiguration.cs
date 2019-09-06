@@ -12,6 +12,7 @@ namespace S3.Services.Registration.Domain.EntityConfigurations
             builder.Property(x => x.MiddleName).HasMaxLength(30);
             builder.Property(x => x.LastName).HasMaxLength(30).IsRequired();
             builder.Property(x => x.Gender).HasMaxLength(6).IsRequired();
+            builder.Property(x => x.Position).HasMaxLength(50);
             builder.Property(x => x.Email).HasMaxLength(50);
             builder.Property(x => x.PhoneNumber).HasMaxLength(20);
 

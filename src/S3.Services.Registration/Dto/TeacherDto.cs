@@ -7,11 +7,7 @@ namespace S3.Services.Registration.Dto
 {
     public class TeacherDto : PersonDto
     {
-        //public TeacherDto()
-        //{
-        //    ScoresEntryTasks = new HashSet<ScoresEntryTaskDto>();
-        //}
-        public string Position { get; set; } = default!;
+        public string? Position { get; set; }
         public double GradeLevel { get; set; }
         public Guid SchoolId { get; set; }
         public virtual SchoolDto School { get; set; }

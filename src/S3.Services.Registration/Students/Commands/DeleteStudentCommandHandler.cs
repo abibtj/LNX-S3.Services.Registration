@@ -30,7 +30,7 @@ namespace S3.Services.Registration.Students.Commands
 
             _db.Students.Remove(student);
 
-            if (!student.Parent.Students.Any(x => x.Id != student.Id)) // This parent has no more student, remove them
+            if ((!(student.Parent is null)) && (!student.Parent.Students.Any(x => x.Id != student.Id))) // This parent has no more student, remove them
                 _db.Parents.Remove(student.Parent);
 
             await _db.SaveChangesAsync();

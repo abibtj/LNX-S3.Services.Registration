@@ -39,7 +39,8 @@ namespace S3.Services.Registration.Students.Commands
             student.SchoolId = command.SchoolId;
             student.ClassId = command.ClassId;
             student.ParentId = command.ParentId;
-            student.SubjectIds = string.Join(",", command.SubjectIds);
+            student.SubjectIds = command.SubjectIds;
+            //student.SubjectIds = string.Join(",", command.SubjectIds);
             student.SetUpdatedDate();
 
             // If the student's address has been set to null (remove their existing address from the db (if any))
