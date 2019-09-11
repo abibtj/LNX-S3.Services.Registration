@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v2.2": {
       "S3.Services.Registration/1.0.0": {
         "dependencies": {
+          "Cloudcrate.AspNetCore.Blazor.Browser.Storage": "0.5.1",
           "Microsoft.AspNetCore.App": "2.2.0",
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
           "Microsoft.NETCore.App": "2.2.0",
@@ -644,6 +645,22 @@
           "lib/netstandard2.0/AutoMapper.dll": {}
         }
       },
+      "Cloudcrate.AspNetCore.Blazor.Browser.Storage/0.5.1": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Blazor.Browser": "0.5.1",
+          "Microsoft.AspNetCore.Blazor.Build": "0.5.1",
+          "Microsoft.JSInterop": "0.5.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Cloudcrate.AspNetCore.Blazor.Browser.Storage.dll": {
+            "assemblyVersion": "0.5.1.0",
+            "fileVersion": "0.5.1.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Cloudcrate.AspNetCore.Blazor.Browser.Storage.dll": {}
+        }
+      },
       "Consul/0.7.2.6": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
@@ -787,6 +804,43 @@
         },
         "compile": {
           "lib/netstandard2.0/Lockbox.Client.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Blazor/0.5.1": {
+        "dependencies": {
+          "Microsoft.JSInterop": "0.5.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.dll": {
+            "assemblyVersion": "0.5.1.0",
+            "fileVersion": "0.5.1.18208"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Blazor.Analyzers/0.5.1": {},
+      "Microsoft.AspNetCore.Blazor.Browser/0.5.1": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Blazor": "0.5.1",
+          "Microsoft.Extensions.DependencyInjection": "2.2.0",
+          "Mono.WebAssembly.Interop": "0.5.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.Browser.dll": {
+            "assemblyVersion": "0.5.1.0",
+            "fileVersion": "0.5.1.18208"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.Browser.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Blazor.Build/0.5.1": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Blazor.Analyzers": "0.5.1",
+          "Microsoft.AspNetCore.Razor.Design": "2.2.0"
         }
       },
       "Microsoft.AspNetCore.Mvc.Core/2.2.5": {
@@ -960,6 +1014,21 @@
           "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll": {}
         }
       },
+      "Microsoft.JSInterop/0.5.1": {
+        "dependencies": {
+          "Microsoft.TypeScript.MSBuild": "2.9.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.JSInterop.dll": {
+            "assemblyVersion": "0.5.1.0",
+            "fileVersion": "0.5.1.18208"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.JSInterop.dll": {}
+        }
+      },
+      "Microsoft.TypeScript.MSBuild/2.9.2": {},
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.7.9": {},
       "Microsoft.Win32.Primitives/4.3.0": {
         "dependencies": {
@@ -1025,6 +1094,20 @@
         },
         "compile": {
           "lib/netstandard1.5/MongoDB.Driver.Core.dll": {}
+        }
+      },
+      "Mono.WebAssembly.Interop/0.5.1": {
+        "dependencies": {
+          "Microsoft.JSInterop": "0.5.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Mono.WebAssembly.Interop.dll": {
+            "assemblyVersion": "0.5.1.0",
+            "fileVersion": "0.5.1.18208"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Mono.WebAssembly.Interop.dll": {}
         }
       },
       "Newtonsoft.Json/12.0.2": {
@@ -5316,6 +5399,13 @@
       "path": "automapper/8.1.1",
       "hashPath": "automapper.8.1.1.nupkg.sha512"
     },
+    "Cloudcrate.AspNetCore.Blazor.Browser.Storage/0.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8f5EAYSJKTEY9i7xNkhyXs6Jo4giN0hyUQYjPvMbfa+F5Z3/HOqZfVVSHY//JHBUol02APUDTjlyiJWW0D9mNg==",
+      "path": "cloudcrate.aspnetcore.blazor.browser.storage/0.5.1",
+      "hashPath": "cloudcrate.aspnetcore.blazor.browser.storage.0.5.1.nupkg.sha512"
+    },
     "Consul/0.7.2.6": {
       "type": "package",
       "serviceable": true,
@@ -5378,6 +5468,34 @@
       "sha512": "sha512-cxphh2F7pfMzqz2lcA3IKFNCFsPiRoKIFFZCHqQWYTDmuYxGfjLHcR0BAwcZYrv0XK4imYdQbP1wyrRZcqCumg==",
       "path": "lockbox.client/2.0.2",
       "hashPath": "lockbox.client.2.0.2.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Blazor/0.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Hn2ry/WrGwHAp8pKVujk1USlN+dpyWwi1iklUUs6K/5ziohNM1a5CY7eV1/pG3U+Aj2HhJ2TVqIWAmRrdTTiJw==",
+      "path": "microsoft.aspnetcore.blazor/0.5.1",
+      "hashPath": "microsoft.aspnetcore.blazor.0.5.1.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Blazor.Analyzers/0.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OEMw/LFS2ZcoVsvHuFcMwUhl1aAZGX9cq7lNaO7t1C8qVzqRT3nEC22Ds+apX8VsCBKAUwUfh4nC7IfY7VsfMQ==",
+      "path": "microsoft.aspnetcore.blazor.analyzers/0.5.1",
+      "hashPath": "microsoft.aspnetcore.blazor.analyzers.0.5.1.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Blazor.Browser/0.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qAaaE5GjVtZVRyYGndjy8odqIAkEnf9lbcJjlfqR6V3JDiNK/HmQO7zWnnncpJR5ONOCjNeH/YE2HLSo2bQfAA==",
+      "path": "microsoft.aspnetcore.blazor.browser/0.5.1",
+      "hashPath": "microsoft.aspnetcore.blazor.browser.0.5.1.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Blazor.Build/0.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wj9Lm40sCErRD4Bppbo/lbnA5yqyOx5cVZO+fKjYb2pLcj1PFNZjb6Xgz/2X0SZaVuZjiLSiod09ta/pEcQI3g==",
+      "path": "microsoft.aspnetcore.blazor.build/0.5.1",
+      "hashPath": "microsoft.aspnetcore.blazor.build.0.5.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Mvc.Core/2.2.5": {
       "type": "package",
@@ -5442,6 +5560,20 @@
       "path": "microsoft.identitymodel.tokens/5.4.0",
       "hashPath": "microsoft.identitymodel.tokens.5.4.0.nupkg.sha512"
     },
+    "Microsoft.JSInterop/0.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9OqANSMwxv1Glqi84knM7ZVIPmtwPlJxyMHGCdPfPvPH/0el7o51XjgKZvX/GHrHE36Eh5PaIFbF8u1zQYXlSQ==",
+      "path": "microsoft.jsinterop/0.5.1",
+      "hashPath": "microsoft.jsinterop.0.5.1.nupkg.sha512"
+    },
+    "Microsoft.TypeScript.MSBuild/2.9.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YW8CqK4qMCugNQFfpxTtszF3MTlQjkpRKAh4ULfra1t0Gc9LqsHRcFaP3sAh67aODGMDCrD9SGBqSKFHBKsRIw==",
+      "path": "microsoft.typescript.msbuild/2.9.2",
+      "hashPath": "microsoft.typescript.msbuild.2.9.2.nupkg.sha512"
+    },
     "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.7.9": {
       "type": "package",
       "serviceable": true,
@@ -5476,6 +5608,13 @@
       "sha512": "sha512-uyVhvAtURsS5jN3O8LexaAe6zNd8luDYjWZmuhI8tG+TMEsWTPlpWThgPZsX3gyib3Z/a8XSj/dTTATfv4RcuA==",
       "path": "mongodb.driver.core/2.8.1",
       "hashPath": "mongodb.driver.core.2.8.1.nupkg.sha512"
+    },
+    "Mono.WebAssembly.Interop/0.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4d8lwenJ5EYweOb0voYzeKBTfzIYh/vK3wZBfjTvP6by+clqlLK83PDPtwwzVkhsgSwo98HY872IBWAKHRhLqA==",
+      "path": "mono.webassembly.interop/0.5.1",
+      "hashPath": "mono.webassembly.interop.0.5.1.nupkg.sha512"
     },
     "Newtonsoft.Json/12.0.2": {
       "type": "package",
