@@ -51,7 +51,6 @@ namespace S3.Services.Registration
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddJsonFile("appsettings.docker.json", optional: true)
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
@@ -105,7 +104,7 @@ namespace S3.Services.Registration
                 // Initialise the database
                 try
                 {
-                    if (Configuration.GetSection("seedDatabase").Value == "true")
+                    if (Configuration.GetSection("database")["seed"].ToLowerInvariant() == "true")
                         dbInitialiser.Initialise();
                 }
                 catch (Exception)

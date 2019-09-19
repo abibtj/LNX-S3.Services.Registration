@@ -49,6 +49,11 @@ namespace S3.Services.Registration.Classes.Queries
                         break;
                 }
             }
+            else
+            {
+                classes = classes.OrderByDescending(x => x.UpdatedDate).ToList();
+            }
+
             return classes;
         }
     }

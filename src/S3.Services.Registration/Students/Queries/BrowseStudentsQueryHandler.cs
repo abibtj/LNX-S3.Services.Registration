@@ -56,6 +56,11 @@ namespace S3.Services.Registration.Students.Queries
                         break;
                 }
             }
+            else
+            {
+                students = students.OrderByDescending(x => x.UpdatedDate).ToList();
+            }
+
             return students;
         }
     }

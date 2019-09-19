@@ -68,6 +68,11 @@ namespace S3.Services.Registration.Schools.Queries
                         break;
                 }
             }
+            else
+            {
+                schools = schools.OrderByDescending(x => x.UpdatedDate).ToList();
+            }
+
             return schools;
         }
     }

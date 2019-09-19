@@ -528,27 +528,6 @@
           "lib/netstandard2.0/AutoMapper.dll": {}
         }
       },
-      "Cloudcrate.AspNetCore.Blazor.Browser.Storage/0.5.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNetCore.Blazor.Browser": "0.5.1",
-          "Microsoft.AspNetCore.Blazor.Build": "0.5.1",
-          "Microsoft.JSInterop": "0.5.1"
-        },
-        "compile": {
-          "lib/netstandard2.0/Cloudcrate.AspNetCore.Blazor.Browser.Storage.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Cloudcrate.AspNetCore.Blazor.Browser.Storage.dll": {}
-        },
-        "contentFiles": {
-          "contentFiles/any/netstandard2.0/Properties/launchSettings.json": {
-            "buildAction": "Content",
-            "codeLanguage": "any",
-            "copyToOutput": false
-          }
-        }
-      },
       "Consul/0.7.2.6": {
         "type": "package",
         "dependencies": {
@@ -1082,51 +1061,6 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.Policy.dll": {}
-        }
-      },
-      "Microsoft.AspNetCore.Blazor/0.5.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.JSInterop": "0.5.1"
-        },
-        "compile": {
-          "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.dll": {}
-        }
-      },
-      "Microsoft.AspNetCore.Blazor.Analyzers/0.5.1": {
-        "type": "package"
-      },
-      "Microsoft.AspNetCore.Blazor.Browser/0.5.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNetCore.Blazor": "0.5.1",
-          "Microsoft.Extensions.DependencyInjection": "2.1.0",
-          "Mono.WebAssembly.Interop": "0.5.1"
-        },
-        "compile": {
-          "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.Browser.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.Browser.dll": {}
-        }
-      },
-      "Microsoft.AspNetCore.Blazor.Build/0.5.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNetCore.Blazor.Analyzers": "0.5.1",
-          "Microsoft.AspNetCore.Razor.Design": "2.1.0"
-        },
-        "compile": {
-          "lib/netstandard1.0/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard1.0/_._": {}
-        },
-        "build": {
-          "build/netstandard1.0/_._": {}
         }
       },
       "Microsoft.AspNetCore.Connections.Abstractions/2.2.0": {
@@ -3215,18 +3149,6 @@
           "lib/netstandard2.0/Microsoft.IdentityModel.Xml.dll": {}
         }
       },
-      "Microsoft.JSInterop/0.5.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.TypeScript.MSBuild": "2.9.2"
-        },
-        "compile": {
-          "lib/netstandard2.0/Microsoft.JSInterop.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.JSInterop.dll": {}
-        }
-      },
       "Microsoft.Net.Http.Headers/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -3431,12 +3353,6 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.TypeScript.MSBuild/2.9.2": {
-        "type": "package",
-        "build": {
-          "build/_._": {}
-        }
-      },
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.7.9": {
         "type": "package",
         "build": {
@@ -3529,18 +3445,6 @@
         },
         "runtime": {
           "lib/netstandard1.5/MongoDB.Driver.Core.dll": {}
-        }
-      },
-      "Mono.WebAssembly.Interop/0.5.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.JSInterop": "0.5.1"
-        },
-        "compile": {
-          "lib/netstandard2.0/Mono.WebAssembly.Interop.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Mono.WebAssembly.Interop.dll": {}
         }
       },
       "NETStandard.Library/2.0.3": {
@@ -6830,20 +6734,6 @@
         "lib/netstandard2.0/AutoMapper.xml"
       ]
     },
-    "Cloudcrate.AspNetCore.Blazor.Browser.Storage/0.5.1": {
-      "sha512": "8f5EAYSJKTEY9i7xNkhyXs6Jo4giN0hyUQYjPvMbfa+F5Z3/HOqZfVVSHY//JHBUol02APUDTjlyiJWW0D9mNg==",
-      "type": "package",
-      "path": "cloudcrate.aspnetcore.blazor.browser.storage/0.5.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "cloudcrate.aspnetcore.blazor.browser.storage.0.5.1.nupkg.sha512",
-        "cloudcrate.aspnetcore.blazor.browser.storage.nuspec",
-        "content/Properties/launchSettings.json",
-        "contentFiles/any/netstandard2.0/Properties/launchSettings.json",
-        "lib/netstandard2.0/Cloudcrate.AspNetCore.Blazor.Browser.Storage.dll"
-      ]
-    },
     "Consul/0.7.2.6": {
       "sha512": "0inTc+PLbk/TELmdO12q5N/4lZ2kn5w2EmOqG0g686JXgr1OKEGPCuGZxWYE+NuROy7dwX/FBxKUTph7vuyjPA==",
       "type": "package",
@@ -7214,299 +7104,6 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.Policy.xml",
         "microsoft.aspnetcore.authorization.policy.2.2.0.nupkg.sha512",
         "microsoft.aspnetcore.authorization.policy.nuspec"
-      ]
-    },
-    "Microsoft.AspNetCore.Blazor/0.5.1": {
-      "sha512": "Hn2ry/WrGwHAp8pKVujk1USlN+dpyWwi1iklUUs6K/5ziohNM1a5CY7eV1/pG3U+Aj2HhJ2TVqIWAmRrdTTiJw==",
-      "type": "package",
-      "path": "microsoft.aspnetcore.blazor/0.5.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.dll",
-        "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.xml",
-        "microsoft.aspnetcore.blazor.0.5.1.nupkg.sha512",
-        "microsoft.aspnetcore.blazor.nuspec"
-      ]
-    },
-    "Microsoft.AspNetCore.Blazor.Analyzers/0.5.1": {
-      "sha512": "OEMw/LFS2ZcoVsvHuFcMwUhl1aAZGX9cq7lNaO7t1C8qVzqRT3nEC22Ds+apX8VsCBKAUwUfh4nC7IfY7VsfMQ==",
-      "type": "package",
-      "path": "microsoft.aspnetcore.blazor.analyzers/0.5.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "analyzers/dotnet/cs/Microsoft.AspNetCore.Blazor.Analyzers.dll",
-        "microsoft.aspnetcore.blazor.analyzers.0.5.1.nupkg.sha512",
-        "microsoft.aspnetcore.blazor.analyzers.nuspec"
-      ]
-    },
-    "Microsoft.AspNetCore.Blazor.Browser/0.5.1": {
-      "sha512": "qAaaE5GjVtZVRyYGndjy8odqIAkEnf9lbcJjlfqR6V3JDiNK/HmQO7zWnnncpJR5ONOCjNeH/YE2HLSo2bQfAA==",
-      "type": "package",
-      "path": "microsoft.aspnetcore.blazor.browser/0.5.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.Browser.dll",
-        "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.Browser.xml",
-        "microsoft.aspnetcore.blazor.browser.0.5.1.nupkg.sha512",
-        "microsoft.aspnetcore.blazor.browser.nuspec"
-      ]
-    },
-    "Microsoft.AspNetCore.Blazor.Build/0.5.1": {
-      "sha512": "wj9Lm40sCErRD4Bppbo/lbnA5yqyOx5cVZO+fKjYb2pLcj1PFNZjb6Xgz/2X0SZaVuZjiLSiod09ta/pEcQI3g==",
-      "type": "package",
-      "path": "microsoft.aspnetcore.blazor.build/0.5.1",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "build/netstandard1.0/Microsoft.AspNetCore.Blazor.Build.props",
-        "build/netstandard1.0/Microsoft.AspNetCore.Blazor.Build.targets",
-        "lib/netstandard1.0/_._",
-        "microsoft.aspnetcore.blazor.build.0.5.1.nupkg.sha512",
-        "microsoft.aspnetcore.blazor.build.nuspec",
-        "targets/All.props",
-        "targets/All.targets",
-        "targets/Blazor.MonoRuntime.props",
-        "targets/Blazor.MonoRuntime.targets",
-        "targets/BuiltInBclLinkerDescriptor.xml",
-        "targets/Publish.targets",
-        "targets/RazorCompilation.targets",
-        "targets/Standalone.Web.config",
-        "tools/AngleSharp.dll",
-        "tools/Microsoft.AspNetCore.Blazor.Browser.JS.dll",
-        "tools/Microsoft.AspNetCore.Blazor.Browser.JS.pdb",
-        "tools/Microsoft.AspNetCore.Blazor.Browser.JS.xml",
-        "tools/Microsoft.AspNetCore.Blazor.Build.deps.json",
-        "tools/Microsoft.AspNetCore.Blazor.Build.dll",
-        "tools/Microsoft.AspNetCore.Blazor.Build.pdb",
-        "tools/Microsoft.AspNetCore.Blazor.Build.runtimeconfig.json",
-        "tools/Microsoft.AspNetCore.Blazor.Build.xml",
-        "tools/Microsoft.AspNetCore.Blazor.Razor.Extensions.dll",
-        "tools/Microsoft.AspNetCore.Blazor.Razor.Extensions.pdb",
-        "tools/Microsoft.AspNetCore.Blazor.Razor.Extensions.xml",
-        "tools/Microsoft.AspNetCore.Blazor.dll",
-        "tools/Microsoft.AspNetCore.Blazor.pdb",
-        "tools/Microsoft.AspNetCore.Blazor.xml",
-        "tools/Microsoft.AspNetCore.Razor.Language.dll",
-        "tools/Microsoft.CodeAnalysis.CSharp.dll",
-        "tools/Microsoft.CodeAnalysis.Razor.dll",
-        "tools/Microsoft.CodeAnalysis.dll",
-        "tools/Microsoft.Extensions.CommandLineUtils.dll",
-        "tools/Microsoft.Extensions.FileProviders.Abstractions.dll",
-        "tools/Microsoft.Extensions.FileProviders.Composite.dll",
-        "tools/Microsoft.Extensions.FileProviders.Embedded.dll",
-        "tools/Microsoft.Extensions.FileProviders.Physical.dll",
-        "tools/Microsoft.Extensions.FileSystemGlobbing.dll",
-        "tools/Microsoft.Extensions.Primitives.dll",
-        "tools/Microsoft.JSInterop.dll",
-        "tools/Microsoft.JSInterop.pdb",
-        "tools/Microsoft.JSInterop.xml",
-        "tools/Mono.Cecil.Mdb.dll",
-        "tools/Mono.Cecil.Pdb.dll",
-        "tools/Mono.Cecil.Rocks.dll",
-        "tools/Mono.Cecil.dll",
-        "tools/System.CodeDom.dll",
-        "tools/System.Runtime.CompilerServices.Unsafe.dll",
-        "tools/blazor/blazor.server.js",
-        "tools/blazor/blazor.webassembly.js",
-        "tools/illink/Mono.Cecil.Mdb.dll",
-        "tools/illink/Mono.Cecil.Pdb.dll",
-        "tools/illink/Mono.Cecil.dll",
-        "tools/illink/illink.deps.json",
-        "tools/illink/illink.dll",
-        "tools/illink/illink.runtimeconfig.json",
-        "tools/mono/asmjs/mono.asm.js",
-        "tools/mono/asmjs/mono.js",
-        "tools/mono/asmjs/mono.js.mem",
-        "tools/mono/bcl/Facades/Microsoft.Win32.Primitives.dll",
-        "tools/mono/bcl/Facades/Microsoft.Win32.Registry.AccessControl.dll",
-        "tools/mono/bcl/Facades/Microsoft.Win32.Registry.dll",
-        "tools/mono/bcl/Facades/System.AppContext.dll",
-        "tools/mono/bcl/Facades/System.Collections.Concurrent.dll",
-        "tools/mono/bcl/Facades/System.Collections.NonGeneric.dll",
-        "tools/mono/bcl/Facades/System.Collections.Specialized.dll",
-        "tools/mono/bcl/Facades/System.Collections.dll",
-        "tools/mono/bcl/Facades/System.ComponentModel.Annotations.dll",
-        "tools/mono/bcl/Facades/System.ComponentModel.EventBasedAsync.dll",
-        "tools/mono/bcl/Facades/System.ComponentModel.Primitives.dll",
-        "tools/mono/bcl/Facades/System.ComponentModel.TypeConverter.dll",
-        "tools/mono/bcl/Facades/System.ComponentModel.dll",
-        "tools/mono/bcl/Facades/System.Console.dll",
-        "tools/mono/bcl/Facades/System.Data.Common.dll",
-        "tools/mono/bcl/Facades/System.Data.SqlClient.dll",
-        "tools/mono/bcl/Facades/System.Diagnostics.Contracts.dll",
-        "tools/mono/bcl/Facades/System.Diagnostics.Debug.dll",
-        "tools/mono/bcl/Facades/System.Diagnostics.FileVersionInfo.dll",
-        "tools/mono/bcl/Facades/System.Diagnostics.Process.dll",
-        "tools/mono/bcl/Facades/System.Diagnostics.StackTrace.dll",
-        "tools/mono/bcl/Facades/System.Diagnostics.TextWriterTraceListener.dll",
-        "tools/mono/bcl/Facades/System.Diagnostics.Tools.dll",
-        "tools/mono/bcl/Facades/System.Diagnostics.TraceEvent.dll",
-        "tools/mono/bcl/Facades/System.Diagnostics.TraceSource.dll",
-        "tools/mono/bcl/Facades/System.Diagnostics.Tracing.dll",
-        "tools/mono/bcl/Facades/System.Drawing.Common.dll",
-        "tools/mono/bcl/Facades/System.Drawing.Primitives.dll",
-        "tools/mono/bcl/Facades/System.Dynamic.Runtime.dll",
-        "tools/mono/bcl/Facades/System.Globalization.Calendars.dll",
-        "tools/mono/bcl/Facades/System.Globalization.Extensions.dll",
-        "tools/mono/bcl/Facades/System.Globalization.dll",
-        "tools/mono/bcl/Facades/System.IO.Compression.ZipFile.dll",
-        "tools/mono/bcl/Facades/System.IO.FileSystem.AccessControl.dll",
-        "tools/mono/bcl/Facades/System.IO.FileSystem.DriveInfo.dll",
-        "tools/mono/bcl/Facades/System.IO.FileSystem.Primitives.dll",
-        "tools/mono/bcl/Facades/System.IO.FileSystem.Watcher.dll",
-        "tools/mono/bcl/Facades/System.IO.FileSystem.dll",
-        "tools/mono/bcl/Facades/System.IO.IsolatedStorage.dll",
-        "tools/mono/bcl/Facades/System.IO.MemoryMappedFiles.dll",
-        "tools/mono/bcl/Facades/System.IO.Pipes.dll",
-        "tools/mono/bcl/Facades/System.IO.UnmanagedMemoryStream.dll",
-        "tools/mono/bcl/Facades/System.IO.dll",
-        "tools/mono/bcl/Facades/System.Linq.Expressions.dll",
-        "tools/mono/bcl/Facades/System.Linq.Parallel.dll",
-        "tools/mono/bcl/Facades/System.Linq.Queryable.dll",
-        "tools/mono/bcl/Facades/System.Linq.dll",
-        "tools/mono/bcl/Facades/System.Memory.dll",
-        "tools/mono/bcl/Facades/System.Net.AuthenticationManager.dll",
-        "tools/mono/bcl/Facades/System.Net.Cache.dll",
-        "tools/mono/bcl/Facades/System.Net.HttpListener.dll",
-        "tools/mono/bcl/Facades/System.Net.Mail.dll",
-        "tools/mono/bcl/Facades/System.Net.NameResolution.dll",
-        "tools/mono/bcl/Facades/System.Net.NetworkInformation.dll",
-        "tools/mono/bcl/Facades/System.Net.Ping.dll",
-        "tools/mono/bcl/Facades/System.Net.Primitives.dll",
-        "tools/mono/bcl/Facades/System.Net.Requests.dll",
-        "tools/mono/bcl/Facades/System.Net.Security.dll",
-        "tools/mono/bcl/Facades/System.Net.ServicePoint.dll",
-        "tools/mono/bcl/Facades/System.Net.Sockets.dll",
-        "tools/mono/bcl/Facades/System.Net.Utilities.dll",
-        "tools/mono/bcl/Facades/System.Net.WebHeaderCollection.dll",
-        "tools/mono/bcl/Facades/System.Net.WebSockets.Client.dll",
-        "tools/mono/bcl/Facades/System.Net.WebSockets.dll",
-        "tools/mono/bcl/Facades/System.ObjectModel.dll",
-        "tools/mono/bcl/Facades/System.Reflection.DispatchProxy.dll",
-        "tools/mono/bcl/Facades/System.Reflection.Emit.ILGeneration.dll",
-        "tools/mono/bcl/Facades/System.Reflection.Emit.Lightweight.dll",
-        "tools/mono/bcl/Facades/System.Reflection.Emit.dll",
-        "tools/mono/bcl/Facades/System.Reflection.Extensions.dll",
-        "tools/mono/bcl/Facades/System.Reflection.Primitives.dll",
-        "tools/mono/bcl/Facades/System.Reflection.TypeExtensions.dll",
-        "tools/mono/bcl/Facades/System.Reflection.dll",
-        "tools/mono/bcl/Facades/System.Resources.Reader.dll",
-        "tools/mono/bcl/Facades/System.Resources.ReaderWriter.dll",
-        "tools/mono/bcl/Facades/System.Resources.ResourceManager.dll",
-        "tools/mono/bcl/Facades/System.Resources.Writer.dll",
-        "tools/mono/bcl/Facades/System.Runtime.CompilerServices.VisualC.dll",
-        "tools/mono/bcl/Facades/System.Runtime.Extensions.dll",
-        "tools/mono/bcl/Facades/System.Runtime.Handles.dll",
-        "tools/mono/bcl/Facades/System.Runtime.InteropServices.RuntimeInformation.dll",
-        "tools/mono/bcl/Facades/System.Runtime.InteropServices.WindowsRuntime.dll",
-        "tools/mono/bcl/Facades/System.Runtime.InteropServices.dll",
-        "tools/mono/bcl/Facades/System.Runtime.Loader.dll",
-        "tools/mono/bcl/Facades/System.Runtime.Numerics.dll",
-        "tools/mono/bcl/Facades/System.Runtime.Serialization.Formatters.dll",
-        "tools/mono/bcl/Facades/System.Runtime.Serialization.Json.dll",
-        "tools/mono/bcl/Facades/System.Runtime.Serialization.Primitives.dll",
-        "tools/mono/bcl/Facades/System.Runtime.Serialization.Xml.dll",
-        "tools/mono/bcl/Facades/System.Runtime.dll",
-        "tools/mono/bcl/Facades/System.Security.AccessControl.dll",
-        "tools/mono/bcl/Facades/System.Security.Claims.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.Algorithms.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.Cng.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.Csp.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.DeriveBytes.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.Encoding.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.Encryption.Aes.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.Encryption.ECDiffieHellman.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.Encryption.ECDsa.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.Encryption.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.Hashing.Algorithms.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.Hashing.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.OpenSsl.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.Pkcs.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.Primitives.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.ProtectedData.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.RSA.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.RandomNumberGenerator.dll",
-        "tools/mono/bcl/Facades/System.Security.Cryptography.X509Certificates.dll",
-        "tools/mono/bcl/Facades/System.Security.Principal.Windows.dll",
-        "tools/mono/bcl/Facades/System.Security.Principal.dll",
-        "tools/mono/bcl/Facades/System.Security.SecureString.dll",
-        "tools/mono/bcl/Facades/System.ServiceModel.Duplex.dll",
-        "tools/mono/bcl/Facades/System.ServiceModel.Http.dll",
-        "tools/mono/bcl/Facades/System.ServiceModel.NetTcp.dll",
-        "tools/mono/bcl/Facades/System.ServiceModel.Primitives.dll",
-        "tools/mono/bcl/Facades/System.ServiceModel.Security.dll",
-        "tools/mono/bcl/Facades/System.ServiceProcess.ServiceController.dll",
-        "tools/mono/bcl/Facades/System.Text.Encoding.CodePages.dll",
-        "tools/mono/bcl/Facades/System.Text.Encoding.Extensions.dll",
-        "tools/mono/bcl/Facades/System.Text.Encoding.dll",
-        "tools/mono/bcl/Facades/System.Text.RegularExpressions.dll",
-        "tools/mono/bcl/Facades/System.Threading.AccessControl.dll",
-        "tools/mono/bcl/Facades/System.Threading.Overlapped.dll",
-        "tools/mono/bcl/Facades/System.Threading.Tasks.Parallel.dll",
-        "tools/mono/bcl/Facades/System.Threading.Tasks.dll",
-        "tools/mono/bcl/Facades/System.Threading.Thread.dll",
-        "tools/mono/bcl/Facades/System.Threading.ThreadPool.dll",
-        "tools/mono/bcl/Facades/System.Threading.Timer.dll",
-        "tools/mono/bcl/Facades/System.Threading.dll",
-        "tools/mono/bcl/Facades/System.ValueTuple.dll",
-        "tools/mono/bcl/Facades/System.Xml.ReaderWriter.dll",
-        "tools/mono/bcl/Facades/System.Xml.XDocument.dll",
-        "tools/mono/bcl/Facades/System.Xml.XPath.XDocument.dll",
-        "tools/mono/bcl/Facades/System.Xml.XPath.XmlDocument.dll",
-        "tools/mono/bcl/Facades/System.Xml.XPath.dll",
-        "tools/mono/bcl/Facades/System.Xml.XmlDocument.dll",
-        "tools/mono/bcl/Facades/System.Xml.XmlSerializer.dll",
-        "tools/mono/bcl/Facades/System.Xml.Xsl.Primitives.dll",
-        "tools/mono/bcl/Facades/netstandard.dll",
-        "tools/mono/bcl/I18N.CJK.dll",
-        "tools/mono/bcl/I18N.MidEast.dll",
-        "tools/mono/bcl/I18N.Other.dll",
-        "tools/mono/bcl/I18N.Rare.dll",
-        "tools/mono/bcl/I18N.West.dll",
-        "tools/mono/bcl/I18N.dll",
-        "tools/mono/bcl/Microsoft.CSharp.dll",
-        "tools/mono/bcl/Mono.CSharp.dll",
-        "tools/mono/bcl/Mono.Data.Sqlite.dll",
-        "tools/mono/bcl/Mono.Data.Tds.dll",
-        "tools/mono/bcl/Mono.Security.dll",
-        "tools/mono/bcl/System.ComponentModel.Composition.dll",
-        "tools/mono/bcl/System.ComponentModel.DataAnnotations.dll",
-        "tools/mono/bcl/System.Core.dll",
-        "tools/mono/bcl/System.Data.Services.Client.dll",
-        "tools/mono/bcl/System.Data.dll",
-        "tools/mono/bcl/System.Drawing.dll",
-        "tools/mono/bcl/System.IO.Compression.FileSystem.dll",
-        "tools/mono/bcl/System.IO.Compression.dll",
-        "tools/mono/bcl/System.IdentityModel.dll",
-        "tools/mono/bcl/System.Json.dll",
-        "tools/mono/bcl/System.Net.Http.WinHttpHandler.dll",
-        "tools/mono/bcl/System.Net.Http.dll",
-        "tools/mono/bcl/System.Net.dll",
-        "tools/mono/bcl/System.Numerics.Vectors.dll",
-        "tools/mono/bcl/System.Numerics.dll",
-        "tools/mono/bcl/System.Reflection.Context.dll",
-        "tools/mono/bcl/System.Runtime.CompilerServices.Unsafe.dll",
-        "tools/mono/bcl/System.Runtime.Serialization.dll",
-        "tools/mono/bcl/System.Security.dll",
-        "tools/mono/bcl/System.ServiceModel.Internals.dll",
-        "tools/mono/bcl/System.ServiceModel.Web.dll",
-        "tools/mono/bcl/System.ServiceModel.dll",
-        "tools/mono/bcl/System.Transactions.dll",
-        "tools/mono/bcl/System.Web.Services.dll",
-        "tools/mono/bcl/System.Windows.dll",
-        "tools/mono/bcl/System.Xml.Linq.dll",
-        "tools/mono/bcl/System.Xml.Serialization.dll",
-        "tools/mono/bcl/System.Xml.dll",
-        "tools/mono/bcl/System.dll",
-        "tools/mono/bcl/mscorlib.dll",
-        "tools/mono/wasm/mono.js",
-        "tools/mono/wasm/mono.wasm",
-        "tools/runtimes/unix/lib/netstandard1.3/System.Text.Encoding.CodePages.dll",
-        "tools/runtimes/win/lib/netstandard1.3/System.Text.Encoding.CodePages.dll"
       ]
     },
     "Microsoft.AspNetCore.Connections.Abstractions/2.2.0": {
@@ -9655,19 +9252,6 @@
         "microsoft.identitymodel.xml.nuspec"
       ]
     },
-    "Microsoft.JSInterop/0.5.1": {
-      "sha512": "9OqANSMwxv1Glqi84knM7ZVIPmtwPlJxyMHGCdPfPvPH/0el7o51XjgKZvX/GHrHE36Eh5PaIFbF8u1zQYXlSQ==",
-      "type": "package",
-      "path": "microsoft.jsinterop/0.5.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/Microsoft.JSInterop.dll",
-        "lib/netstandard2.0/Microsoft.JSInterop.xml",
-        "microsoft.jsinterop.0.5.1.nupkg.sha512",
-        "microsoft.jsinterop.nuspec"
-      ]
-    },
     "Microsoft.Net.Http.Headers/2.2.0": {
       "sha512": "iZNkjYqlo8sIOI0bQfpsSoMTmB/kyvmV2h225ihyZT33aTp48ZpF6qYnXxzSXmHt8DpBAwBTX+1s1UFLbYfZKg==",
       "type": "package",
@@ -10021,79 +9605,6 @@
         "version.txt"
       ]
     },
-    "Microsoft.TypeScript.MSBuild/2.9.2": {
-      "sha512": "YW8CqK4qMCugNQFfpxTtszF3MTlQjkpRKAh4ULfra1t0Gc9LqsHRcFaP3sAh67aODGMDCrD9SGBqSKFHBKsRIw==",
-      "type": "package",
-      "path": "microsoft.typescript.msbuild/2.9.2",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "build/Microsoft.TypeScript.MSBuild.props",
-        "build/Microsoft.TypeScript.MSBuild.targets",
-        "microsoft.typescript.msbuild.2.9.2.nupkg.sha512",
-        "microsoft.typescript.msbuild.nuspec",
-        "tools/Microsoft.TypeScript.Default.props",
-        "tools/Microsoft.TypeScript.targets",
-        "tools/net45/System.IO.FileSystem.Primitives.dll",
-        "tools/net45/System.IO.FileSystem.dll",
-        "tools/net45/TypeScript.Tasks.dll",
-        "tools/netstandard1.3/TypeScript.Tasks.dll",
-        "tools/tsc/chakracore.dll",
-        "tools/tsc/cs/diagnosticMessages.generated.json",
-        "tools/tsc/de/diagnosticMessages.generated.json",
-        "tools/tsc/en/diagnosticMessages.generated.json",
-        "tools/tsc/es/diagnosticMessages.generated.json",
-        "tools/tsc/fr/diagnosticMessages.generated.json",
-        "tools/tsc/it/diagnosticMessages.generated.json",
-        "tools/tsc/ja/diagnosticMessages.generated.json",
-        "tools/tsc/ko/diagnosticMessages.generated.json",
-        "tools/tsc/lib.d.ts",
-        "tools/tsc/lib.dom.d.ts",
-        "tools/tsc/lib.dom.iterable.d.ts",
-        "tools/tsc/lib.es2015.collection.d.ts",
-        "tools/tsc/lib.es2015.core.d.ts",
-        "tools/tsc/lib.es2015.d.ts",
-        "tools/tsc/lib.es2015.generator.d.ts",
-        "tools/tsc/lib.es2015.iterable.d.ts",
-        "tools/tsc/lib.es2015.promise.d.ts",
-        "tools/tsc/lib.es2015.proxy.d.ts",
-        "tools/tsc/lib.es2015.reflect.d.ts",
-        "tools/tsc/lib.es2015.symbol.d.ts",
-        "tools/tsc/lib.es2015.symbol.wellknown.d.ts",
-        "tools/tsc/lib.es2016.array.include.d.ts",
-        "tools/tsc/lib.es2016.d.ts",
-        "tools/tsc/lib.es2016.full.d.ts",
-        "tools/tsc/lib.es2017.d.ts",
-        "tools/tsc/lib.es2017.full.d.ts",
-        "tools/tsc/lib.es2017.intl.d.ts",
-        "tools/tsc/lib.es2017.object.d.ts",
-        "tools/tsc/lib.es2017.sharedmemory.d.ts",
-        "tools/tsc/lib.es2017.string.d.ts",
-        "tools/tsc/lib.es2017.typedarrays.d.ts",
-        "tools/tsc/lib.es2018.d.ts",
-        "tools/tsc/lib.es2018.full.d.ts",
-        "tools/tsc/lib.es2018.intl.d.ts",
-        "tools/tsc/lib.es2018.promise.d.ts",
-        "tools/tsc/lib.es2018.regexp.d.ts",
-        "tools/tsc/lib.es5.d.ts",
-        "tools/tsc/lib.es6.d.ts",
-        "tools/tsc/lib.esnext.array.d.ts",
-        "tools/tsc/lib.esnext.asynciterable.d.ts",
-        "tools/tsc/lib.esnext.d.ts",
-        "tools/tsc/lib.esnext.full.d.ts",
-        "tools/tsc/lib.scriptHost.d.ts",
-        "tools/tsc/lib.webworker.d.ts",
-        "tools/tsc/pl/diagnosticMessages.generated.json",
-        "tools/tsc/pt-BR/diagnosticMessages.generated.json",
-        "tools/tsc/ru/diagnosticMessages.generated.json",
-        "tools/tsc/tr/diagnosticMessages.generated.json",
-        "tools/tsc/tsc.exe",
-        "tools/tsc/tsc.js",
-        "tools/tsc/zh-CN/diagnosticMessages.generated.json",
-        "tools/tsc/zh-TW/diagnosticMessages.generated.json"
-      ]
-    },
     "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.7.9": {
       "sha512": "qctOe/wBGvigq5c0GSjzR8TUgdpQv7YhHugiUyvBHTXhOpKKbhVhrsXqy4fEHZ4kVU5498ywsigEbrQ22ps4ew==",
       "type": "package",
@@ -10280,19 +9791,6 @@
         "lib/netstandard1.5/MongoDB.Driver.Core.xml",
         "mongodb.driver.core.2.8.1.nupkg.sha512",
         "mongodb.driver.core.nuspec"
-      ]
-    },
-    "Mono.WebAssembly.Interop/0.5.1": {
-      "sha512": "4d8lwenJ5EYweOb0voYzeKBTfzIYh/vK3wZBfjTvP6by+clqlLK83PDPtwwzVkhsgSwo98HY872IBWAKHRhLqA==",
-      "type": "package",
-      "path": "mono.webassembly.interop/0.5.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/Mono.WebAssembly.Interop.dll",
-        "lib/netstandard2.0/Mono.WebAssembly.Interop.xml",
-        "mono.webassembly.interop.0.5.1.nupkg.sha512",
-        "mono.webassembly.interop.nuspec"
       ]
     },
     "NETStandard.Library/2.0.3": {
@@ -16435,7 +15933,6 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
-      "Cloudcrate.AspNetCore.Blazor.Browser.Storage >= 0.5.1",
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
       "Microsoft.NETCore.App >= 2.2.0",
@@ -16490,10 +15987,6 @@
     "frameworks": {
       "netcoreapp2.2": {
         "dependencies": {
-          "Cloudcrate.AspNetCore.Blazor.Browser.Storage": {
-            "target": "Package",
-            "version": "[0.5.1, )"
-          },
           "Microsoft.AspNetCore.App": {
             "suppressParent": "All",
             "target": "Package",
@@ -16530,7 +16023,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100-preview9-014004\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100-rc1-014190\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -44,6 +44,11 @@ namespace S3.Services.Registration.Subjects.Queries
                         break;
                 }
             }
+            else
+            {
+                subjects = subjects.OrderByDescending(x => x.UpdatedDate).ToList();
+            }
+
             return subjects;
         }
     }

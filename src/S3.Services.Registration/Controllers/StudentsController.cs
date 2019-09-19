@@ -17,7 +17,7 @@ using S3.Services.Registration.Students.Queries;
 
 namespace S3.Services.Registration.Controllers
 {
-    [JwtAuth(Roles = "superadmin, admin")]
+    //[JwtAuth(Roles = "superadmin, admin")]
     public class StudentsController : BaseController
     {
         public StudentsController(IBusPublisher busPublisher, IDispatcher dispatcher, ITracer tracer) 

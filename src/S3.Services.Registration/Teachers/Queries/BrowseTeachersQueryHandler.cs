@@ -23,17 +23,7 @@ namespace S3.Services.Registration.Teachers.Queries
         public async Task<IEnumerable<TeacherDto>> HandleAsync(BrowseTeachersQuery query)
         {
             var teachers = _mapper.Map<IEnumerable<TeacherDto>>(_db.Teachers.Include(x => x.Address).AsEnumerable());
-            //var teachers = result.Select(s => new TeacherDto
-            //{
-            //    Address = s.Address,
-            //    FirstName = s.FirstName,
-            //    MiddleName = s.MiddleName,
-            //    LastName = s.LastName,
-            //    CreatedDate = s.CreatedDate,
-            //    Id = s.Id,
-            //    UpdatedDate = s.UpdatedDate
-            //});
-
+            
             bool ascending = true;
             if (!string.IsNullOrEmpty(query.SortOrder) &&
                 (query.SortOrder.ToLowerInvariant() == "desc" || query.SortOrder.ToLowerInvariant() == "descending"))
@@ -64,6 +54,11 @@ namespace S3.Services.Registration.Teachers.Queries
                         break;
                 }
             }
+            else
+            {
+                teachers = teachers.OrderByDescending(x => x.UpdatedDate).ToList();
+            }
+
             return teachers;
         }
     }
