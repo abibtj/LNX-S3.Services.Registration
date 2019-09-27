@@ -39,9 +39,25 @@ namespace S3.Services.Registration.Students.Commands
             student.SchoolId = command.SchoolId;
             student.ClassId = command.ClassId;
             student.ParentId = command.ParentId;
-            student.SubjectIds = command.SubjectIds;
-            //student.SubjectIds = string.Join(",", command.SubjectIds);
+            student.OfferingAllClassSubjects = command.OfferingAllClassSubjects;
+            student.Subjects = string.Join("|", command.SubjectsArray);
             student.SetUpdatedDate();
+
+            if (student.OfferingAllClassSubjects)
+            {
+                student.Subjects = string.Empty;
+            }
+            else // If the student is not offering all the class subject, SubjectsArray must not be empty.
+            {
+                if (command.SubjectsArray != Array.Empty<string>())
+                {
+                    student.Subjects = string.Join("|", command.SubjectsArray);
+                }
+                else
+                {
+                    student.OfferingAllClassSubjects = true;
+                }
+            }
 
             // If the student's address has been set to null (remove their existing address from the db (if any))
             if (student.Address != null && command.Address == null)

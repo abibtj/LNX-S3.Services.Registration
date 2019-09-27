@@ -6,7 +6,10 @@ namespace S3.Services.Registration.Dto
 {
     public class StudentDto : PersonDto
     {
-        public string? SubjectIds { get; set; }
+        public string Subjects { get; set; }
+        public string[] SubjectsArray { get => string.IsNullOrEmpty(Subjects)? Array.Empty<string>() : Subjects.Split("|"); } // Readonly property, not saved into database
+
+        public bool OfferingAllClassSubjects { get; set; } = true;
         public Guid SchoolId { get; set; }
         public virtual SchoolDto School { get; set; }
         public Guid? ClassId { get; set; }

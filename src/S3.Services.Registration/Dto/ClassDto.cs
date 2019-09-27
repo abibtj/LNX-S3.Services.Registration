@@ -9,12 +9,9 @@ namespace S3.Services.Registration.Dto
 {
     public class ClassDto : BaseEntityDto
     {
-        //public ClassDto()
-        //{
-        //    Students = new HashSet<StudentDto>();
-        //}
         public string Name { get; set; }
-        public string SubjectIds { get; set; }
+        public string Subjects { get; set; }
+        public string[] SubjectsArray { get => string.IsNullOrEmpty(Subjects) ? Array.Empty<string>() : Subjects.Split("|"); } // Readonly property, not saved into database
 
         // Navigation properties
         public Guid SchoolId { get; set; }

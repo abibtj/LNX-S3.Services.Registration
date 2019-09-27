@@ -24,12 +24,19 @@ namespace S3.Services.Registration.Students.Commands
         public Guid? ClassId { get; }
         public Guid? ParentId { get; }
         public StudentAddress? Address { get; }
-        public string? SubjectIds { get; } // Concatenated list of subjects (Ids) offered by this student
+        public string[] SubjectsArray { get; } // Concatenated list of subjects offered by this student
+        public bool OfferingAllClassSubjects { get; }
 
         [JsonConstructor]
         public CreateStudentCommand(
-            string firstName, string middleName, string lastName, string gender, DateTime dateOfBirth, string phoneNumber, Guid schoolId, Guid? classId = null, Guid? parentId = null, StudentAddress? address = null, string? subjectIds = null)
-            => (FirstName, MiddleName, LastName, Gender, DateOfBirth, PhoneNumber, SchoolId, ClassId, ParentId, Address, SubjectIds)
-            = (firstName, middleName, lastName, gender, dateOfBirth, phoneNumber, schoolId, classId, parentId, address, subjectIds);
+            string firstName, string middleName, string lastName, string gender, DateTime dateOfBirth,
+            string phoneNumber, Guid schoolId, string[] subjectsArray, Guid? classId = null, Guid? parentId = null,
+            StudentAddress? address = null, bool offeringAllClassSubjects = true)
+
+            => (FirstName, MiddleName, LastName, Gender, DateOfBirth,
+            PhoneNumber, SchoolId, ClassId, ParentId, Address, SubjectsArray, OfferingAllClassSubjects)
+
+            = (firstName, middleName, lastName, gender, dateOfBirth,
+            phoneNumber, schoolId, classId, parentId, address, subjectsArray, OfferingAllClassSubjects);
     }
 }

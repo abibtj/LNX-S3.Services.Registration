@@ -93,7 +93,7 @@ namespace S3.Services.Registration.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(maxLength: 20, nullable: false),
-                    SubjectIds = table.Column<string>(nullable: true),
+                    Subjects = table.Column<string>(nullable: true),
                     SchoolId = table.Column<Guid>(nullable: false),
                     ClassTeacherId = table.Column<Guid>(nullable: true),
                     AssistantTeacherId = table.Column<Guid>(nullable: true)
@@ -157,7 +157,7 @@ namespace S3.Services.Registration.Migrations
                     PhoneNumber = table.Column<string>(maxLength: 20, nullable: true),
                     Email = table.Column<string>(maxLength: 50, nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: true),
-                    SubjectIds = table.Column<string>(nullable: true),
+                    Subjects = table.Column<string>(nullable: true),
                     SchoolId = table.Column<Guid>(nullable: false),
                     ClassId = table.Column<Guid>(nullable: true),
                     ParentId = table.Column<Guid>(nullable: true)

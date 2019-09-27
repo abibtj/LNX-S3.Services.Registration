@@ -24,14 +24,18 @@ namespace S3.Services.Registration.Classes.Commands
 
         public async Task HandleAsync(CreateClassCommand command, ICorrelationContext context)
         {
+            if (command.SubjectsArray == Array.Empty<string>())
+                throw new S3Exception("subjects_required", "Subjects are required to create a class.");
+
             // Create a new _class
             var _class = new Class
             {
                 Name = Normalizer.NormalizeSpaces(command.Name),
                 SchoolId = command.SchoolId,
                 ClassTeacherId = command.TeacherId,
-                SubjectIds = string.Join(",", command.SubjectIds)
+                Subjects = string.Join("|", command.SubjectsArray)
             };
+
 
             await _db.Classes.AddAsync(_class);
 

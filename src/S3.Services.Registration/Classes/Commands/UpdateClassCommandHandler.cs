@@ -25,6 +25,9 @@ namespace S3.Services.Registration.Classes.Commands
 
         public async Task HandleAsync(UpdateClassCommand command, ICorrelationContext context)
         {
+            if (command.SubjectsArray == Array.Empty<string>())
+                throw new S3Exception("subjects_required", "Subjects are required to create a class.");
+
             // Get existing _class
             var _class = await _db.Classes.Include(x => x.Students).FirstOrDefaultAsync(x => x.Id == command.Id);
             if (_class is null)
@@ -34,7 +37,7 @@ namespace S3.Services.Registration.Classes.Commands
             _class.Name = Normalizer.NormalizeSpaces(command.Name);
             _class.SchoolId = command.SchoolId;
             _class.ClassTeacherId = command.TeacherId;
-            _class.SubjectIds = string.Join(",", command.SubjectIds);
+            _class.Subjects = string.Join("|", command.SubjectsArray);
             _class.SetUpdatedDate();
 
             // If the updated _class has no student, nullify the ClassId properties of the existing _class's students (if any)

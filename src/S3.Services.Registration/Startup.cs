@@ -49,9 +49,9 @@ namespace S3.Services.Registration
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
+                .AddEnvironmentVariables()
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             Configuration = builder.Build();
         }
@@ -104,7 +104,8 @@ namespace S3.Services.Registration
                 // Initialise the database
                 try
                 {
-                    if (Configuration.GetSection("database")["seed"].ToLowerInvariant() == "true")
+                    //if (Configuration.GetSection("database:seed").Value.ToLowerInvariant() == "true")
+                    if (Configuration.GetValue<string>("database:seed").ToLowerInvariant() == "true")
                         dbInitialiser.Initialise();
                 }
                 catch (Exception)

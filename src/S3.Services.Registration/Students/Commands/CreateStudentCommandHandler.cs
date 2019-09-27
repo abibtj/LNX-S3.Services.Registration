@@ -37,9 +37,24 @@ namespace S3.Services.Registration.Students.Commands
                 SchoolId = command.SchoolId,
                 ClassId = command.ClassId,
                 ParentId = command.ParentId,
-                SubjectIds = command.SubjectIds
-                //SubjectIds = string.Join(",", command.SubjectIds)
+                OfferingAllClassSubjects = command.OfferingAllClassSubjects,
             };
+
+            if (student.OfferingAllClassSubjects)
+            {
+                student.Subjects = string.Empty;
+            }
+            else // If the student is not offering all the class subject, SubjectsArray must not be empty.
+            {
+                if (command.SubjectsArray != Array.Empty<string>())
+                {
+                    student.Subjects = string.Join("|", command.SubjectsArray);
+                }
+                else
+                {
+                    student.OfferingAllClassSubjects = true;
+                }
+            }
 
             await _db.Students.AddAsync(student);
             await _db.SaveChangesAsync();

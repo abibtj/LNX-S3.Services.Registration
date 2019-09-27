@@ -15,12 +15,12 @@ namespace S3.Services.Registration.Classes.Commands
         public Guid SchoolId { get; }
         public Guid? TeacherId { get; }
         public List<Guid>? StudentIds { get; } // List of wards
-        public List<Guid>? SubjectIds { get; } // List of subjects available for this class
+        public string[] SubjectsArray { get; } // List of subjects available for this class
 
         [JsonConstructor]
-        public CreateClassCommand(string name, Guid schoolId, Guid? teacherId, List<Guid>? studentIds, List<Guid>? subjectIds)
+        public CreateClassCommand(string name, Guid schoolId, Guid? teacherId, List<Guid>? studentIds, string[] subjectsArray)
 
-            => (Name, SchoolId, TeacherId, StudentIds, SubjectIds)
-            = (name, schoolId, teacherId, studentIds, subjectIds);
+            => (Name, SchoolId, TeacherId, StudentIds, SubjectsArray)
+            = (name, schoolId, teacherId, studentIds, subjectsArray);
     }
 }

@@ -70,7 +70,7 @@ namespace S3.Services.Registration.Migrations
 
                     b.Property<Guid>("SchoolId");
 
-                    b.Property<string>("SubjectIds");
+                    b.Property<string>("Subjects");
 
                     b.Property<DateTime>("UpdatedDate");
 
@@ -198,6 +198,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("MiddleName")
                         .HasMaxLength(30);
 
+                    b.Property<bool>("OfferingAllClassSubjects");
+
                     b.Property<Guid?>("ParentId");
 
                     b.Property<string>("PhoneNumber")
@@ -205,7 +207,7 @@ namespace S3.Services.Registration.Migrations
 
                     b.Property<Guid>("SchoolId");
 
-                    b.Property<string>("SubjectIds");
+                    b.Property<string>("Subjects");
 
                     b.Property<DateTime>("UpdatedDate");
 
@@ -273,7 +275,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(20);
 
-                    b.Property<string>("Position");
+                    b.Property<string>("Position")
+                        .HasMaxLength(50);
 
                     b.Property<Guid>("SchoolId");
 

@@ -10,8 +10,8 @@ using S3.Services.Registration.Utility;
 namespace S3.Services.Registration.Migrations
 {
     [DbContext(typeof(RegistrationDbContext))]
-    [Migration("20190828200729_Migration1")]
-    partial class Migration1
+    [Migration("20190927104945_Migration2")]
+    partial class Migration2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -200,6 +200,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("MiddleName")
                         .HasMaxLength(30);
 
+                    b.Property<bool>("OfferingAllClassSubjects");
+
                     b.Property<Guid?>("ParentId");
 
                     b.Property<string>("PhoneNumber")
@@ -275,7 +277,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(20);
 
-                    b.Property<string>("Position");
+                    b.Property<string>("Position")
+                        .HasMaxLength(50);
 
                     b.Property<Guid>("SchoolId");
 
