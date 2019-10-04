@@ -60,6 +60,8 @@ namespace S3.Services.Registration.Migrations
 
                     b.Property<Guid?>("AssistantTeacherId");
 
+                    b.Property<string>("Category");
+
                     b.Property<Guid?>("ClassTeacherId");
 
                     b.Property<DateTime>("CreatedDate");
@@ -115,9 +117,16 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(20);
 
+                    b.Property<string>("RegNumber")
+                        .IsRequired()
+                        .HasMaxLength(12);
+
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RegNumber")
+                        .IsUnique();
 
                     b.ToTable("Parents");
                 });
@@ -152,7 +161,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("ClassId");
+                    b.Property<Guid?>("ClassId")
+                        .IsRequired();
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -205,6 +215,10 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(20);
 
+                    b.Property<string>("RegNumber")
+                        .IsRequired()
+                        .HasMaxLength(12);
+
                     b.Property<Guid>("SchoolId");
 
                     b.Property<string>("Subjects");
@@ -216,6 +230,9 @@ namespace S3.Services.Registration.Migrations
                     b.HasIndex("ClassId");
 
                     b.HasIndex("ParentId");
+
+                    b.HasIndex("RegNumber")
+                        .IsUnique();
 
                     b.HasIndex("SchoolId");
 

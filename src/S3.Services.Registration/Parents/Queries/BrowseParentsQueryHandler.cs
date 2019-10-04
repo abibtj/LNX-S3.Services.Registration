@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using S3.Common.Handlers;
 using S3.Common.Mongo;
 using S3.Common.Types;
+using S3.Common.Utility;
 using S3.Services.Registration.Domain;
 using S3.Services.Registration.Dto;
 using S3.Services.Registration.Utility;
@@ -22,8 +23,16 @@ namespace S3.Services.Registration.Parents.Queries
 
         public async Task<IEnumerable<ParentDto>> HandleAsync(BrowseParentsQuery query)
         {
-            var parents = _mapper.Map<IEnumerable<ParentDto>>(_db.Parents.Include(x => x.Address).AsEnumerable());
-           
+            IQueryable<Parent> set = _db.Parents;
+
+            if (!(query.IncludeExpressions is null))
+                set = IncludeHelper<Parent>.IncludeComponents(set, query.IncludeExpressions);
+
+            var parents = query.SchoolId is null ?
+               _mapper.Map<IEnumerable<ParentDto>>(set) :
+                    // Get all the parents who have kids in this school.
+               _mapper.Map<IEnumerable<ParentDto>>(set.Where(x => x.Students.Any(y => y.SchoolId == query.SchoolId)));
+
             bool ascending = true;
             if (!string.IsNullOrEmpty(query.SortOrder) &&
                 (query.SortOrder.ToLowerInvariant() == "desc" || query.SortOrder.ToLowerInvariant() == "descending"))

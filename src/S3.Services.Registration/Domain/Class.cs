@@ -14,8 +14,8 @@ namespace S3.Services.Registration.Domain
             Students = new HashSet<Student>();
         }
         public string Name { get; set; }
+        public string Category { get; set; }  // Primary, Secondary //***TODO: an enumeration might be better
         public string Subjects { get; set; }
-        //public string[] SubjectsArray { get => Subjects.Split("|"); } // Readonly property, not saved into database
 
         // Navigation properties 
         public Guid SchoolId { get; set; }

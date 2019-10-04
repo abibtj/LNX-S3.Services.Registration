@@ -11,6 +11,7 @@ namespace S3.Services.Registration.Domain.EntityConfigurations
             builder.Property(x => x.Name).HasMaxLength(20).IsRequired();
 
             // Relationships
+            //builder.HasMany(x => x.Students).WithOne(y => y.Class).OnDelete(DeleteBehavior.Restrict);
             builder.HasMany(x => x.Students).WithOne(y => y.Class).OnDelete(DeleteBehavior.ClientSetNull);
         }
     }

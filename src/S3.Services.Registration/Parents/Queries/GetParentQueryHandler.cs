@@ -1,9 +1,11 @@
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using S3.Common;
 using S3.Common.Handlers;
 using S3.Common.Mongo;
+using S3.Common.Utility;
 using S3.Services.Registration.Domain;
 using S3.Services.Registration.Dto;
 using S3.Services.Registration.Utility;
@@ -20,7 +22,12 @@ namespace S3.Services.Registration.Parents.Queries
 
         public async Task<ParentDto> HandleAsync(GetParentQuery query)
         {
-            var parent = await _db.Parents.Include(x => x.Address).FirstOrDefaultAsync(x => x.Id == query.Id);
+            IQueryable<Parent> set = _db.Parents;
+
+            if (!(query.IncludeExpressions is null))
+                set = IncludeHelper<Parent>.IncludeComponents(set, query.IncludeExpressions);
+
+            var parent = await set.FirstOrDefaultAsync(x => x.Id == query.Id);
 
             return parent is null ? null! : _mapper.Map<ParentDto>(parent);
         }

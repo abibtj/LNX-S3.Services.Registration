@@ -12,6 +12,6 @@ namespace S3.Services.Registration.Teachers.Commands
         [Required]
         public Guid SubjectId { get; set; }
         [Required]
-        public Guid ClassId { get; set; }
+        public Guid? ClassId { get; set; }
     }
 }

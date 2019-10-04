@@ -11,16 +11,18 @@ namespace S3.Services.Registration.Classes.Commands
     {
         [Required(ErrorMessage = "Name is required.")]
         public string Name { get; }
+        [Required(ErrorMessage = "Category is required.")]
+        public string Category { get; set; } 
         [Required]
         public Guid SchoolId { get; }
         public Guid? TeacherId { get; }
-        public List<Guid>? StudentIds { get; } // List of wards
+        //public List<Guid>? StudentIds { get; } // List of wards
         public string[] SubjectsArray { get; } // List of subjects available for this class
 
         [JsonConstructor]
-        public CreateClassCommand(string name, Guid schoolId, Guid? teacherId, List<Guid>? studentIds, string[] subjectsArray)
+        public CreateClassCommand(string name, string category, Guid schoolId, Guid? teacherId, string[] subjectsArray)
 
-            => (Name, SchoolId, TeacherId, StudentIds, SubjectsArray)
-            = (name, schoolId, teacherId, studentIds, subjectsArray);
+            => (Name, Category, SchoolId, TeacherId, SubjectsArray)
+            = (name, category, schoolId, teacherId, subjectsArray);
     }
 }

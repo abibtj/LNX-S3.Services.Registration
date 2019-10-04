@@ -33,7 +33,8 @@ namespace S3.Services.Registration.Parents.Commands
                 LastName = Normalizer.NormalizeSpaces(command.LastName),
                 Gender = command.Gender,
                 DateOfBirth = command.DateOfBirth,
-                PhoneNumber = command.PhoneNumber
+                PhoneNumber = command.PhoneNumber,
+                RegNumber = RegNumberGenerator.Generate()
             };
 
             await _db.Parents.AddAsync(parent);

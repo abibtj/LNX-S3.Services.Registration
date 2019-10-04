@@ -37,7 +37,6 @@ namespace S3.Services.Registration.Parents.Commands
             parent.Gender = command.Gender;
             parent.DateOfBirth = command.DateOfBirth;
             parent.PhoneNumber = command.PhoneNumber;
-            parent.SetUpdatedDate();
 
             // If the parent's address has been set to null (remove their existing address from the db (if any))
             if (parent.Address != null && command.Address == null)
@@ -92,6 +91,7 @@ namespace S3.Services.Registration.Parents.Commands
                
             }
 
+            parent.SetUpdatedDate();
             await _db.SaveChangesAsync();
 
             //await _busPublisher.PublishAsync(new ParentUpdatedEvent(command.Id, command.Name), context);

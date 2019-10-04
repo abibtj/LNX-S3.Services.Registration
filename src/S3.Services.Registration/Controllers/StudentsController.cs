@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OpenTracing;
@@ -24,12 +25,14 @@ namespace S3.Services.Registration.Controllers
             : base(busPublisher, dispatcher, tracer ) { }
 
         [HttpGet("browse")]
-        public async Task<IActionResult> GetAllAsync([FromQuery] BrowseStudentsQuery query)
-            => Ok( await QueryAsync(query));
+        public async Task<IActionResult> GetAllAsync(string[]? include, Guid? schoolId, int page, int results, string orderBy, string sortOrder)
+            => Ok(await QueryAsync(new BrowseStudentsQuery(include, schoolId, page, results, orderBy, sortOrder)));
+        //public async Task<IActionResult> GetAllAsync([FromQuery] BrowseStudentsQuery query)
+        //    => Ok( await QueryAsync(query));
 
         [HttpGet("get/{id:guid}")]
-        public async Task<IActionResult> GetByIdAsync(Guid id)
-            => Single(await QueryAsync(new GetStudentQuery(id)));
+        public async Task<IActionResult> GetByIdAsync(Guid id, [FromQuery]string[]? include)
+            => Single(await QueryAsync(new GetStudentQuery(id, include)));
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateStudentCommand command)

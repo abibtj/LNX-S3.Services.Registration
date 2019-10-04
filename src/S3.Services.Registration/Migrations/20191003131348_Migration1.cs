@@ -20,7 +20,8 @@ namespace S3.Services.Registration.Migrations
                     Gender = table.Column<string>(maxLength: 6, nullable: false),
                     PhoneNumber = table.Column<string>(maxLength: 20, nullable: true),
                     Email = table.Column<string>(maxLength: 50, nullable: true),
-                    DateOfBirth = table.Column<DateTime>(nullable: true)
+                    DateOfBirth = table.Column<DateTime>(nullable: true),
+                    RegNumber = table.Column<string>(maxLength: 12, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,7 +71,7 @@ namespace S3.Services.Registration.Migrations
                     PhoneNumber = table.Column<string>(maxLength: 20, nullable: true),
                     Email = table.Column<string>(maxLength: 50, nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: true),
-                    Position = table.Column<string>(nullable: true),
+                    Position = table.Column<string>(maxLength: 50, nullable: true),
                     GradeLevel = table.Column<double>(nullable: false),
                     SchoolId = table.Column<Guid>(nullable: false)
                 },
@@ -157,7 +158,9 @@ namespace S3.Services.Registration.Migrations
                     PhoneNumber = table.Column<string>(maxLength: 20, nullable: true),
                     Email = table.Column<string>(maxLength: 50, nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: true),
+                    RegNumber = table.Column<string>(maxLength: 12, nullable: false),
                     Subjects = table.Column<string>(nullable: true),
+                    OfferingAllClassSubjects = table.Column<bool>(nullable: false),
                     SchoolId = table.Column<Guid>(nullable: false),
                     ClassId = table.Column<Guid>(nullable: true),
                     ParentId = table.Column<Guid>(nullable: true)
@@ -274,6 +277,12 @@ namespace S3.Services.Registration.Migrations
                 column: "SchoolId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Parents_RegNumber",
+                table: "Parents",
+                column: "RegNumber",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Schools_Name",
                 table: "Schools",
                 column: "Name",
@@ -293,6 +302,12 @@ namespace S3.Services.Registration.Migrations
                 name: "IX_Students_ParentId",
                 table: "Students",
                 column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_RegNumber",
+                table: "Students",
+                column: "RegNumber",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_SchoolId",

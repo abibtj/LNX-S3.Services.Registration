@@ -24,12 +24,14 @@ namespace S3.Services.Registration.Controllers
             : base(busPublisher, dispatcher, tracer ) { }
 
         [HttpGet("browse")]
-        public async Task<IActionResult> GetAllAsync([FromQuery] BrowseParentsQuery query)
-            => Ok( await QueryAsync(query));
+        public async Task<IActionResult> GetAllAsync(string[]? include, Guid? schoolId, int page, int results, string orderBy, string sortOrder)
+            => Ok(await QueryAsync(new BrowseParentsQuery(include, schoolId, page, results, orderBy, sortOrder)));
+        //public async Task<IActionResult> GetAllAsync([FromQuery] BrowseParentsQuery query)
+        //    => Ok( await QueryAsync(query));
 
         [HttpGet("get/{id:guid}")]
-        public async Task<IActionResult> GetByIdAsync(Guid id)
-            => Single(await QueryAsync(new GetParentQuery(id)));
+        public async Task<IActionResult> GetByIdAsync(Guid id, [FromQuery]string[]? include)
+            => Single(await QueryAsync(new GetParentQuery(id, include)));
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateParentCommand command)

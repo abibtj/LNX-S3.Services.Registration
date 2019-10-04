@@ -10,6 +10,7 @@ namespace S3.Services.Registration.Dto
     public class ClassDto : BaseEntityDto
     {
         public string Name { get; set; }
+        public string Category { get; set; }  // Primary, Secondary //***TODO: an enumeration might be better
         public string Subjects { get; set; }
         public string[] SubjectsArray { get => string.IsNullOrEmpty(Subjects) ? Array.Empty<string>() : Subjects.Split("|"); } // Readonly property, not saved into database
 

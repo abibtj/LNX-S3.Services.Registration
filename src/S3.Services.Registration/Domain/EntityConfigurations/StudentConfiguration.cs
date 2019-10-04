@@ -8,6 +8,8 @@ namespace S3.Services.Registration.Domain.EntityConfigurations
         public void Configure(EntityTypeBuilder<Student> builder)
         {
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            builder.Property(x => x.RegNumber).HasMaxLength(12).IsRequired();
+            builder.HasIndex(x => x.RegNumber).IsUnique(); // Make RegNumber unique
             builder.Property(x => x.FirstName).HasMaxLength(30).IsRequired();
             builder.Property(x => x.MiddleName).HasMaxLength(30);
             builder.Property(x => x.LastName).HasMaxLength(30).IsRequired();

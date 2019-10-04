@@ -29,6 +29,15 @@ namespace S3.Services.Registration.Schools.Commands
                 throw new S3Exception(ExceptionCodes.NotFound,
                     $"School with id: '{command.Id}' was not found.");
 
+            // Check for existence of a school with the same name
+            if (await _db.Schools.AnyAsync(x => 
+            (x.Name.ToLowerInvariant() == Normalizer.NormalizeSpaces(command.Name).ToLowerInvariant())
+            && (x.Id != command.Id)))
+            {
+                throw new S3Exception(ExceptionCodes.SchoolNameInUse,
+                    $"School name: '{command.Name}' is already in use.");
+            }
+
             school.Name = Normalizer.NormalizeSpaces(command.Name);
             school.Category = command.Category;
             school.SetUpdatedDate();

@@ -8,9 +8,9 @@ namespace S3.Services.Registration.Domain
 {
     public class Student : Person
     {
+        public string RegNumber { get; set; }
         public string Subjects { get; set; }
-        //public string[] SubjectsArray { get => Subjects.Split("|"); } // Readonly property, not saved into database
-        public bool OfferingAllClassSubjects { get; set; } = true;
+        public bool OfferingAllClassSubjects { get; set; }
         public Guid SchoolId { get; set; }
         public virtual School School { get; set; }
         public Guid? ClassId { get; set; }

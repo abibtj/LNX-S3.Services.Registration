@@ -11,7 +11,7 @@ namespace S3.Services.Registration.Domain
         public virtual TeacherDto Teacher{ get; set; }
         public Guid SubjectId { get; set; }
         //public virtual SubjectDto Subject{ get; set; }
-        public Guid ClassId { get; set; }
+        public Guid? ClassId { get; set; }
         //public virtual ClassDto Class{ get; set; }
     }
 }

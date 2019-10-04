@@ -10,8 +10,8 @@ using S3.Services.Registration.Utility;
 namespace S3.Services.Registration.Migrations
 {
     [DbContext(typeof(RegistrationDbContext))]
-    [Migration("20190927104945_Migration2")]
-    partial class Migration2
+    [Migration("20191003131348_Migration1")]
+    partial class Migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -117,9 +117,16 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(20);
 
+                    b.Property<string>("RegNumber")
+                        .IsRequired()
+                        .HasMaxLength(12);
+
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RegNumber")
+                        .IsUnique();
 
                     b.ToTable("Parents");
                 });
@@ -154,7 +161,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("ClassId");
+                    b.Property<Guid?>("ClassId")
+                        .IsRequired();
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -207,6 +215,10 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(20);
 
+                    b.Property<string>("RegNumber")
+                        .IsRequired()
+                        .HasMaxLength(12);
+
                     b.Property<Guid>("SchoolId");
 
                     b.Property<string>("Subjects");
@@ -218,6 +230,9 @@ namespace S3.Services.Registration.Migrations
                     b.HasIndex("ClassId");
 
                     b.HasIndex("ParentId");
+
+                    b.HasIndex("RegNumber")
+                        .IsUnique();
 
                     b.HasIndex("SchoolId");
 

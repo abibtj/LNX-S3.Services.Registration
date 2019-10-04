@@ -24,13 +24,22 @@ namespace S3.Services.Registration.Classes.Commands
 
         public async Task HandleAsync(CreateClassCommand command, ICorrelationContext context)
         {
-            if (command.SubjectsArray == Array.Empty<string>())
+            if (command.SubjectsArray.Length < 1)
                 throw new S3Exception("subjects_required", "Subjects are required to create a class.");
+
+            // Check for existence of a class with the same name in this school.
+            if (await _db.Classes.AnyAsync(x => (x.SchoolId == command.SchoolId) &&
+                x.Name.ToLowerInvariant() == Normalizer.NormalizeSpaces(command.Name).ToLowerInvariant()))
+            {
+                throw new S3Exception(ExceptionCodes.SchoolNameInUse,
+                    $"School name: '{command.Name}' is already in use.");
+            }
 
             // Create a new _class
             var _class = new Class
             {
                 Name = Normalizer.NormalizeSpaces(command.Name),
+                Category = Normalizer.NormalizeSpaces(command.Category),
                 SchoolId = command.SchoolId,
                 ClassTeacherId = command.TeacherId,
                 Subjects = string.Join("|", command.SubjectsArray)
@@ -40,15 +49,15 @@ namespace S3.Services.Registration.Classes.Commands
             await _db.Classes.AddAsync(_class);
 
             // If this _class has some students, update the students' ClassId properties to the new _class's Id
-            if(command.StudentIds?.Count > 0)
-            {
-                foreach (var studentId in command.StudentIds)
-                {
-                    var student = await _db.Students.FirstOrDefaultAsync(x => x.Id == studentId);
-                    if (!(student is null))
-                        student.ClassId = _class.Id;
-                }
-            }
+            //if(command.StudentIds?.Count > 0)
+            //{
+            //    foreach (var studentId in command.StudentIds)
+            //    {
+            //        var student = await _db.Students.FirstOrDefaultAsync(x => x.Id == studentId);
+            //        if (!(student is null))
+            //            student.ClassId = _class.Id;
+            //    }
+            //}
 
             await _db.SaveChangesAsync();
 

@@ -20,7 +20,7 @@ namespace S3.Services.Registration.Utility
             _context.Database.Migrate();
             _context.Database.EnsureCreated();
 
-            SeedSubject();
+            //SeedSubject();
             SeedSchool();
             _context.SaveChanges();
         }
@@ -71,12 +71,22 @@ namespace S3.Services.Registration.Utility
                 State = "Oyo",
                 Country = "Nigeria"
             };
+           
+            var bwari = new ParentAddress
+            {
+                Line1 = "17, Pmage Layout",
+                Line2 = "Ushafa",
+                Town = "Bwari",
+                State = "FCT",
+                Country = "Nigeria"
+            };
 
             #endregion
 
             #region Parents
             var mrAzeez = new Parent
             {
+                RegNumber = RegNumberGenerator.Generate(),
                 FirstName = "Adejare",
                 MiddleName = "Omidina",
                 LastName = "Azeez",
@@ -86,6 +96,7 @@ namespace S3.Services.Registration.Utility
             
             var mrOlatunji = new Parent
             {
+                RegNumber = RegNumberGenerator.Generate(),
                 FirstName = "Abeeb",
                 MiddleName = "Akano",
                 LastName = "Olatunji",
@@ -95,48 +106,85 @@ namespace S3.Services.Registration.Utility
 
             var mrsGrace = new Parent
             {
+                RegNumber = RegNumberGenerator.Generate(),
                 FirstName = "Grace",
                 MiddleName = "Folasade",
                 LastName = "Ale",
                 Gender = "Female",
                 Address = mowe
             };
+           
+            var mrsSalimon = new Parent
+            {
+                RegNumber = RegNumberGenerator.Generate(),
+                FirstName = "Aminat",
+                //MiddleName = "Bolanle",
+                LastName = "Salimon",
+                Gender = "Female",
+                Address = bwari
+            };
             #endregion
 
             #region Students
             var azeez1 = new Student
             {
+                RegNumber = RegNumberGenerator.Generate(),
                 FirstName = "Adewale",
                 MiddleName = "Qozim",
                 LastName = "Azeez",
                 Gender = "Male",
+                DateOfBirth = DateTime.Now,
+                OfferingAllClassSubjects = true,
                 Parent = mrAzeez
             };
 
             var azeez2 = new Student
             {
+                RegNumber = RegNumberGenerator.Generate(),
                 FirstName = "Adejoke",
                 MiddleName = "Fatimah",
                 LastName = "Azeez",
                 Gender = "Female",
+                DateOfBirth = DateTime.Now,
+                OfferingAllClassSubjects = true,
                 Parent = mrAzeez
             };
 
             var olatunji = new Student
             {
+                RegNumber = RegNumberGenerator.Generate(),
                 FirstName = "Rayan",
                 MiddleName = "Olamide",
                 LastName = "Olatunji",
                 Gender = "Male",
+                DateOfBirth = DateTime.Now,
+                OfferingAllClassSubjects = true,
                 Parent = mrOlatunji
+            };
+            
+            var almas = new Student
+            {
+                RegNumber = RegNumberGenerator.Generate(),
+                FirstName = "Almas",
+                MiddleName = "Olayemi",
+                LastName = "Olatunji",
+                Gender = "Female",
+                DateOfBirth = DateTime.Now,
+                OfferingAllClassSubjects = false,
+                Subjects = "Mathematics|English|Yoruba",
+                Parent = mrsSalimon
             };
 
             var grace = new Student
             {
+                RegNumber = RegNumberGenerator.Generate(),
                 FirstName = "Gwen",
                 MiddleName = "Ngozi",
                 LastName = "Ale",
                 Gender = "Female",
+                DateOfBirth = DateTime.Now,
+                OfferingAllClassSubjects = false,
+                Subjects = "English",
                 Parent = mrsGrace,
                 Address = oyo
             };
@@ -207,18 +255,24 @@ namespace S3.Services.Registration.Utility
             var pry1 = new Class
             {
                 Name = "Primary 1",
+                Category = "Primary",
+                Subjects = "Mathematics|English",
                 Students = new List<Student> { azeez1, grace }
             };
 
             var pry2 = new Class
             {
                 Name = "Primary 2",
-                Students = new List<Student> { azeez2 }
+                Category = "Primary",
+                Subjects = "Mathematics|English",
+                Students = new List<Student> { azeez2, almas }
             };
 
             var nur1 = new Class
             {
                 Name = "Nursery 1",
+                Category = "Nursery",
+                Subjects = "Mathematics|English",
                 Students = new List<Student> { olatunji }
             };
 
@@ -230,7 +284,7 @@ namespace S3.Services.Registration.Utility
                 Name = "Bob Ray Group of Schools",
                 Category = "Nursery",
                 Classes = new List<Class> { pry1, pry2 },
-                Students = new List<Student> { azeez1, azeez2, grace },
+                Students = new List<Student> { azeez1, azeez2, grace, almas },
                 Teachers = new List<Teacher> { bob, tunji },
                 Address = new SchoolAddress
                 {

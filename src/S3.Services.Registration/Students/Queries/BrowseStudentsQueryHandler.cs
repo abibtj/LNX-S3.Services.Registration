@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using S3.Common.Handlers;
 using S3.Common.Mongo;
 using S3.Common.Types;
+using S3.Common.Utility;
 using S3.Services.Registration.Domain;
 using S3.Services.Registration.Dto;
 using S3.Services.Registration.Utility;
@@ -22,9 +23,14 @@ namespace S3.Services.Registration.Students.Queries
 
         public async Task<IEnumerable<StudentDto>> HandleAsync(BrowseStudentsQuery query)
         {
+             IQueryable<Student> set = _db.Students;
+
+            if (!(query.IncludeExpressions is null))
+                set = IncludeHelper<Student>.IncludeComponents(set, query.IncludeExpressions);
+
             var students = query.SchoolId is null ?
-                _mapper.Map<IEnumerable<StudentDto>>(_db.Students.Include(x => x.Address).Include(y => y.Class).Include(z => z.Parent).AsEnumerable()):
-                _mapper.Map<IEnumerable<StudentDto>>(_db.Students.Where(x => x.SchoolId == query.SchoolId).Include(x => x.Address).Include(y => y.Class).Include(z => z.Parent).AsEnumerable());
+                _mapper.Map<IEnumerable<StudentDto>>(set):
+                _mapper.Map<IEnumerable<StudentDto>>(set.Where(x => x.SchoolId == query.SchoolId));
            
             bool ascending = true;
             if (!string.IsNullOrEmpty(query.SortOrder) &&

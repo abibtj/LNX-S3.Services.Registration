@@ -37,6 +37,7 @@ namespace S3.Services.Registration.Students.Commands
                 SchoolId = command.SchoolId,
                 ClassId = command.ClassId,
                 ParentId = command.ParentId,
+                RegNumber = RegNumberGenerator.Generate(),
                 OfferingAllClassSubjects = command.OfferingAllClassSubjects,
             };
 
@@ -46,13 +47,14 @@ namespace S3.Services.Registration.Students.Commands
             }
             else // If the student is not offering all the class subject, SubjectsArray must not be empty.
             {
-                if (command.SubjectsArray != Array.Empty<string>())
+                if (!(command.SubjectsArray is null) && command.SubjectsArray.Length > 0)
                 {
                     student.Subjects = string.Join("|", command.SubjectsArray);
                 }
                 else
                 {
                     student.OfferingAllClassSubjects = true;
+                    student.Subjects = string.Empty;
                 }
             }
 

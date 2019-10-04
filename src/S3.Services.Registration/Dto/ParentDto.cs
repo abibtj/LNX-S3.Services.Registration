@@ -9,10 +9,7 @@ namespace S3.Services.Registration.Dto
 {
     public class ParentDto : PersonDto
     {
-        //public ParentDto()
-        //{
-        //    Students = new HashSet<StudentDto>();
-        //}
+        public string RegNumber { get; set; }
         public ParentAddressDto? Address { get; set; }
         public virtual ICollection<StudentDto> Students { get; set; }
     }
