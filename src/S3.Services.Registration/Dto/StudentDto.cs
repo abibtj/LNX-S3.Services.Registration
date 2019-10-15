@@ -17,6 +17,7 @@ namespace S3.Services.Registration.Dto
         public virtual ClassDto Class { get; set; }
         public Guid? ParentId { get; set; }
         public virtual ParentDto Parent { get; set; }
-        public StudentAddressDto? Address { get; set; }
+        public Guid? AddressId { get; set; }
+        public virtual StudentAddressDto Address { get; set; }
     }
 }

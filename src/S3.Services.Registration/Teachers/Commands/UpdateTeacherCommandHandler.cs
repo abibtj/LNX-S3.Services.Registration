@@ -26,8 +26,9 @@ namespace S3.Services.Registration.Teachers.Commands
 
         public async Task HandleAsync(UpdateTeacherCommand command, ICorrelationContext context)
         {
-            // Get existing school
-            var teacher = await _db.Teachers.Include(x => x.Address).Include(y => y.ScoresEntryTasks).FirstOrDefaultAsync(x => x.Id == command.Id);
+            // Get existing teacher
+            var teacher = await _db.Teachers.Include(x => x.Address).FirstOrDefaultAsync(x => x.Id == command.Id);
+            //var teacher = await _db.Teachers.Include(x => x.Address).Include(y => y.ScoresEntryTasks).FirstOrDefaultAsync(x => x.Id == command.Id);
             if (teacher is null)
                 throw new S3Exception(ExceptionCodes.NotFound,
                     $"Teacher with id: '{command.Id}' was not found.");
@@ -41,72 +42,92 @@ namespace S3.Services.Registration.Teachers.Commands
             teacher.GradeLevel = command.GradeLevel;
             teacher.DateOfBirth = command.DateOfBirth;
             teacher.SchoolId = command.SchoolId;
-            teacher.SetUpdatedDate();
 
-            // If the teacher's address has been set to null (remove their existing address from the db (if any))
-            if (teacher.Address != null && command.Address == null)
+            if (!(command.RolesArray is null) && command.RolesArray.Length > 0)
+                teacher.Roles = string.Join("|", command.RolesArray);
+            else
+                teacher.Roles = string.Empty;
+
+            // If the address and addressId have been set to null (remove the existing address from the db (if any))
+            if (!(teacher.Address is null) && command.Address is null && command.AddressId is null)
             {
                 _db.Address.Remove(teacher.Address);
+                teacher.AddressId = null;
             }
-            teacher.Address = command.Address;
-
-            // If the teacher's score entry task has been set to null (remove their existing score entry tasks from the db (if any))
-            if (command.ScoresEntries is null)
+            else if (teacher.Address is null && !(command.Address is null)) // No address before, but there's an address now
             {
-                if(teacher.ScoresEntryTasks.Count > 0)
-                    _db.ScoresEntryTasks.RemoveRange(teacher.ScoresEntryTasks);
+                command.Address.TeacherId = teacher.Id; // Set owner of the address
+                await _db.Address.AddAsync(command.Address); // Add address to get an Id
+                teacher.AddressId = command.Address.Id;
             }
-            else if(command.ScoresEntries.Count > 0)
+            else if (!(teacher.Address is null) && !(command.Address is null)) // An address exists, but changed, modify only the neccessary fields
             {
-                var existingScoresEntryTasks = _db.ScoresEntryTasks.Where(x => x.TeacherId == command.Id);
+                teacher.Address.Line1 = command.Address.Line1;
+                teacher.Address.Line2 = command.Address.Line2;
+                teacher.Address.Town = command.Address.Town;
+                teacher.Address.State = command.Address.State;
+                teacher.Address.Country = command.Address.Country;
+            }
 
-                var scoresEntryTasks = new List<ScoresEntryTask> { };
+            //// If the teacher's score entry task has been set to null (remove their existing score entry tasks from the db (if any))
+            //if (command.ScoresEntries is null)
+            //{
+            //    if(teacher.ScoresEntryTasks.Count > 0)
+            //        _db.ScoresEntryTasks.RemoveRange(teacher.ScoresEntryTasks);
+            //}
+            //else if(command.ScoresEntries.Count > 0)
+            //{
+            //    var existingScoresEntryTasks = _db.ScoresEntryTasks.Where(x => x.TeacherId == command.Id);
 
-                if (existingScoresEntryTasks.Count() <= 0) // Create new scores entry tasks
-                {
-                    foreach (var entry in command.ScoresEntries)
-                    {
-                        if (await _db.ScoresEntryTasks.AnyAsync(x => x.ClassId == entry.ClassId && x.SubjectId == entry.SubjectId))
-                            throw new S3Exception("task_already_exists",
-                                $"The system cannot create duplicate tasks.");
+            //    var scoresEntryTasks = new List<ScoresEntryTask> { };
 
-                        scoresEntryTasks.Add(new ScoresEntryTask
-                        {
-                            ClassId = entry.ClassId,
-                            SubjectId = entry.SubjectId,
-                            TeacherId = teacher.Id
-                        });
-                    }
-                }
-                else
-                {
-                    // Some or all of these scores entry tasks have been previously saved
-                    // Update the changes and/or create the newly added ones.
-                    foreach (var newEntry in command.ScoresEntries)
-                    {
-                        if (!existingScoresEntryTasks.Any(x => x.ClassId == newEntry.ClassId && x.SubjectId == newEntry.SubjectId)) // Add a new scores entry task
-                        {
-                            scoresEntryTasks.Add(new ScoresEntryTask
-                            {
-                                ClassId = newEntry.ClassId,
-                                SubjectId = newEntry.SubjectId,
-                                TeacherId = teacher.Id
-                            });
-                        }
-                    }
+            //    if (existingScoresEntryTasks.Count() <= 0) // Create new scores entry tasks
+            //    {
+            //        foreach (var entry in command.ScoresEntries)
+            //        {
+            //            if (await _db.ScoresEntryTasks.AnyAsync(x => x.ClassId == entry.ClassId && x.SubjectId == entry.SubjectId))
+            //                throw new S3Exception("task_already_exists",
+            //                    $"The system cannot create duplicate tasks.");
 
-                    foreach (var existingEntry in existingScoresEntryTasks)
-                    {
-                        if (!command.ScoresEntries.Any(x => x.ClassId == existingEntry.ClassId && x.SubjectId == existingEntry.SubjectId)) // This entry has been removed, so delete it
-                        {
-                            _db.ScoresEntryTasks.Remove(existingEntry);
-                        }
-                    }
-                }
+            //            scoresEntryTasks.Add(new ScoresEntryTask
+            //            {
+            //                ClassId = entry.ClassId,
+            //                SubjectId = entry.SubjectId,
+            //                TeacherId = teacher.Id
+            //            });
+            //        }
+            //    }
+            //    else
+            //    {
+            //        // Some or all of these scores entry tasks have been previously saved
+            //        // Update the changes and/or create the newly added ones.
+            //        foreach (var newEntry in command.ScoresEntries)
+            //        {
+            //            if (!existingScoresEntryTasks.Any(x => x.ClassId == newEntry.ClassId && x.SubjectId == newEntry.SubjectId)) // Add a new scores entry task
+            //            {
+            //                scoresEntryTasks.Add(new ScoresEntryTask
+            //                {
+            //                    ClassId = newEntry.ClassId,
+            //                    SubjectId = newEntry.SubjectId,
+            //                    TeacherId = teacher.Id
+            //                });
+            //            }
+            //        }
+
+            //        foreach (var existingEntry in existingScoresEntryTasks)
+            //        {
+            //            if (!command.ScoresEntries.Any(x => x.ClassId == existingEntry.ClassId && x.SubjectId == existingEntry.SubjectId)) // This entry has been removed, so delete it
+            //            {
+            //                _db.ScoresEntryTasks.Remove(existingEntry);
+            //            }
+            //        }
+            //    }
                 
-                if(scoresEntryTasks.Count > 0)
-                    await _db.ScoresEntryTasks.AddRangeAsync(scoresEntryTasks);
-            }
+            //    if(scoresEntryTasks.Count > 0)
+            //        await _db.ScoresEntryTasks.AddRangeAsync(scoresEntryTasks);
+            //}
+
+            teacher.SetUpdatedDate();
 
             await _db.SaveChangesAsync();
 

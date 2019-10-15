@@ -38,9 +38,15 @@ namespace S3.Services.Registration.Schools.Commands
                 Address = command.Address,
                 Category = command.Category,
                 Name = Normalizer.NormalizeSpaces(command.Name),
+                Email = command.Email,
+                PhoneNumber = command.PhoneNumber
             };
 
-            await _db.Schools.AddAsync(school);
+            await _db.Schools.AddAsync(school); // Add to get Id and Address Id
+
+            if (!(command.Address is null))
+                school.AddressId = school.Address.Id;
+
             await _db.SaveChangesAsync();
 
             await _busPublisher.PublishAsync(new SchoolCreatedEvent(school.Id, 

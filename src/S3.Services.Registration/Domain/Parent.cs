@@ -14,7 +14,9 @@ namespace S3.Services.Registration.Domain
             Students = new HashSet<Student>();
         }
         public string RegNumber { get; set; }
-        public ParentAddress? Address { get; set; }
+        public Guid? AddressId { get; set; }
+        public virtual ParentAddress Address { get; set; }
+
         public virtual ICollection<Student> Students { get; set; }
     }
 }

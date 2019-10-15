@@ -40,9 +40,32 @@ namespace S3.Services.Registration.Schools.Commands
 
             school.Name = Normalizer.NormalizeSpaces(command.Name);
             school.Category = command.Category;
-            school.SetUpdatedDate();
+            school.Email = command.Email;
+            school.PhoneNumber = command.PhoneNumber;
 
-            school.Address = command.Address;
+            // If the address and addressId have been set to null (remove the existing address from the db (if any))
+            if (!(school.Address is null) && command.Address is null && command.AddressId is null)
+            {
+                _db.Address.Remove(school.Address);
+                school.AddressId = null;
+            }
+            else if (school.Address is null && !(command.Address is null)) // No address before, but there's an address now
+            {
+                command.Address.SchoolId = school.Id; // Set owner of the address
+                await _db.Address.AddAsync(command.Address); // Add address to get an Id
+                school.AddressId = command.Address.Id;
+            }
+            else if (!(school.Address is null) && !(command.Address is null)) // An address exists, but changed, modify only the neccessary fields
+            {
+                school.Address.Line1 = command.Address.Line1;
+                school.Address.Line2 = command.Address.Line2;
+                school.Address.Town = command.Address.Town;
+                school.Address.State = command.Address.State;
+                school.Address.Country = command.Address.Country;
+            }
+
+
+            school.SetUpdatedDate();
 
             await _db.SaveChangesAsync();
         }

@@ -21,7 +21,10 @@ namespace S3.Services.Registration.Migrations
                     PhoneNumber = table.Column<string>(maxLength: 20, nullable: true),
                     Email = table.Column<string>(maxLength: 50, nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: true),
-                    RegNumber = table.Column<string>(maxLength: 12, nullable: false)
+                    IsSignedUp = table.Column<bool>(nullable: false),
+                    Roles = table.Column<string>(nullable: true),
+                    RegNumber = table.Column<string>(maxLength: 12, nullable: false),
+                    AddressId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -36,7 +39,10 @@ namespace S3.Services.Registration.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Category = table.Column<string>(maxLength: 30, nullable: false)
+                    Category = table.Column<string>(maxLength: 30, nullable: false),
+                    Email = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    AddressId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -71,9 +77,12 @@ namespace S3.Services.Registration.Migrations
                     PhoneNumber = table.Column<string>(maxLength: 20, nullable: true),
                     Email = table.Column<string>(maxLength: 50, nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: true),
+                    IsSignedUp = table.Column<bool>(nullable: false),
+                    Roles = table.Column<string>(nullable: true),
                     Position = table.Column<string>(maxLength: 50, nullable: true),
                     GradeLevel = table.Column<double>(nullable: false),
-                    SchoolId = table.Column<Guid>(nullable: false)
+                    SchoolId = table.Column<Guid>(nullable: false),
+                    AddressId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -94,6 +103,7 @@ namespace S3.Services.Registration.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(maxLength: 20, nullable: false),
+                    Category = table.Column<string>(nullable: true),
                     Subjects = table.Column<string>(nullable: true),
                     SchoolId = table.Column<Guid>(nullable: false),
                     ClassTeacherId = table.Column<Guid>(nullable: true),
@@ -158,12 +168,15 @@ namespace S3.Services.Registration.Migrations
                     PhoneNumber = table.Column<string>(maxLength: 20, nullable: true),
                     Email = table.Column<string>(maxLength: 50, nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: true),
+                    IsSignedUp = table.Column<bool>(nullable: false),
+                    Roles = table.Column<string>(nullable: true),
                     RegNumber = table.Column<string>(maxLength: 12, nullable: false),
                     Subjects = table.Column<string>(nullable: true),
                     OfferingAllClassSubjects = table.Column<bool>(nullable: false),
                     SchoolId = table.Column<Guid>(nullable: false),
                     ClassId = table.Column<Guid>(nullable: true),
-                    ParentId = table.Column<Guid>(nullable: true)
+                    ParentId = table.Column<Guid>(nullable: true),
+                    AddressId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {

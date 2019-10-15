@@ -37,6 +37,7 @@ using S3.Services.Registration.Parents.Events;
 using S3.Services.Registration.Classes.Commands;
 using S3.Services.Registration.Classes.Events;
 using S3.Services.Registration.Subjects.Commands;
+using S3.Services.Registration.ExternalEvents;
 
 namespace S3.Services.Registration
 {
@@ -104,7 +105,6 @@ namespace S3.Services.Registration
                 // Initialise the database
                 try
                 {
-                    //if (Configuration.GetSection("database:seed").Value.ToLowerInvariant() == "true")
                     if (Configuration.GetValue<string>("database:seed").ToLowerInvariant() == "true")
                         dbInitialiser.Initialise();
                 }
@@ -128,39 +128,36 @@ namespace S3.Services.Registration
                     => new UpdateSchoolRejectedEvent(cmd.Name, ex.Message, "school_name_already_exists"))
                  .SubscribeCommand<DeleteSchoolCommand>(onError: (cmd, ex)
                     => new DeleteSchoolRejectedEvent(cmd.Id.ToString(), ex.Message, "unable_to_delete_school"))
-                 //.SubscribeEvent<SchoolCreatedEvent>(@namespace: "registration")
                  .SubscribeCommand<CreateTeacherCommand>(onError: (cmd, ex)
                     => new CreateTeacherRejectedEvent(cmd.LastName + " " + cmd.FirstName, ex.Message, "unable_to_create_teacher"))
                 .SubscribeCommand<UpdateTeacherCommand>(onError: (cmd, ex)
                     => new UpdateTeacherRejectedEvent(cmd.LastName + " " + cmd.FirstName, ex.Message, "unable_to_update_teacher"))
                  .SubscribeCommand<DeleteTeacherCommand>(onError: (cmd, ex)
                     => new DeleteTeacherRejectedEvent(cmd.Id.ToString(), ex.Message, "unable_to_delete_teacher"))
-                //.SubscribeEvent<TeacherCreatedEvent>(@namespace: "registration")
                 .SubscribeCommand<CreateStudentCommand>(onError: (cmd, ex)
                     => new CreateStudentRejectedEvent(cmd.LastName + " " + cmd.FirstName, ex.Message, "unable_to_create_student"))
                 .SubscribeCommand<UpdateStudentCommand>(onError: (cmd, ex)
                     => new UpdateStudentRejectedEvent(cmd.LastName + " " + cmd.FirstName, ex.Message, "unable_to_update_student"))
                  .SubscribeCommand<DeleteStudentCommand>(onError: (cmd, ex)
                     => new DeleteStudentRejectedEvent(cmd.Id.ToString(), ex.Message, "unable_to_delete_student"))
-                //.SubscribeEvent<StudentCreatedEvent>(@namespace: "registration")
                 .SubscribeCommand<CreateParentCommand>(onError: (cmd, ex)
                     => new CreateParentRejectedEvent(cmd.LastName + " " + cmd.FirstName, ex.Message, "unable_to_create_parent"))
                 .SubscribeCommand<UpdateParentCommand>(onError: (cmd, ex)
                     => new UpdateParentRejectedEvent(cmd.LastName + " " + cmd.FirstName, ex.Message, "unable_to_update_parent"))
                  .SubscribeCommand<DeleteParentCommand>(onError: (cmd, ex)
                     => new DeleteParentRejectedEvent(cmd.Id.ToString(), ex.Message, "unable_to_delete_parent"))
-                //.SubscribeEvent<ParentCreatedEvent>(@namespace: "registration")
                 .SubscribeCommand<CreateClassCommand>(onError: (cmd, ex)
                     => new CreateClassRejectedEvent(cmd.Name, ex.Message, "unable_to_create_class"))
                 .SubscribeCommand<UpdateClassCommand>(onError: (cmd, ex)
                     => new UpdateClassRejectedEvent(cmd.Name, ex.Message, "unable_to_update_class"))
                  .SubscribeCommand<DeleteClassCommand>(onError: (cmd, ex)
                     => new DeleteClassRejectedEvent(cmd.Id.ToString(), ex.Message, "unable_to_delete_class"))
-                //.SubscribeEvent<ClassCreatedEvent>(@namespace: "registration")
                 .SubscribeCommand<CreateSubjectCommand>()
                 .SubscribeCommand<UpdateSubjectCommand>()
                  .SubscribeCommand<DeleteSubjectCommand>()
-                //.SubscribeEvent<SubjectCreatedEvent>(@namespace: "registration")
+                .SubscribeEvent<SignedUpEvent>(@namespace: "identity")
+                .SubscribeEvent<SignUpRemovedEvent>(@namespace: "identity")
+                .SubscribeEvent<UserRolesUpdatedEvent>(@namespace: "identity")
 
             ;
 

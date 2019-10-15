@@ -11,7 +11,8 @@ namespace S3.Services.Registration.Dto
         public double GradeLevel { get; set; }
         public Guid SchoolId { get; set; }
         public virtual SchoolDto School { get; set; }
-        public TeacherAddressDto? Address { get; set; }
+        public Guid? AddressId { get; set; }
+        public virtual TeacherAddressDto Address { get; set; }
 
         public virtual ICollection<ScoresEntryTaskDto> ScoresEntryTasks { get; set; }
     }

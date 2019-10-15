@@ -11,8 +11,11 @@ namespace S3.Services.Registration.Teachers.Commands.Validators
             RuleFor(x => x.ClassId)
                   .NotEmpty().WithMessage("Class's Id is required.");
 
-            RuleFor(x => x.SubjectId)
-                  .NotEmpty().WithMessage("Subject's Id is required.");
+            RuleFor(x => x.TeacherId)
+                  .NotEmpty().WithMessage("Teacher's Id is required.");
+           
+            RuleFor(x => x.Subjects)
+                  .NotEmpty().WithMessage("Minimum of one subject is required.");
         }
     }
 }

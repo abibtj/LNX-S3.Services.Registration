@@ -18,7 +18,7 @@ namespace S3.Services.Registration.Domain.EntityConfigurations
             builder.Property(x => x.PhoneNumber).HasMaxLength(20);
 
             // Relationships
-            builder.HasOne(x => x.Address).WithOne(y => y.Student).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Address).WithOne(y => y.Student).HasForeignKey<StudentAddress>(z => z.StudentId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

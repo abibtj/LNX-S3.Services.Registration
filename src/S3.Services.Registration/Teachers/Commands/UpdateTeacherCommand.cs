@@ -24,15 +24,21 @@ namespace S3.Services.Registration.Teachers.Commands
         public DateTime? DateOfBirth { get; }
         [Required]
         public Guid SchoolId { get; }
+        public Guid? AddressId { get; }
         public TeacherAddress? Address { get; }
-        public List<ScoresEntry>? ScoresEntries { get; }
+        //public List<ScoresEntry>? ScoresEntries { get; }
+        public string[]? RolesArray { get; } // Array of roles of this person
+
 
         [JsonConstructor]
         public UpdateTeacherCommand(Guid id, string firstName, string middleName, string lastName,
             string gender, string phoneNumber, string position, double gradeLevel,
-            DateTime? dateOfBirth, Guid schoolId, TeacherAddress? address, List<ScoresEntry>? scoresEntries)
+            DateTime? dateOfBirth, Guid schoolId, Guid? addressId, TeacherAddress? address, string[]? rolesArray)
 
-            => (Id, FirstName, MiddleName, LastName, Gender, PhoneNumber, Position, GradeLevel, DateOfBirth, SchoolId, Address, ScoresEntries)
-            = (id, firstName, middleName, lastName, gender, phoneNumber, position, gradeLevel, dateOfBirth, schoolId, address, scoresEntries);
+            => (Id, FirstName, MiddleName, LastName, Gender, PhoneNumber, Position, GradeLevel, 
+            DateOfBirth, SchoolId, AddressId, Address, RolesArray)
+
+            = (id, firstName, middleName, lastName, gender, phoneNumber, position, gradeLevel, 
+            dateOfBirth, schoolId, addressId, address, rolesArray);
     }
 }

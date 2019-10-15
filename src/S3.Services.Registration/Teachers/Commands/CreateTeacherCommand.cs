@@ -25,14 +25,19 @@ namespace S3.Services.Registration.Teachers.Commands
         [Required]
         public Guid SchoolId { get; }
         public TeacherAddress? Address { get; }
-        public List<ScoresEntry>? ScoresEntries { get; }
+        //public List<ScoresEntry>? ScoresEntries { get; }
+        public string[]? RolesArray { get; } // Array of roles of this person
+
 
         [JsonConstructor]
         public CreateTeacherCommand(string firstName, string middleName, string lastName,
             string gender, string phoneNumber, string position, double gradeLevel, 
-            DateTime? dateOfBirth, Guid schoolId, TeacherAddress? address, List<ScoresEntry>? scoresEntries)
+            DateTime? dateOfBirth, Guid schoolId, TeacherAddress? address, string[]? rolesArray)
 
-            => (FirstName, MiddleName, LastName, Gender, PhoneNumber, Position, GradeLevel, DateOfBirth, SchoolId, Address, ScoresEntries)
-            = (firstName, middleName, lastName, gender, phoneNumber, position, gradeLevel, dateOfBirth, schoolId, address, scoresEntries);
+            => (FirstName, MiddleName, LastName, Gender, PhoneNumber, Position, GradeLevel, 
+            DateOfBirth, SchoolId, Address, RolesArray)
+
+            = (firstName, middleName, lastName, gender, phoneNumber, position, gradeLevel, 
+            dateOfBirth, schoolId, address, rolesArray);
     }
 }

@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace S3.Services.Registration.Domain.EntityConfigurations
 {
-    internal class AddressConfiguration : IEntityTypeConfiguration<ParentAddress>
+    internal class AddressConfiguration : IEntityTypeConfiguration<Address>
     {
-        public void Configure(EntityTypeBuilder<ParentAddress> builder)
+        public void Configure(EntityTypeBuilder<Address> builder)
         {
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Line1).HasMaxLength(100).IsRequired();

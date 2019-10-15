@@ -15,5 +15,7 @@ namespace S3.Services.Registration.Domain
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        public bool IsSignedUp { get; set; }
+        public string Roles { get; set; }
     }
 }

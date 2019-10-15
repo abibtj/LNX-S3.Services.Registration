@@ -10,7 +10,7 @@ using S3.Services.Registration.Utility;
 namespace S3.Services.Registration.Migrations
 {
     [DbContext(typeof(RegistrationDbContext))]
-    [Migration("20191003131348_Migration1")]
+    [Migration("20191010104906_Migration1")]
     partial class Migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,6 +62,8 @@ namespace S3.Services.Registration.Migrations
 
                     b.Property<Guid?>("AssistantTeacherId");
 
+                    b.Property<string>("Category");
+
                     b.Property<Guid?>("ClassTeacherId");
 
                     b.Property<DateTime>("CreatedDate");
@@ -92,6 +94,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid?>("AddressId");
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime?>("DateOfBirth");
@@ -107,6 +111,8 @@ namespace S3.Services.Registration.Migrations
                         .IsRequired()
                         .HasMaxLength(6);
 
+                    b.Property<bool>("IsSignedUp");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(30);
@@ -120,6 +126,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("RegNumber")
                         .IsRequired()
                         .HasMaxLength(12);
+
+                    b.Property<string>("Roles");
 
                     b.Property<DateTime>("UpdatedDate");
 
@@ -136,15 +144,21 @@ namespace S3.Services.Registration.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid?>("AddressId");
+
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasMaxLength(30);
 
                     b.Property<DateTime>("CreatedDate");
 
+                    b.Property<string>("Email");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100);
+
+                    b.Property<string>("PhoneNumber");
 
                     b.Property<DateTime>("UpdatedDate");
 
@@ -184,6 +198,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid?>("AddressId");
+
                     b.Property<Guid?>("ClassId");
 
                     b.Property<DateTime>("CreatedDate");
@@ -200,6 +216,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasMaxLength(6);
+
+                    b.Property<bool>("IsSignedUp");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -218,6 +236,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("RegNumber")
                         .IsRequired()
                         .HasMaxLength(12);
+
+                    b.Property<string>("Roles");
 
                     b.Property<Guid>("SchoolId");
 
@@ -265,6 +285,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid?>("AddressId");
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime?>("DateOfBirth");
@@ -282,6 +304,8 @@ namespace S3.Services.Registration.Migrations
 
                     b.Property<double>("GradeLevel");
 
+                    b.Property<bool>("IsSignedUp");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(30);
@@ -294,6 +318,8 @@ namespace S3.Services.Registration.Migrations
 
                     b.Property<string>("Position")
                         .HasMaxLength(50);
+
+                    b.Property<string>("Roles");
 
                     b.Property<Guid>("SchoolId");
 

@@ -22,13 +22,17 @@ namespace S3.Services.Registration.Parents.Commands
         public DateTime? DateOfBirth { get; }
         public string PhoneNumber { get; }
         public List<Guid>? StudentIds { get; } // List of wards
+        public Guid? AddressId { get; }
         public ParentAddress? Address { get; }
+        public string[]? RolesArray { get; } // Array of roles of this person
+
 
         [JsonConstructor]
         public UpdateParentCommand(
-            Guid id, string firstName, string middleName, string lastName, string gender, DateTime? dateOfBirth, string phoneNumber, List<Guid>? studentIds, ParentAddress? address)
+            Guid id, string firstName, string middleName, string lastName, string gender, DateTime? dateOfBirth, string phoneNumber, 
+            List<Guid>? studentIds, Guid? addressId, ParentAddress? address, string[]? rolesArray)
            
-            => (Id, FirstName, MiddleName, LastName, Gender, DateOfBirth, PhoneNumber, StudentIds, Address)
-            = (id, firstName, middleName, lastName, gender, dateOfBirth, phoneNumber, studentIds, address);
+            => (Id, FirstName, MiddleName, LastName, Gender, DateOfBirth, PhoneNumber, StudentIds, AddressId, Address, RolesArray)
+            = (id, firstName, middleName, lastName, gender, dateOfBirth, phoneNumber, studentIds, addressId, address, rolesArray);
     }
 }

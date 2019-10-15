@@ -25,19 +25,22 @@ namespace S3.Services.Registration.Students.Commands
         public Guid ClassId { get; }
         public Guid? ParentId { get; }
         public StudentAddress? Address { get; }
-        public string[]? SubjectsArray { get; } // Concatenated list of subjects offered by this student
+        public string[]? SubjectsArray { get; } // Array of subjects offered by this student
         public bool OfferingAllClassSubjects { get; }
+        public string[]? RolesArray { get; } // Array of roles of this person
 
         [JsonConstructor]
         public CreateStudentCommand(
             string firstName, string middleName, string lastName, string gender, DateTime dateOfBirth,
             string phoneNumber, Guid schoolId, bool offeringAllClassSubjects, string[]? subjectsArray, 
-            Guid classId, Guid? parentId = null, StudentAddress? address = null)
+            Guid classId, Guid? parentId, StudentAddress? address, string[]? rolesArray)
 
             => (FirstName, MiddleName, LastName, Gender, DateOfBirth,
-            PhoneNumber, SchoolId, ClassId, ParentId, Address, SubjectsArray, OfferingAllClassSubjects)
+            PhoneNumber, SchoolId, ClassId, ParentId, Address, SubjectsArray, 
+            OfferingAllClassSubjects, RolesArray)
 
             = (firstName, middleName, lastName, gender, dateOfBirth,
-            phoneNumber, schoolId, classId, parentId, address, subjectsArray, OfferingAllClassSubjects);
+            phoneNumber, schoolId, classId, parentId, address, subjectsArray, 
+            OfferingAllClassSubjects, rolesArray);
     }
 }

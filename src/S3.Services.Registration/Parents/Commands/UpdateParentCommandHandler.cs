@@ -38,12 +38,32 @@ namespace S3.Services.Registration.Parents.Commands
             parent.DateOfBirth = command.DateOfBirth;
             parent.PhoneNumber = command.PhoneNumber;
 
-            // If the parent's address has been set to null (remove their existing address from the db (if any))
-            if (parent.Address != null && command.Address == null)
+            if (!(command.RolesArray is null) && command.RolesArray.Length > 0)
+                parent.Roles = string.Join("|", command.RolesArray);
+            else
+                parent.Roles = string.Empty;
+
+            // If the address and addressId have been set to null (remove the existing address from the db (if any))
+            if (!(parent.Address is null) && command.Address is null && command.AddressId is null)
             {
                 _db.Address.Remove(parent.Address);
+                parent.AddressId = null;
             }
-            parent.Address = command.Address;
+            else if (parent.Address is null && !(command.Address is null)) // No address before, but there's an address now
+            {
+                command.Address.ParentId = parent.Id; // Set owner of the address
+                await _db.Address.AddAsync(command.Address); // Add address to get an Id
+                parent.AddressId = command.Address.Id;
+            }
+            else if (!(parent.Address is null) && !(command.Address is null)) // An address exists, but changed, modify only the neccessary fields
+            {
+                parent.Address.Line1 = command.Address.Line1;
+                parent.Address.Line2 = command.Address.Line2;
+                parent.Address.Town = command.Address.Town;
+                parent.Address.State = command.Address.State;
+                parent.Address.Country = command.Address.Country;
+            }
+
 
             // If the updated parent has no ward, nullify the ParentId properties of the existing parent's wards (if any)
             if (command.StudentIds is null || command.StudentIds.Count <= 0)

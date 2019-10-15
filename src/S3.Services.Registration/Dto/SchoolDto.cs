@@ -9,6 +9,8 @@ namespace S3.Services.Registration.Dto
     {
         public string Name { get; set; }
         public string Category { get; set; } // Primary, Secondary //***TODO: an enumeration might be better
+        public string? Email { get; set; }
+        public string? PhoneNumber { get; set; }
         public SchoolAddressDto Address { get; set; }
 
         public virtual ICollection<TeacherDto> Teachers { get; set; }

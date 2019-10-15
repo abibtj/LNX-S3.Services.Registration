@@ -58,7 +58,14 @@ namespace S3.Services.Registration.Students.Commands
                 }
             }
 
-            await _db.Students.AddAsync(student);
+            if (!(command.RolesArray is null) && command.RolesArray.Length > 0)
+                student.Roles = string.Join("|", command.RolesArray);
+
+            await _db.Students.AddAsync(student); // Add to get Id and Address Id
+
+            if (!(command.Address is null))
+                student.AddressId = student.Address.Id;
+
             await _db.SaveChangesAsync();
 
             await _busPublisher.PublishAsync(new StudentCreatedEvent(student.Id, 

@@ -15,5 +15,8 @@ namespace S3.Services.Registration.Dto
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        public bool IsSignedUp { get; set; }
+        public string Roles { get; set; }
+        public string[] RolesArray { get => string.IsNullOrEmpty(Roles) ? Array.Empty<string>() : Roles.Split("|"); } // Readonly property, not saved into database
     }
 }

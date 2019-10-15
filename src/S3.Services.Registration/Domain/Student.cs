@@ -17,6 +17,7 @@ namespace S3.Services.Registration.Domain
         public virtual Class Class { get; set; }
         public Guid? ParentId { get; set; }
         public virtual Parent Parent { get; set; }
-        public StudentAddress? Address { get; set; }
+        public Guid? AddressId { get; set; }
+        public virtual StudentAddress Address { get; set; }
     }
 }

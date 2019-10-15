@@ -25,7 +25,7 @@ namespace S3.Services.Registration.Teachers.Commands.Validators
 
             RuleFor(x => x.Address).SetValidator(new AddressValidator());
 
-            RuleForEach(x => x.ScoresEntries).SetValidator(new ScoresEntryValidator());
+            //RuleForEach(x => x.ScoresEntries).SetValidator(new ScoresEntryValidator());
         }
     }
 }

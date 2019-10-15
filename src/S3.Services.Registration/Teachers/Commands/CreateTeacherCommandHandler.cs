@@ -40,28 +40,34 @@ namespace S3.Services.Registration.Teachers.Commands
                 SchoolId = command.SchoolId
             };
 
-            await _db.Teachers.AddAsync(teacher);
+            if (!(command.RolesArray is null) && command.RolesArray.Length > 0)
+                teacher.Roles = string.Join("|", command.RolesArray);
 
-            if (!(command.ScoresEntries is null) && command.ScoresEntries.Count > 0)
-            {
-                var scoresEntryTasks = new List<ScoresEntryTask> { };
-                foreach (var entry in command.ScoresEntries) // Create new scores entry task
-                {
-                    if (await _db.ScoresEntryTasks.AnyAsync(x => x.ClassId == entry.ClassId && x.SubjectId == entry.SubjectId))
-                        throw new S3Exception("task_already_exists",
-                            $"The system cannot create duplicate tasks.");
+            await _db.Teachers.AddAsync(teacher); // Add to get Id and Address Id
 
-                    scoresEntryTasks.Add(new ScoresEntryTask
-                    {
-                        ClassId = entry.ClassId,
-                        SubjectId = entry.SubjectId,
-                        TeacherId = teacher.Id
-                    });
-                }
+            if (!(command.Address is null))
+                teacher.AddressId = teacher.Address.Id;
+
+            //if (!(command.ScoresEntries is null) && command.ScoresEntries.Count > 0)
+            //{
+            //    var scoresEntryTasks = new List<ScoresEntryTask> { };
+            //    foreach (var entry in command.ScoresEntries) // Create new scores entry task
+            //    {
+            //        if (await _db.ScoresEntryTasks.AnyAsync(x => x.ClassId == entry.ClassId && x.SubjectId == entry.SubjectId))
+            //            throw new S3Exception("task_already_exists",
+            //                $"The system cannot create duplicate tasks.");
+
+            //        scoresEntryTasks.Add(new ScoresEntryTask
+            //        {
+            //            ClassId = entry.ClassId,
+            //            SubjectId = entry.SubjectId,
+            //            TeacherId = teacher.Id
+            //        });
+            //    }
 
 
-                await _db.ScoresEntryTasks.AddRangeAsync(scoresEntryTasks);
-            }
+            //    await _db.ScoresEntryTasks.AddRangeAsync(scoresEntryTasks);
+            //}
 
             await _db.SaveChangesAsync();
 

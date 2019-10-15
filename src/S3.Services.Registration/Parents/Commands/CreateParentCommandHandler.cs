@@ -37,10 +37,16 @@ namespace S3.Services.Registration.Parents.Commands
                 RegNumber = RegNumberGenerator.Generate()
             };
 
-            await _db.Parents.AddAsync(parent);
+            if (!(command.RolesArray is null) && command.RolesArray.Length > 0)
+                parent.Roles = string.Join("|", command.RolesArray);
+
+            await _db.Parents.AddAsync(parent); // Add to get Id and Address Id
+
+            if (!(command.Address is null))
+                parent.AddressId = parent.Address.Id;
 
             // If this parent has some wards, update the wards' ParentId properties to the new parent's Id
-            if(command.StudentIds?.Count > 0)
+            if (command.StudentIds?.Count > 0)
             {
                 foreach (var studentId in command.StudentIds)
                 {

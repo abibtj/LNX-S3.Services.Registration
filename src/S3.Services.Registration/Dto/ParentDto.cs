@@ -10,7 +10,9 @@ namespace S3.Services.Registration.Dto
     public class ParentDto : PersonDto
     {
         public string RegNumber { get; set; }
-        public ParentAddressDto? Address { get; set; }
+        public Guid? AddressId { get; set; }
+        public virtual ParentAddressDto Address { get; set; }
+
         public virtual ICollection<StudentDto> Students { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace S3.Services.Registration.Domain.EntityConfigurations
             builder.HasIndex(x => x.Name).IsUnique(); // Make name unique
 
             // Relationships
-            builder.HasOne(x => x.Address).WithOne(y => y.School).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Address).WithOne(y => y.School).HasForeignKey<SchoolAddress>(z => z.SchoolId).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(x => x.Classes).WithOne(y => y.School).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(x => x.Students).WithOne(y => y.School).OnDelete(DeleteBehavior.Restrict); // Delete manually because multiple cascade is not allowed (Student's Address)
             builder.HasMany(x => x.Teachers).WithOne(y => y.School).OnDelete(DeleteBehavior.Restrict); ; // Delete manually because multiple cascade is not allowed (Teacher's Address)

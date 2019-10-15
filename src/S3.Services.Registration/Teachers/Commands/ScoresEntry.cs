@@ -10,8 +10,10 @@ namespace S3.Services.Registration.Teachers.Commands
     public class ScoresEntry
     {
         [Required]
-        public Guid SubjectId { get; set; }
+        public Guid TeacherId { get; set; }
         [Required]
-        public Guid? ClassId { get; set; }
+        public Guid ClassId { get; set; }
+        [Required(ErrorMessage = "Subject is required.")]
+        public string[] Subjects { get; set; }
     }
 }

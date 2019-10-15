@@ -41,6 +41,11 @@ namespace S3.Services.Registration.Students.Commands
             student.ParentId = command.ParentId;
             student.OfferingAllClassSubjects = command.OfferingAllClassSubjects;
 
+            if (!(command.RolesArray is null) && command.RolesArray.Length > 0)
+                student.Roles = string.Join("|", command.RolesArray);
+            else
+                student.Roles = string.Empty;
+
             if (student.OfferingAllClassSubjects)
             {
                 student.Subjects = string.Empty;
@@ -58,12 +63,27 @@ namespace S3.Services.Registration.Students.Commands
                 }
             }
 
-            // If the student's address has been set to null (remove their existing address from the db (if any))
-            if (student.Address != null && command.Address == null)
+            // If the address and addressId have been set to null (remove the existing address from the db (if any))
+            if (!(student.Address is null) && command.Address is null && command.AddressId is null)
             {
                 _db.Address.Remove(student.Address);
+                student.AddressId = null;
             }
-            student.Address = command.Address;
+            else if (student.Address is null && !(command.Address is null)) // No address before, but there's an address now
+            {
+                command.Address.StudentId = student.Id; // Set owner of the address
+                await _db.Address.AddAsync(command.Address); // Add address to get an Id
+                student.AddressId = command.Address.Id;
+            }
+            else if (!(student.Address is null) && !(command.Address is null)) // An address exists, but changed, modify only the neccessary fields
+            {
+                student.Address.Line1 = command.Address.Line1;
+                student.Address.Line2 = command.Address.Line2;
+                student.Address.Town = command.Address.Town;
+                student.Address.State = command.Address.State;
+                student.Address.Country = command.Address.Country;
+            }
+
             student.SetUpdatedDate();
 
             await _db.SaveChangesAsync();

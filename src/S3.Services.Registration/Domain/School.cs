@@ -17,7 +17,10 @@ namespace S3.Services.Registration.Domain
         }
         public string Name { get; set; }
         public string Category { get; set; }  // Primary, Secondary //***TODO: an enumeration might be better
-        public SchoolAddress Address { get; set; }
+        public string? Email { get; set; }
+        public string? PhoneNumber { get; set; }
+        public Guid? AddressId { get; set; }
+        public virtual SchoolAddress Address { get; set; }
 
         public virtual ICollection<Teacher> Teachers { get; set; }
         public virtual ICollection<Class> Classes { get; set; }

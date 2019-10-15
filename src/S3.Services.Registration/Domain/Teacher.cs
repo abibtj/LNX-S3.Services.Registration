@@ -17,7 +17,8 @@ namespace S3.Services.Registration.Domain
         public double GradeLevel { get; set; }
         public Guid SchoolId { get; set; }
         public virtual School School { get; set; }
-        public TeacherAddress? Address { get; set; }
+        public Guid? AddressId { get; set; }
+        public virtual TeacherAddress Address { get; set; }
 
         public virtual ICollection<ScoresEntryTask> ScoresEntryTasks { get; set; }
     }

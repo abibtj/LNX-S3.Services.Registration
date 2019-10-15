@@ -20,12 +20,15 @@ namespace S3.Services.Registration.Parents.Commands
         public string PhoneNumber { get; }
         public List<Guid>? StudentIds { get; } // List of wards
         public ParentAddress? Address { get; }
-      
+        public string[]? RolesArray { get; } // Array of roles of this person
+
+
         [JsonConstructor]
         public CreateParentCommand(
-            string firstName, string middleName, string lastName, string gender, DateTime? dateOfBirth, string phoneNumber, List<Guid>? studentIds, ParentAddress? address)
+            string firstName, string middleName, string lastName, string gender, DateTime? dateOfBirth, string phoneNumber, 
+            List<Guid>? studentIds, ParentAddress? address, string[]? rolesArray)
            
-            => (FirstName, MiddleName, LastName, Gender, DateOfBirth, PhoneNumber, StudentIds, Address)
-            = (firstName, middleName, lastName, gender, dateOfBirth, phoneNumber, studentIds, address);
+            => (FirstName, MiddleName, LastName, Gender, DateOfBirth, PhoneNumber, StudentIds, Address, RolesArray)
+            = (firstName, middleName, lastName, gender, dateOfBirth, phoneNumber, studentIds, address, rolesArray);
     }
 }
