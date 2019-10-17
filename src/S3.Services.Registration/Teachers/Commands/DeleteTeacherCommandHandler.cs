@@ -31,7 +31,7 @@ namespace S3.Services.Registration.Teachers.Commands
 
             await _db.SaveChangesAsync();
 
-            await _busPublisher.PublishAsync(new TeacherDeletedEvent(command.Id), context);
+            await _busPublisher.PublishAsync(new PersonDeletedEvent(command.Id), context);
         }
     }
 }

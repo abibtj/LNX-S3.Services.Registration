@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 using S3.Services.Registration.Utility;
 using Microsoft.EntityFrameworkCore;
 using S3.Services.Registration.Teachers.Commands;
+using System.Linq;
 
-namespace S3.Services.Identity.Users.Events
+namespace S3.Services.Registration.ExternalEvents.Handlers
 {
     public class UserRolesUpdatedEventHandler : IEventHandler<UserRolesUpdatedEvent>
     {
@@ -22,7 +23,7 @@ namespace S3.Services.Identity.Users.Events
 
         public async Task HandleAsync(UserRolesUpdatedEvent @event, ICorrelationContext context)
         {
-            var person = await _db.Teachers.FirstOrDefaultAsync(x => x.Id == @event.UserId);
+            var person = await PersonFinder.FindAsync(@event.Roles.ToList(), @event.UserId, _db);
 
             if (!(person is null))
             {
