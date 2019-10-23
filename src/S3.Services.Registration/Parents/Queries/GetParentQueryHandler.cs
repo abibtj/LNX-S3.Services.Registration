@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -27,7 +28,12 @@ namespace S3.Services.Registration.Parents.Queries
             if (!(query.IncludeExpressions is null))
                 set = IncludeHelper<Parent>.IncludeComponents(set, query.IncludeExpressions);
 
-            var parent = await set.FirstOrDefaultAsync(x => x.Id == query.Id);
+            Parent parent;
+
+            if (query.Id != Guid.Empty) // Getting parent by Id
+                parent = await set.FirstOrDefaultAsync(x => x.Id == query.Id);
+            else // Searching parent by Registration Number
+                parent = await set.FirstOrDefaultAsync(x => x.RegNumber == query.RegNumber.Trim());
 
             return parent is null ? null! : _mapper.Map<ParentDto>(parent);
         }

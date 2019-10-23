@@ -40,6 +40,7 @@ namespace S3.Services.Registration.Teachers.Commands
             teacher.Gender = command.Gender;
             teacher.Position = command.Position;
             teacher.GradeLevel = command.GradeLevel;
+            teacher.Step = command.Step;
             teacher.DateOfBirth = command.DateOfBirth;
             teacher.SchoolId = command.SchoolId;
 

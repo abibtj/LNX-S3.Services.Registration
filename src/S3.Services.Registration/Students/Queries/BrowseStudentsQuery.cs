@@ -10,10 +10,11 @@ namespace S3.Services.Registration.Students.Queries
     public class BrowseStudentsQuery : BrowseQuery<Student>, IQuery<IEnumerable<StudentDto>>
     {
         public Guid? SchoolId { get; set; }
+        public Guid? ParentId { get; set; }
 
         [JsonConstructor]
-        public BrowseStudentsQuery(string[]? includeArray, Guid? schoolId, int page, int results, string orderBy, string sortOrder)
+        public BrowseStudentsQuery(string[]? includeArray, Guid? schoolId, Guid? parentId, int page, int results, string orderBy, string sortOrder)
             : base(includeArray, page, results, orderBy, sortOrder)
-            => SchoolId = schoolId;
+            => (SchoolId, ParentId) = (schoolId, parentId);
     }
 }

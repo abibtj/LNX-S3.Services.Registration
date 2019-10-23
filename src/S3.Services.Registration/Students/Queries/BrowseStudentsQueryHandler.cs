@@ -28,9 +28,12 @@ namespace S3.Services.Registration.Students.Queries
             if (!(query.IncludeExpressions is null))
                 set = IncludeHelper<Student>.IncludeComponents(set, query.IncludeExpressions);
 
-            var students = query.SchoolId is null ?
+            set = query.SchoolId is null ?
+                set : set.Where(x => x.SchoolId == query.SchoolId);
+           
+            var students = query.ParentId is null ?
                 _mapper.Map<IEnumerable<StudentDto>>(set):
-                _mapper.Map<IEnumerable<StudentDto>>(set.Where(x => x.SchoolId == query.SchoolId));
+                _mapper.Map<IEnumerable<StudentDto>>(set.Where(x => x.ParentId == query.ParentId));
            
             bool ascending = true;
             if (!string.IsNullOrEmpty(query.SortOrder) &&

@@ -300,7 +300,7 @@ namespace S3.Services.Registration.Migrations
                         .IsRequired()
                         .HasMaxLength(6);
 
-                    b.Property<double>("GradeLevel");
+                    b.Property<int?>("GradeLevel");
 
                     b.Property<bool>("IsSignedUp");
 
@@ -320,6 +320,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("Roles");
 
                     b.Property<Guid>("SchoolId");
+
+                    b.Property<int?>("Step");
 
                     b.Property<DateTime>("UpdatedDate");
 

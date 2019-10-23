@@ -36,7 +36,7 @@ namespace S3.Services.Registration.Students.Commands
 
         [JsonConstructor]
         public UpdateStudentCommand(
-            Guid id, string firstName, string middleName, string lastName, string gender, DateTime dateOfBirth, 
+            Guid id, string firstName, string? middleName, string lastName, string gender, DateTime dateOfBirth, 
             string phoneNumber, Guid schoolId, Guid classId, Guid? parentId, Guid? addressId,
             StudentAddress? address, string[]? subjectsArray, bool offeringAllClassSubjects, string[]? rolesArray)
 

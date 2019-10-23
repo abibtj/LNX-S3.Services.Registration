@@ -29,7 +29,7 @@ namespace S3.Services.Registration.Parents.Commands
 
         [JsonConstructor]
         public UpdateParentCommand(
-            Guid id, string firstName, string middleName, string lastName, string gender, DateTime? dateOfBirth, string phoneNumber, 
+            Guid id, string firstName, string? middleName, string lastName, string gender, DateTime? dateOfBirth, string phoneNumber, 
             List<Guid>? studentIds, Guid? addressId, ParentAddress? address, string[]? rolesArray)
            
             => (Id, FirstName, MiddleName, LastName, Gender, DateOfBirth, PhoneNumber, StudentIds, AddressId, Address, RolesArray)

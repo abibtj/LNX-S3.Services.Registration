@@ -36,6 +36,7 @@ namespace S3.Services.Registration.Teachers.Commands
                 Gender = command.Gender,
                 Position = command.Position,
                 GradeLevel = command.GradeLevel,
+                Step = command.Step,
                 DateOfBirth = command.DateOfBirth,
                 SchoolId = command.SchoolId
             };

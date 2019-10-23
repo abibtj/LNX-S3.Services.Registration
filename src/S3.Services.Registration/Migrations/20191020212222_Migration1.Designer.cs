@@ -10,7 +10,7 @@ using S3.Services.Registration.Utility;
 namespace S3.Services.Registration.Migrations
 {
     [DbContext(typeof(RegistrationDbContext))]
-    [Migration("20191010104906_Migration1")]
+    [Migration("20191020212222_Migration1")]
     partial class Migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -302,7 +302,7 @@ namespace S3.Services.Registration.Migrations
                         .IsRequired()
                         .HasMaxLength(6);
 
-                    b.Property<double>("GradeLevel");
+                    b.Property<int?>("GradeLevel");
 
                     b.Property<bool>("IsSignedUp");
 
@@ -322,6 +322,8 @@ namespace S3.Services.Registration.Migrations
                     b.Property<string>("Roles");
 
                     b.Property<Guid>("SchoolId");
+
+                    b.Property<int?>("Step");
 
                     b.Property<DateTime>("UpdatedDate");
 

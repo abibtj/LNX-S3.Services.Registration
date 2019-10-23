@@ -80,7 +80,8 @@ namespace S3.Services.Registration.Migrations
                     IsSignedUp = table.Column<bool>(nullable: false),
                     Roles = table.Column<string>(nullable: true),
                     Position = table.Column<string>(maxLength: 50, nullable: true),
-                    GradeLevel = table.Column<double>(nullable: false),
+                    GradeLevel = table.Column<int>(nullable: true),
+                    Step = table.Column<int>(nullable: true),
                     SchoolId = table.Column<Guid>(nullable: false),
                     AddressId = table.Column<Guid>(nullable: true)
                 },

@@ -32,6 +32,10 @@ namespace S3.Services.Registration.Controllers
         [HttpGet("get/{id:guid}")]
         public async Task<IActionResult> GetByIdAsync(Guid id, [FromQuery]string[]? include)
             => Single(await QueryAsync(new GetParentQuery(id, include)));
+        
+        [HttpGet("get/{regNumber}")]
+        public async Task<IActionResult> GetByRegNumberAsync(string regNumber)
+            => Single(await QueryAsync(new GetParentQuery(regNumber)));
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateParentCommand command)

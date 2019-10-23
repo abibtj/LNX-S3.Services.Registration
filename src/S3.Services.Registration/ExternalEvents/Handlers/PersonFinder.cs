@@ -19,18 +19,20 @@ namespace S3.Services.Registration.ExternalEvents.Handlers
     {
         public static async Task<Person> FindAsync(List<string> roles, Guid userId, RegistrationDbContext db)
         {
-            Person person;
+            Person person = null!;
 
             if (roles.Contains("School Admin") || roles.Contains("Assistant School Admin")
                 || roles.Contains("Teacher"))
             {
                 person = await db.Teachers.FirstOrDefaultAsync(x => x.Id == userId);
             }
-            else if (roles.Contains("Parent"))
+           
+            if ((person is null) && roles.Contains("Parent"))
             {
                 person = await db.Parents.FirstOrDefaultAsync(x => x.Id == userId);
             }
-            else
+
+            if ((person is null) && roles.Contains("Student"))
             {
                 person = await db.Students.FirstOrDefaultAsync(x => x.Id == userId);
             }

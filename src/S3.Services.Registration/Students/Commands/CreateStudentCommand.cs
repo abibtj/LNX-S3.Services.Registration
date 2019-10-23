@@ -31,7 +31,7 @@ namespace S3.Services.Registration.Students.Commands
 
         [JsonConstructor]
         public CreateStudentCommand(
-            string firstName, string middleName, string lastName, string gender, DateTime dateOfBirth,
+            string firstName, string? middleName, string lastName, string gender, DateTime dateOfBirth,
             string phoneNumber, Guid schoolId, bool offeringAllClassSubjects, string[]? subjectsArray, 
             Guid classId, Guid? parentId, StudentAddress? address, string[]? rolesArray)
 

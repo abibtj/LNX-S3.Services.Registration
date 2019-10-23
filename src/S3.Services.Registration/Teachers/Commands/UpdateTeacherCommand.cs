@@ -19,8 +19,9 @@ namespace S3.Services.Registration.Teachers.Commands
         public string LastName { get; }
         public string Gender { get; }
         public string PhoneNumber { get; }
-        public string Position { get; }
-        public double GradeLevel { get; }
+        public string? Position { get; set; }
+        public int? GradeLevel { get; set; }
+        public int? Step { get; set; }
         public DateTime? DateOfBirth { get; }
         [Required]
         public Guid SchoolId { get; }
@@ -31,14 +32,14 @@ namespace S3.Services.Registration.Teachers.Commands
 
 
         [JsonConstructor]
-        public UpdateTeacherCommand(Guid id, string firstName, string middleName, string lastName,
-            string gender, string phoneNumber, string position, double gradeLevel,
+        public UpdateTeacherCommand(Guid id, string firstName, string? middleName, string lastName,
+            string gender, string phoneNumber, string position, int? gradeLevel, int? step,
             DateTime? dateOfBirth, Guid schoolId, Guid? addressId, TeacherAddress? address, string[]? rolesArray)
 
             => (Id, FirstName, MiddleName, LastName, Gender, PhoneNumber, Position, GradeLevel, 
-            DateOfBirth, SchoolId, AddressId, Address, RolesArray)
+            Step, DateOfBirth, SchoolId, AddressId, Address, RolesArray)
 
             = (id, firstName, middleName, lastName, gender, phoneNumber, position, gradeLevel, 
-            dateOfBirth, schoolId, addressId, address, rolesArray);
+            step, dateOfBirth, schoolId, addressId, address, rolesArray);
     }
 }

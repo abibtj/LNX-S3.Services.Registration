@@ -25,7 +25,7 @@ namespace S3.Services.Registration.Parents.Commands
 
         [JsonConstructor]
         public CreateParentCommand(
-            string firstName, string middleName, string lastName, string gender, DateTime? dateOfBirth, string phoneNumber, 
+            string firstName, string? middleName, string lastName, string gender, DateTime? dateOfBirth, string phoneNumber, 
             List<Guid>? studentIds, ParentAddress? address, string[]? rolesArray)
            
             => (FirstName, MiddleName, LastName, Gender, DateOfBirth, PhoneNumber, StudentIds, Address, RolesArray)
