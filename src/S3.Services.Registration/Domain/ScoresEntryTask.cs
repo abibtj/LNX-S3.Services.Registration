@@ -4,13 +4,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace S3.Services.Registration.Domain
 {
-    public class ScoresEntryTask : BaseEntity
+    public class ScoresEntryTask : SchoolTask
     {
         public Guid TeacherId { get; set; }
+        public string TeacherName { get; set; }
         public virtual Teacher Teacher{ get; set; }
-        public Guid SubjectId { get; set; }
-        //public virtual Subject Subject{ get; set; }
-        public Guid? ClassId { get; set; }
-        //public virtual Class Class{ get; set; }
+        public string Subject { get; set; }
+        public Guid ClassId { get; set; }
+        public string ClassName { get; set; }
+        public virtual Class Class { get; set; }
     }
 }

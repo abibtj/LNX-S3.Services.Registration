@@ -36,8 +36,8 @@ using S3.Services.Registration.Parents.Commands;
 using S3.Services.Registration.Parents.Events;
 using S3.Services.Registration.Classes.Commands;
 using S3.Services.Registration.Classes.Events;
-using S3.Services.Registration.Subjects.Commands;
 using S3.Services.Registration.ExternalEvents;
+using S3.Services.Registration.ScoresEntryTasks.Commands;
 
 namespace S3.Services.Registration
 {
@@ -152,10 +152,10 @@ namespace S3.Services.Registration
                     => new UpdateClassRejectedEvent(cmd.Name, ex.Message, "unable_to_update_class"))
                  .SubscribeCommand<DeleteClassCommand>(onError: (cmd, ex)
                     => new DeleteClassRejectedEvent(cmd.Id.ToString(), ex.Message, "unable_to_delete_class"))
-                .SubscribeCommand<CreateSubjectCommand>()
-                .SubscribeCommand<UpdateSubjectCommand>()
-                 .SubscribeCommand<DeleteSubjectCommand>()
-                .SubscribeEvent<SignedUpEvent>(@namespace: "identity")
+                .SubscribeCommand<CreateScoresEntryTaskCommand>()
+                .SubscribeCommand<UpdateScoresEntryTaskCommand>()
+                .SubscribeCommand<DeleteScoresEntryTaskCommand>()
+                 .SubscribeEvent<SignedUpEvent>(@namespace: "identity")
                 .SubscribeEvent<SignUpRemovedEvent>(@namespace: "identity")
                 .SubscribeEvent<UserRolesUpdatedEvent>(@namespace: "identity")
 

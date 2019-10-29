@@ -191,6 +191,34 @@ namespace S3.Services.Registration.Utility
 
             #endregion
 
+
+            #region Classes
+            var pry1 = new Class
+            {
+                Name = "Primary 1",
+                Category = "Primary",
+                Subjects = "Mathematics|English",
+                Students = new List<Student> { azeez1, grace }
+            };
+
+            var pry2 = new Class
+            {
+                Name = "Primary 2",
+                Category = "Primary",
+                Subjects = "Mathematics|English|Yoruba",
+                Students = new List<Student> { azeez2, almas }
+            };
+
+            var nur1 = new Class
+            {
+                Name = "Nursery 1",
+                Category = "Nursery",
+                Subjects = "Mathematics|English",
+                Students = new List<Student> { olatunji }
+            };
+
+            #endregion
+
             #region Teachers
             var bob = new Teacher
             {
@@ -204,20 +232,23 @@ namespace S3.Services.Registration.Utility
                     Town = "Banex",
                     State = "FCT",
                     Country = "Nigeria"
-                },
-                ScoresEntryTasks = new List<ScoresEntryTask>
-                {
-                    new ScoresEntryTask
-                    {
-                        ClassId = Guid.NewGuid(),
-                        SubjectId = Guid.NewGuid()
-                    },
-                     new ScoresEntryTask
-                    {
-                        ClassId = Guid.NewGuid(),
-                        SubjectId = Guid.NewGuid()
-                    }
                 }
+                //,
+                //ScoresEntryTasks = new List<ScoresEntryTask>
+                //{
+                //    new ScoresEntryTask
+                //    {
+                //        //ClassId = Guid.NewGuid(),
+                //        Class = pry1,
+                //        Subject = "Mathematics"
+                //    },
+                //     new ScoresEntryTask
+                //    {
+                //        //ClassId = Guid.NewGuid(),
+                //        Class = pry2,
+                //        Subject = "English"
+                //    }
+                //}
             };
 
             var bola = new Teacher
@@ -251,33 +282,6 @@ namespace S3.Services.Registration.Utility
             };
             #endregion
 
-            #region Classes
-            var pry1 = new Class
-            {
-                Name = "Primary 1",
-                Category = "Primary",
-                Subjects = "Mathematics|English",
-                Students = new List<Student> { azeez1, grace }
-            };
-
-            var pry2 = new Class
-            {
-                Name = "Primary 2",
-                Category = "Primary",
-                Subjects = "Mathematics|English",
-                Students = new List<Student> { azeez2, almas }
-            };
-
-            var nur1 = new Class
-            {
-                Name = "Nursery 1",
-                Category = "Nursery",
-                Subjects = "Mathematics|English",
-                Students = new List<Student> { olatunji }
-            };
-
-            #endregion
-
             #region Schools
             var bobSchool = new School
             {
@@ -286,6 +290,8 @@ namespace S3.Services.Registration.Utility
                 Classes = new List<Class> { pry1, pry2 },
                 Students = new List<Student> { azeez1, azeez2, grace, almas },
                 Teachers = new List<Teacher> { bob, tunji },
+                Email = "bob@gmail.com",
+                PhoneNumber = "09077487365",
                 Address = new SchoolAddress
                 {
                     Line1 = "112, Adewale Crescent",
@@ -302,6 +308,8 @@ namespace S3.Services.Registration.Utility
                 Classes = new List<Class> { nur1 },
                 Students = new List<Student> { olatunji },
                 Teachers = new List<Teacher> { bola },
+                Email = "bola@yahoo.com",
+                PhoneNumber = "080485884847",
                 Address = new SchoolAddress
                 {
                     Line1 = "5, Pmagbe Layout",
@@ -311,11 +319,12 @@ namespace S3.Services.Registration.Utility
                 }
             };
 
-
             var tunjiSchool = new School
             {
                 Name = "Olatunji International Colleges",
                 Category = "Secondary",
+                Email = "tunji@yahoo.com",
+                PhoneNumber = "07048493857",
                 Address = new SchoolAddress
                 {
                     Line1 = "44, Independent Avenue",

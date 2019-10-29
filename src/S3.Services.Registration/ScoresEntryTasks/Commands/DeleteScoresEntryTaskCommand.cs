@@ -5,14 +5,14 @@ using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
-namespace S3.Services.Registration.Subjects.Commands
+namespace S3.Services.Registration.ScoresEntryTasks.Commands
 {
-    public class DeleteSubjectCommand : ICommand
+    public class DeleteScoresEntryTaskCommand : ICommand
     {
         [Required]
         public Guid Id { get; }
 
         [JsonConstructor]
-        public DeleteSubjectCommand(Guid id) => Id = id;
+        public DeleteScoresEntryTaskCommand(Guid id) => Id = id;
     }
 }

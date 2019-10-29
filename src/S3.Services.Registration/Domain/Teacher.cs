@@ -13,6 +13,7 @@ namespace S3.Services.Registration.Domain
         {
             ScoresEntryTasks = new HashSet<ScoresEntryTask>();
         }
+
         public string? Position { get; set; }
         public int? GradeLevel { get; set; }
         public int? Step { get; set; }

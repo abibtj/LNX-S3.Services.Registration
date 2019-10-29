@@ -32,7 +32,7 @@ namespace S3.Services.Registration.Classes.Commands
                 x.Name.ToLowerInvariant() == Normalizer.NormalizeSpaces(command.Name).ToLowerInvariant()))
             {
                 throw new S3Exception(ExceptionCodes.SchoolNameInUse,
-                    $"School name: '{command.Name}' is already in use.");
+                    $"Class name: '{command.Name}' is already in use.");
             }
 
             // Create a new _class

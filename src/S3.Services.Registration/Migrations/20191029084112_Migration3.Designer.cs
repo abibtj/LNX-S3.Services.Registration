@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using S3.Services.Registration.Utility;
 
 namespace S3.Services.Registration.Migrations
 {
     [DbContext(typeof(RegistrationDbContext))]
-    partial class RegistrationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191029084112_Migration3")]
+    partial class Migration3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,10 +185,6 @@ namespace S3.Services.Registration.Migrations
 
                     b.Property<Guid>("ClassId");
 
-                    b.Property<string>("ClassName")
-                        .IsRequired()
-                        .HasMaxLength(20);
-
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Description");
@@ -199,10 +197,6 @@ namespace S3.Services.Registration.Migrations
                         .IsRequired();
 
                     b.Property<Guid>("TeacherId");
-
-                    b.Property<string>("TeacherName")
-                        .IsRequired()
-                        .HasMaxLength(100);
 
                     b.Property<DateTime>("UpdatedDate");
 

@@ -11,6 +11,8 @@ namespace S3.Services.Registration.Domain.EntityConfigurations
             builder.Property(x => x.Category).HasMaxLength(30).IsRequired();
             builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
             builder.HasIndex(x => x.Name).IsUnique(); // Make name unique
+            builder.Property(x => x.Email).HasMaxLength(30).IsRequired();
+            builder.Property(x => x.PhoneNumber).HasMaxLength(50).IsRequired();
 
             // Relationships
             builder.HasOne(x => x.Address).WithOne(y => y.School).HasForeignKey<SchoolAddress>(z => z.SchoolId).OnDelete(DeleteBehavior.Cascade);

@@ -15,11 +15,12 @@ namespace S3.Services.Registration.Classes.Commands
         [Required(ErrorMessage = "Name is required.")]
         public string Name { get; }
         [Required(ErrorMessage = "Category is required.")]
-        public string Category { get; set; }
+        public string Category { get; }
         [Required]
         public Guid SchoolId { get; }
         public Guid? TeacherId { get; }
         //public List<Guid>? StudentIds { get; } // List of wards
+        [Required]
         public string[] SubjectsArray { get; } // List of subjects available for this class
 
         [JsonConstructor]

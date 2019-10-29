@@ -12,6 +12,7 @@ using S3.Services.Registration.Teachers.Commands;
 using S3.Services.Registration.Domain;
 using System.Linq;
 using System.Collections.Generic;
+using S3.Common.Utility;
 
 namespace S3.Services.Registration.ExternalEvents.Handlers
 {
@@ -29,6 +30,14 @@ namespace S3.Services.Registration.ExternalEvents.Handlers
 
             if (!(person is null))
             {
+                // Check if this teacher has been given the school admin role
+                // then update their school's administrator to this teacher
+                if (person is Teacher teacher && @event.Roles.ToList().Contains(Role.SchoolAdmin))
+                {
+                    var school = await _db.Schools.FirstOrDefaultAsync(x => x.Id == teacher.SchoolId);
+                    school.AdministratorId = teacher.Id;
+                }
+
                 person.IsSignedUp = true;
                 person.Roles = string.Join("|", @event.Roles);
                 await _db.SaveChangesAsync();

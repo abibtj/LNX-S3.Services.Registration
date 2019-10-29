@@ -25,7 +25,7 @@ namespace S3.Services.Registration.Parents.Commands.Validators
                .MaximumLength(30).WithMessage("Last name is too long. Maximum of 30 characters is allowed.");
 
             RuleFor(x => x.DateOfBirth)
-              .LessThanOrEqualTo(DateTime.Now).WithMessage("Invalid date of birth.");
+              .LessThanOrEqualTo(DateTime.Now).When(x => !(x.DateOfBirth is null)).WithMessage("Invalid date of birth.");
 
             RuleFor(x => x.Address).SetValidator(new AddressValidator());
         }

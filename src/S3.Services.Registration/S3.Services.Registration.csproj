@@ -39,7 +39,7 @@
 
 
   <ItemGroup>
-    <Folder Include="Subjects\Events\" />
+    <Folder Include="ScoresEntryTasks\Events\" />
   </ItemGroup>
 
 </Project>

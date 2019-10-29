@@ -1,6 +1,7 @@
 ﻿
 using FluentValidation;
 using S3.Services.Registration.Utility;
+using System;
 
 namespace S3.Services.Registration.Teachers.Commands.Validators
 {
@@ -22,6 +23,9 @@ namespace S3.Services.Registration.Teachers.Commands.Validators
 
             RuleFor(x => x.SchoolId)
                   .NotEmpty().WithMessage("School's Id is required.");
+
+            RuleFor(x => x.DateOfBirth)
+               .LessThanOrEqualTo(DateTime.Now).When( x => !(x.DateOfBirth is null)).WithMessage("Invalid date of birth.");
 
             RuleFor(x => x.Address).SetValidator(new AddressValidator());
 

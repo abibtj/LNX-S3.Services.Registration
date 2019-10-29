@@ -24,11 +24,11 @@ namespace S3.Services.Registration.Controllers
             : base(busPublisher, dispatcher, tracer ) { }
 
         [HttpGet("browse")]
-        public async Task<IActionResult> GetAllAsync(string[]? include, int page, int results, string orderBy, string sortOrder)
-            => Ok(await QueryAsync(new BrowseSchoolsQuery(include, page, results, orderBy, sortOrder)));
+        public async Task<IActionResult> GetAllAsync(string[]? include, int page, int results, string orderBy, string sortOrder, bool returnSchoolStats)
+            => Ok(await QueryAsync(new BrowseSchoolsQuery(include, page, results, orderBy, sortOrder, returnSchoolStats)));
         //public async Task<IActionResult> GetAllAsync([FromQuery] BrowseSchoolsQuery query)
         //    => Ok( await QueryAsync(query));
-
+       
         [HttpGet("get/{id:guid}")]
         public async Task<IActionResult> GetByIdAsync(Guid id, [FromQuery]string[]? include)
             => Single(await QueryAsync(new GetSchoolQuery(id, include)));

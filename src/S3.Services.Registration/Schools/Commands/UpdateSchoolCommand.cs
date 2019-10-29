@@ -15,15 +15,16 @@ namespace S3.Services.Registration.Schools.Commands
         public string Name { get; }
         [Required(ErrorMessage = "School's category is required.")]
         public string Category { get; } // Primary, Secondary //***TODO: an enumeration might be better
-        [Required(ErrorMessage = "School's address is required.")]
-        public string? Email { get; }
-        public string? PhoneNumber { get; }
+        [Required(ErrorMessage = "School's email address is required.")]
+        public string Email { get; }
+        [Required(ErrorMessage = "School's phone number is required.")]
+        public string PhoneNumber { get; }
         public Guid? AddressId { get; }
-        public SchoolAddress Address { get; }
+        public SchoolAddress? Address { get; }
 
         [JsonConstructor]
-        public UpdateSchoolCommand(Guid id, string name, string category, string? email, string? phoneNumber, 
-            Guid? addressId, SchoolAddress address)
+        public UpdateSchoolCommand(Guid id, string name, string category, string email, string phoneNumber, 
+            Guid? addressId, SchoolAddress? address)
 
             => (Id, Name, Category, Email, PhoneNumber, AddressId, Address)
             = (id, name, category, email, phoneNumber, addressId, address);

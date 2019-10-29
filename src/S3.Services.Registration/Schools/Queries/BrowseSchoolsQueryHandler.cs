@@ -28,8 +28,29 @@ namespace S3.Services.Registration.Schools.Queries
             if (!(query.IncludeExpressions is null))
                 set = IncludeHelper<School>.IncludeComponents(set, query.IncludeExpressions);
 
-            var schools = _mapper.Map<IEnumerable<SchoolDto>>(set);
-           
+            IEnumerable<SchoolDto> schools;
+            if (query.ReturnSchoolStats)
+            {
+                schools = set.Select(x => new SchoolDto
+                { 
+                    Id = x.Id,
+                    Name = x.Name,
+                    Category = x.Category,
+                    Email = x.Email,
+                    Location = x.Address.Town + ", " + x.Address.State,
+                    NumberOfClasses = x.Classes.Count(),
+                    NumberOfStudents = x.Students.Count(),
+                    NumberOfTeachers = x.Teachers.Count(),
+                    PhoneNumber = x.PhoneNumber,
+                    Administrator = x.Administrator.FirstName + " " + x.Administrator.LastName,
+                    UpdatedDate = x.UpdatedDate // Added for default sorting.
+                });
+            }
+            else
+            {
+                schools = _mapper.Map<IEnumerable<SchoolDto>>(set);
+            }
+
             bool ascending = true;
             if (!string.IsNullOrEmpty(query.SortOrder) &&
                 (query.SortOrder.ToLowerInvariant() == "desc" || query.SortOrder.ToLowerInvariant() == "descending"))
