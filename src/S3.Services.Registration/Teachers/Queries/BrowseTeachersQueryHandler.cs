@@ -28,9 +28,13 @@ namespace S3.Services.Registration.Teachers.Queries
             if (!(query.IncludeExpressions is null))
                 set = IncludeHelper<Teacher>.IncludeComponents(set, query.IncludeExpressions);
 
-            var teachers = query.SchoolId is null ?
-               _mapper.Map<IEnumerable<TeacherDto>>(set) :
-               _mapper.Map<IEnumerable<TeacherDto>>(set.Where(x => x.SchoolId == query.SchoolId));
+            set = query.SchoolId is null ?
+               set : set.Where(x => x.SchoolId == query.SchoolId);
+
+            set = query.ReturnSignedUpTeachers ?
+                set.Where(x => x.IsSignedUp && x.Roles.Contains(Role.Teacher)) : set;
+
+            var teachers = _mapper.Map<IEnumerable<TeacherDto>>(set);
 
             bool ascending = true;
             if (!string.IsNullOrEmpty(query.SortOrder) &&

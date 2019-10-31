@@ -31,10 +31,17 @@ namespace S3.Services.Registration.Students.Queries
             set = query.SchoolId is null ?
                 set : set.Where(x => x.SchoolId == query.SchoolId);
            
-            var students = query.ParentId is null ?
-                _mapper.Map<IEnumerable<StudentDto>>(set):
-                _mapper.Map<IEnumerable<StudentDto>>(set.Where(x => x.ParentId == query.ParentId));
+            set = query.ClassId is null ?
+                set : set.Where(x => x.ClassId == query.ClassId);
            
+            set = query.ParentId is null ?
+                set : set.Where(x => x.ParentId == query.ParentId);
+           
+            set = string.IsNullOrEmpty(query.Subject) ?
+                set : set.Where(x => x.Subjects.Contains(query.Subject));
+
+            var students = _mapper.Map<IEnumerable<StudentDto>>(set);
+
             bool ascending = true;
             if (!string.IsNullOrEmpty(query.SortOrder) &&
                 (query.SortOrder.ToLowerInvariant() == "desc" || query.SortOrder.ToLowerInvariant() == "descending"))

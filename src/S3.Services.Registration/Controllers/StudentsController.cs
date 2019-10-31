@@ -25,8 +25,9 @@ namespace S3.Services.Registration.Controllers
             : base(busPublisher, dispatcher, tracer ) { }
 
         [HttpGet("browse")]
-        public async Task<IActionResult> GetAllAsync(string[]? include, Guid? schoolId, Guid? parentId, int page, int results, string orderBy, string sortOrder)
-            => Ok(await QueryAsync(new BrowseStudentsQuery(include, schoolId, parentId, page, results, orderBy, sortOrder)));
+        public async Task<IActionResult> GetAllAsync(string[]? include, Guid? schoolId, Guid? classId, Guid? parentId, string? subject,
+            int page, int results, string orderBy, string sortOrder)
+            => Ok(await QueryAsync(new BrowseStudentsQuery(include, schoolId, classId, parentId, subject, page, results, orderBy, sortOrder)));
         //public async Task<IActionResult> GetAllAsync([FromQuery] BrowseStudentsQuery query)
         //    => Ok( await QueryAsync(query));
 
