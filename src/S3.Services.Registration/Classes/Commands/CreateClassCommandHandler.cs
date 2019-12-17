@@ -31,7 +31,7 @@ namespace S3.Services.Registration.Classes.Commands
             if (await _db.Classes.AnyAsync(x => (x.SchoolId == command.SchoolId) &&
                 x.Name.ToLowerInvariant() == Normalizer.NormalizeSpaces(command.Name).ToLowerInvariant()))
             {
-                throw new S3Exception(ExceptionCodes.SchoolNameInUse,
+                throw new S3Exception(ExceptionCodes.NameInUse,
                     $"Class name: '{command.Name}' is already in use.");
             }
 

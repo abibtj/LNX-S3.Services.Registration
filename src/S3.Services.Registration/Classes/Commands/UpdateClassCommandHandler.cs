@@ -39,7 +39,7 @@ namespace S3.Services.Registration.Classes.Commands
                 (x.Name.ToLowerInvariant() == Normalizer.NormalizeSpaces(command.Name).ToLowerInvariant())
                 && (x.Id != command.Id)))
             {
-                throw new S3Exception(ExceptionCodes.SchoolNameInUse,
+                throw new S3Exception(ExceptionCodes.NameInUse,
                     $"Class name: '{command.Name}' is already in use.");
             }
 

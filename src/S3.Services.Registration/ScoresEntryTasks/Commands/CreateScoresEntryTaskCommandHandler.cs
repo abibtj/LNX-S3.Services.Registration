@@ -41,7 +41,8 @@ namespace S3.Services.Registration.ScoresEntryTasks.Commands
                SchoolId = command.SchoolId,
                Subject = command.Subject,
                TeacherId = command.TeacherId,
-               TeacherName = command.TeacherName
+               TeacherName = command.TeacherName,
+               RuleId = command.RuleId
             };
 
             await _db.ScoresEntryTasks.AddAsync(scoresEntryTask);

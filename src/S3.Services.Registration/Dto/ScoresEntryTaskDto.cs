@@ -14,5 +14,6 @@ namespace S3.Services.Registration.Domain
         public Guid ClassId { get; set; }
         public string ClassName { get; set; }
         public virtual ClassDto Class { get; set; }
+        public Guid RuleId { get; set; } // The rule to be used to determine the weight of the scores and grades obtained in this subject
     }
 }

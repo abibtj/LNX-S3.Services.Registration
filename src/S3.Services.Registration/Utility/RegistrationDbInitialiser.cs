@@ -134,6 +134,7 @@ namespace S3.Services.Registration.Utility
                 LastName = "Azeez",
                 Gender = "Male",
                 DateOfBirth = DateTime.Now,
+                Subjects = "Mathematics|English",
                 OfferingAllClassSubjects = true,
                 Parent = mrAzeez
             };
@@ -146,6 +147,7 @@ namespace S3.Services.Registration.Utility
                 LastName = "Azeez",
                 Gender = "Female",
                 DateOfBirth = DateTime.Now,
+                Subjects = "Basic Sc. $ Tech.|English|Mathematics|PVS|Yoruba",
                 OfferingAllClassSubjects = true,
                 Parent = mrAzeez
             };
@@ -170,8 +172,8 @@ namespace S3.Services.Registration.Utility
                 LastName = "Olatunji",
                 Gender = "Female",
                 DateOfBirth = DateTime.Now,
-                OfferingAllClassSubjects = false,
-                Subjects = "Mathematics|English|Yoruba",
+                OfferingAllClassSubjects = true,
+                Subjects = "Basic Sc. $ Tech.|English|Mathematics|PVS|Yoruba",
                 Parent = mrsSalimon
             };
 
@@ -191,7 +193,6 @@ namespace S3.Services.Registration.Utility
 
             #endregion
 
-
             #region Classes
             var pry1 = new Class
             {
@@ -205,7 +206,7 @@ namespace S3.Services.Registration.Utility
             {
                 Name = "Primary 2",
                 Category = "Primary",
-                Subjects = "Mathematics|English|Yoruba",
+                Subjects = "Basic Sc. $ Tech.|English|Mathematics|PVS|Yoruba",
                 Students = new List<Student> { azeez2, almas }
             };
 

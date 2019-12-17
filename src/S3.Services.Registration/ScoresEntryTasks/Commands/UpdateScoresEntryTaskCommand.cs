@@ -27,12 +27,14 @@ namespace S3.Services.Registration.ScoresEntryTasks.Commands
         public string Subject { get; }
         public DateTime? DueDate { get; }
         public string? Description { get; }
+        [Required]
+        public Guid RuleId { get; }
 
         [JsonConstructor]
         public UpdateScoresEntryTaskCommand(Guid id, Guid schoolId, Guid teacherId, string teacherName, Guid classId,
-            string className, string subject, DateTime? dueDate, string? description)
+            string className, string subject, DateTime? dueDate, string? description, Guid ruleId)
 
-            => (Id, SchoolId, TeacherId, TeacherName, ClassId, ClassName, Subject, DueDate, Description)
-            = (id, schoolId, teacherId, teacherName, classId, className, subject, dueDate, description);
+            => (Id, SchoolId, TeacherId, TeacherName, ClassId, ClassName, Subject, DueDate, Description, RuleId)
+            = (id, schoolId, teacherId, teacherName, classId, className, subject, dueDate, description, ruleId);
     }
 }

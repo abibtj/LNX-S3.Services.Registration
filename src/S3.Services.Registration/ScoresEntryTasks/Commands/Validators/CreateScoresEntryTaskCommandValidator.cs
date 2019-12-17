@@ -26,6 +26,9 @@ namespace S3.Services.Registration.ScoresEntryTasks.Commands.Validators
 
             RuleFor(x => x.DueDate)
               .GreaterThanOrEqualTo(DateTime.Now).When(x => !(x.DueDate is null)).WithMessage("Invalid due date.");
+
+            RuleFor(x => x.RuleId)
+                     .NotEmpty().WithMessage("Rule's Id is required.");
         }
     }
 }

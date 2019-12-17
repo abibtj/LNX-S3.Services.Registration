@@ -46,6 +46,7 @@ namespace S3.Services.Registration.ScoresEntryTasks.Commands
             scoresEntryTask.Subject = command.Subject;
             scoresEntryTask.TeacherId = command.TeacherId;
             scoresEntryTask.TeacherName = command.TeacherName;
+            scoresEntryTask.RuleId = command.RuleId;
             
             scoresEntryTask.SetUpdatedDate();
 
