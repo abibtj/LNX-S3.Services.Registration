@@ -9,6 +9,7 @@ using S3.Common;
 using System;
 using Microsoft.EntityFrameworkCore;
 using S3.Services.Registration.Utility;
+using System.Linq;
 
 namespace S3.Services.Registration.Classes.Commands
 {
@@ -28,12 +29,24 @@ namespace S3.Services.Registration.Classes.Commands
                 throw new S3Exception("subjects_required", "Subjects are required to create a class.");
 
             // Check for existence of a class with the same name in this school.
-            if (await _db.Classes.AnyAsync(x => (x.SchoolId == command.SchoolId) &&
-                x.Name.ToLowerInvariant() == Normalizer.NormalizeSpaces(command.Name).ToLowerInvariant()))
+            var className = Normalizer.NormalizeSpaces(command.Name).ToLowerInvariant();
+            if (await _db.Classes.AnyAsync())
             {
-                throw new S3Exception(ExceptionCodes.NameInUse,
-                    $"Class name: '{command.Name}' is already in use.");
+                var existingClass = _db.Classes.AsEnumerable().FirstOrDefault(x => (x.SchoolId == command.SchoolId) &&
+                                                                                   x.Name.ToLowerInvariant() == className);
+                if (!(existingClass is null))
+                {
+                    throw new S3Exception(ExceptionCodes.NameInUse,
+                        $"Class name: '{command.Name}' is already in use.");
+                }
             }
+
+            //if (await _db.Classes.AnyAsync(x => (x.SchoolId == command.SchoolId) &&
+            //    x.Name.ToLowerInvariant() == Normalizer.NormalizeSpaces(command.Name).ToLowerInvariant()))
+            //{
+            //    throw new S3Exception(ExceptionCodes.NameInUse,
+            //        $"Class name: '{command.Name}' is already in use.");
+            //}
 
             // Create a new _class
             var _class = new Class

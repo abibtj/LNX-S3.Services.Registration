@@ -19,7 +19,8 @@ namespace S3.Services.Registration.Domain.EntityConfigurations
 
             // Relationships
             builder.HasMany(x => x.Students).WithOne(y => y.Parent).OnDelete(DeleteBehavior.ClientSetNull);
-            builder.HasOne(x => x.Address).WithOne(y => y.Parent).HasForeignKey<ParentAddress>(z => z.ParentId).OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(x => x.Address).WithOne(y => y.Parent).HasForeignKey<ParentAddress>(z => z.ParentId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Address).WithOne().HasForeignKey<ParentAddress>(z => z.ParentId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

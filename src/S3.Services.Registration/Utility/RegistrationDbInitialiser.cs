@@ -91,6 +91,7 @@ namespace S3.Services.Registration.Utility
                 MiddleName = "Omidina",
                 LastName = "Azeez",
                 Gender = "Male",
+                Roles = "Parent",
                 Address = gwarinpa
             };
             
@@ -101,6 +102,7 @@ namespace S3.Services.Registration.Utility
                 MiddleName = "Akano",
                 LastName = "Olatunji",
                 Gender = "Male",
+                Roles = "Parent",
                 Address = ikeja
             };
 
@@ -111,6 +113,7 @@ namespace S3.Services.Registration.Utility
                 MiddleName = "Folasade",
                 LastName = "Ale",
                 Gender = "Female",
+                Roles = "Parent",
                 Address = mowe
             };
            
@@ -121,6 +124,7 @@ namespace S3.Services.Registration.Utility
                 //MiddleName = "Bolanle",
                 LastName = "Salimon",
                 Gender = "Female",
+                Roles = "Parent",
                 Address = bwari
             };
             #endregion
@@ -136,6 +140,7 @@ namespace S3.Services.Registration.Utility
                 DateOfBirth = DateTime.Now,
                 Subjects = "Mathematics|English",
                 OfferingAllClassSubjects = true,
+                Roles = "Student",
                 Parent = mrAzeez
             };
 
@@ -149,6 +154,7 @@ namespace S3.Services.Registration.Utility
                 DateOfBirth = DateTime.Now,
                 Subjects = "Basic Sc. $ Tech.|English|Mathematics|PVS|Yoruba",
                 OfferingAllClassSubjects = true,
+                Roles = "Student",
                 Parent = mrAzeez
             };
 
@@ -160,7 +166,9 @@ namespace S3.Services.Registration.Utility
                 LastName = "Olatunji",
                 Gender = "Male",
                 DateOfBirth = DateTime.Now,
+                Subjects = "Mathematics|English",
                 OfferingAllClassSubjects = true,
+                Roles = "Student",
                 Parent = mrOlatunji
             };
             
@@ -174,6 +182,7 @@ namespace S3.Services.Registration.Utility
                 DateOfBirth = DateTime.Now,
                 OfferingAllClassSubjects = true,
                 Subjects = "Basic Sc. $ Tech.|English|Mathematics|PVS|Yoruba",
+                Roles = "Student",
                 Parent = mrsSalimon
             };
 
@@ -187,6 +196,7 @@ namespace S3.Services.Registration.Utility
                 DateOfBirth = DateTime.Now,
                 OfferingAllClassSubjects = false,
                 Subjects = "English",
+                Roles = "Student",
                 Parent = mrsGrace,
                 Address = oyo
             };
@@ -227,6 +237,7 @@ namespace S3.Services.Registration.Utility
                 MiddleName = "Olamide",
                 LastName = "Olatunji",
                 Gender = "Male",
+                Roles = "Teacher",
                 Address = new TeacherAddress
                 {
                     Line1 = "12, Aminu Kano Crescent",
@@ -258,6 +269,7 @@ namespace S3.Services.Registration.Utility
                 MiddleName = "Bolanle",
                 LastName = "Salimon",
                 Gender = "Female",
+                Roles = "Teacher",
                 Address = new TeacherAddress
                 {
                     Line1 = "Km 8, Nnamdi Azikiwe express way",
@@ -273,6 +285,7 @@ namespace S3.Services.Registration.Utility
                 MiddleName = "Olatunji",
                 LastName = "Liadi",
                 Gender = "Male",
+                Roles = "Teacher",
                 Address = new TeacherAddress
                 {
                     Line1 = "33, Tjay close",

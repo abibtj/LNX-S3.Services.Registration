@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using S3.Services.Registration.Schools.Events;
 using S3.Common;
 using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using S3.Services.Registration.Utility;
 
@@ -25,12 +26,22 @@ namespace S3.Services.Registration.Schools.Commands
         public async Task HandleAsync(CreateSchoolCommand command, ICorrelationContext context)
         {
             // Check for existence of a school with the same name
-            if (await _db.Schools.AnyAsync(x => x.Name.ToLowerInvariant()
-            == Normalizer.NormalizeSpaces(command.Name).ToLowerInvariant()))
+            var schoolName = Normalizer.NormalizeSpaces(command.Name).ToLowerInvariant();
+            if (await _db.Schools.AnyAsync())
             {
-                throw new S3Exception(ExceptionCodes.NameInUse,
-                    $"School name: '{command.Name}' is already in use.");
+                var existingSchool = _db.Schools.AsEnumerable().FirstOrDefault(x => x.Name.ToLowerInvariant() == schoolName);
+                if (!(existingSchool is null))
+                {
+                    throw new S3Exception(ExceptionCodes.NameInUse,
+                        $"School name: '{command.Name}' is already in use.");
+                }
             }
+            //if (await _db.Schools.AnyAsync(x => x.Name.ToLowerInvariant()
+            //== Normalizer.NormalizeSpaces(command.Name).ToLowerInvariant()))
+            //{
+            //    throw new S3Exception(ExceptionCodes.NameInUse,
+            //        $"School name: '{command.Name}' is already in use.");
+            //}
 
             // Create a new school
             var school = new School

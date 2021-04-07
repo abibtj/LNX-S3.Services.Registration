@@ -18,3 +18,25 @@ C:\Users\Abeeb\Documents\Visual Studio 2019\Projects\S3\LNX-S3.Services.Registra
 C:\Users\Abeeb\Documents\Visual Studio 2019\Projects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\appsettings.docker.json
 C:\Users\Abeeb\Documents\Visual Studio 2019\Projects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\appsettings.json
 C:\Users\Abeeb\Documents\Visual Studio 2019\Projects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\appsettings.Development.json
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\appsettings.docker.json
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\S3.Services.Registration.deps.json
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\S3.Services.Registration.runtimeconfig.json
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\S3.Services.Registration.runtimeconfig.dev.json
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\S3.Services.Registration.dll
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\S3.Services.Registration.pdb
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\S3.Common.dll
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Debug\netcoreapp2.2\S3.Common.pdb
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Debug\netcoreapp2.2\S3.Services.Registration.csprojAssemblyReference.cache
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Debug\netcoreapp2.2\S3.Services.Registration.AssemblyInfoInputs.cache
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Debug\netcoreapp2.2\S3.Services.Registration.AssemblyInfo.cs
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Debug\netcoreapp2.2\S3.Services.Registration.csproj.CoreCompileInputs.cache
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Debug\netcoreapp2.2\S3.Services.Registration.RazorAssemblyInfo.cache
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Debug\netcoreapp2.2\S3.Services.Registration.RazorAssemblyInfo.cs
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Debug\netcoreapp2.2\S3.Services.Registration.RazorTargetAssemblyInfo.cache
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Debug\netcoreapp2.2\S3.Services.Registration.csproj.CopyComplete
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Debug\netcoreapp2.2\S3.Services.Registration.dll
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Debug\netcoreapp2.2\S3.Services.Registration.pdb
+C:\Users\ACER\source\repos\MyProjects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Debug\netcoreapp2.2\S3.Services.Registration.genruntimeconfig.cache

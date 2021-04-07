@@ -18,10 +18,10 @@ namespace S3.Services.Registration.Schools.Commands
         [Required(ErrorMessage = "School's phone number is required.")]
         public string PhoneNumber { get; }
         [Required(ErrorMessage = "School's address is required.")]
-        public SchoolAddress Address { get; }
+        public SchoolAddress? Address { get; }
 
         [JsonConstructor]
-        public CreateSchoolCommand(string name, string category, string email, string phoneNumber, SchoolAddress address)
+        public CreateSchoolCommand(string name, string category, string email, string phoneNumber, SchoolAddress? address)
             => (Name, Category, Email, PhoneNumber, Address) 
             = (name, category, email, phoneNumber, address);
     }

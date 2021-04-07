@@ -16,7 +16,7 @@ namespace S3.Services.Registration.Students.Queries
 
         [JsonConstructor]
         public BrowseStudentsQuery(string[]? includeArray, Guid? schoolId, Guid? classId, Guid? parentId, string? subject,
-            int page, int results, string orderBy, string sortOrder)
+            int page, int results, string? orderBy, string? sortOrder)
             : base(includeArray, page, results, orderBy, sortOrder)
 
             => (SchoolId, ClassId, ParentId, Subject) 

@@ -38,15 +38,16 @@ using S3.Services.Registration.Classes.Commands;
 using S3.Services.Registration.Classes.Events;
 using S3.Services.Registration.ExternalEvents;
 using S3.Services.Registration.ScoresEntryTasks.Commands;
+using Microsoft.Extensions.Hosting;
 
 namespace S3.Services.Registration
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public IContainer Container { get; private set; }
+        //public IContainer Container { get; private set; }
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -56,8 +57,10 @@ namespace S3.Services.Registration
 
             Configuration = builder.Build();
         }
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers().AddNewtonsoftJson();
+           
             // Add DbContext using SQL Server Provider
             services.AddDbContext<RegistrationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("registration-service-db")));
@@ -81,22 +84,37 @@ namespace S3.Services.Registration
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            var builder = new ContainerBuilder();
-            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
-                    .AsImplementedInterfaces();
-            //builder.RegisterAssemblyTypes(typeof(Startup).Assembly)
-            //    .AsImplementedInterfaces();
-            builder.Populate(services);
-            builder.AddRabbitMq();
-            builder.AddDispatchers();
+            //var builder = new ContainerBuilder();
+            //builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
+            //        .AsImplementedInterfaces();
+            ////builder.RegisterAssemblyTypes(typeof(Startup).Assembly)
+            ////    .AsImplementedInterfaces();
+            //builder.Populate(services);
+            //builder.AddRabbitMq();
+            //builder.AddDispatchers();
 
-            Container = builder.Build();
+            //Container = builder.Build();
 
-            return new AutofacServiceProvider(Container);
+            //return new AutofacServiceProvider(Container);
         }
 
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            IApplicationLifetime applicationLifetime, IStartupInitializer initializer,
+        // ConfigureContainer is where you can register things directly
+        // with Autofac. This runs after ConfigureServices so the things
+        // here will override registrations made in ConfigureServices.
+        // Don't build the container; that gets done for you by the factory.
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            // Register your own things directly with Autofac, like:
+            //builder.RegisterModule(new MyApplicationModule());
+
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
+                   .AsImplementedInterfaces();
+            builder.AddRabbitMq();
+            builder.AddDispatchers();
+        }
+
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            IHostApplicationLifetime applicationLifetime, IStartupInitializer initializer,
             IConsulClient consulClient, IRegistrationDbInitialiser dbInitialiser)
         {
             if (env.IsDevelopment() || env.EnvironmentName == "local")
@@ -166,7 +184,7 @@ namespace S3.Services.Registration
             applicationLifetime.ApplicationStopped.Register(() =>
             {
                 consulClient.Agent.ServiceDeregister(serviceId);
-                Container.Dispose();
+                //Container.Dispose();
             });
 
             await initializer.InitializeAsync();

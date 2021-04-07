@@ -15,10 +15,11 @@ namespace S3.Services.Registration.Domain.EntityConfigurations
             builder.Property(x => x.PhoneNumber).HasMaxLength(50).IsRequired();
 
             // Relationships
-            builder.HasOne(x => x.Address).WithOne(y => y.School).HasForeignKey<SchoolAddress>(z => z.SchoolId).OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(x => x.Classes).WithOne(y => y.School).OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(x => x.Students).WithOne(y => y.School).OnDelete(DeleteBehavior.Restrict); // Delete manually because multiple cascade is not allowed (Student's Address)
-            builder.HasMany(x => x.Teachers).WithOne(y => y.School).OnDelete(DeleteBehavior.Restrict); ; // Delete manually because multiple cascade is not allowed (Teacher's Address)
+            builder.HasOne(x => x.Address).WithOne().HasForeignKey<SchoolAddress>(z => z.SchoolId).OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(x => x.Address).WithOne(y => y.School).HasForeignKey<SchoolAddress>(z => z.SchoolId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(x => x.Classes).WithOne(y => y.School).OnDelete(DeleteBehavior.Restrict); // Delete manually because multiple cascade path is not allowed (Class' Students)
+            builder.HasMany(x => x.Students).WithOne(y => y.School).OnDelete(DeleteBehavior.Restrict); // Delete manually because multiple cascade path is not allowed (Student's Address)
+            builder.HasMany(x => x.Teachers).WithOne(y => y.School).OnDelete(DeleteBehavior.Restrict); // Delete manually because multiple cascade path is not allowed (Teacher's Address)
         }
     }
 }

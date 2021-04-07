@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace S3.Services.Registration.Domain
 {
@@ -19,21 +20,21 @@ namespace S3.Services.Registration.Domain
     public class StudentAddress : Address
     {
         public Guid StudentId { get; set; }
-        public virtual Student Student { get; set; }
+        //public virtual Student Student { get; set; }
     }
     public class TeacherAddress : Address
     {
         public Guid TeacherId { get; set; }
-        public virtual Teacher Teacher { get; set; }
+        //public virtual Teacher Teacher { get; set; }
     }
     public class ParentAddress : Address
     {
         public Guid ParentId { get; set; }
-        public virtual Parent Parent { get; set; }
+        //public virtual Parent Parent { get; set; }
     }
     public class SchoolAddress : Address
     {
         public Guid SchoolId { get; set; }
-        public virtual School School { get; set; }
+        //public virtual School School { get; set; }
     }
 }

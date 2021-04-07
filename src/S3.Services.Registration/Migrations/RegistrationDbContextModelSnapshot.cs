@@ -15,35 +15,42 @@ namespace S3.Services.Registration.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "3.1.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("S3.Services.Registration.Domain.Address", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Country")
                         .IsRequired()
+                        .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
                     b.Property<string>("Discriminator")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Line1")
                         .IsRequired()
+                        .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("Line2")
+                        .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("State")
                         .IsRequired()
+                        .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
                     b.Property<string>("Town")
                         .IsRequired()
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.HasKey("Id");
@@ -56,25 +63,36 @@ namespace S3.Services.Registration.Migrations
             modelBuilder.Entity("S3.Services.Registration.Domain.Class", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AssistantTeacherId");
+                    b.Property<Guid?>("AssistantTeacherId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Category");
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ClassTeacherId");
+                    b.Property<Guid?>("ClassTeacherId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
-                    b.Property<Guid>("SchoolId");
+                    b.Property<Guid>("SchoolId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Subjects");
+                    b.Property<string>("Subjects")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedDate");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -90,44 +108,59 @@ namespace S3.Services.Registration.Migrations
             modelBuilder.Entity("S3.Services.Registration.Domain.Parent", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AddressId");
+                    b.Property<Guid?>("AddressId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateOfBirth");
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("Gender")
                         .IsRequired()
+                        .HasColumnType("nvarchar(6)")
                         .HasMaxLength(6);
 
-                    b.Property<bool>("IsSignedUp");
+                    b.Property<bool>("IsSignedUp")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
                     b.Property<string>("RegNumber")
                         .IsRequired()
+                        .HasColumnType("nvarchar(12)")
                         .HasMaxLength(12);
 
-                    b.Property<string>("Roles");
+                    b.Property<string>("Roles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedDate");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -140,31 +173,40 @@ namespace S3.Services.Registration.Migrations
             modelBuilder.Entity("S3.Services.Registration.Domain.School", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AddressId");
+                    b.Property<Guid?>("AddressId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AdministratorId");
+                    b.Property<Guid?>("AdministratorId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Category")
                         .IsRequired()
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<DateTime>("UpdatedDate");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -179,34 +221,46 @@ namespace S3.Services.Registration.Migrations
             modelBuilder.Entity("S3.Services.Registration.Domain.ScoresEntryTask", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ClassId");
+                    b.Property<Guid>("ClassId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ClassName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DueDate");
+                    b.Property<DateTime?>("DueDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<Guid>("RuleId");
+                    b.Property<Guid>("RuleId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SchoolId");
+                    b.Property<Guid>("SchoolId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Subject")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("TeacherId");
+                    b.Property<Guid>("TeacherId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("TeacherName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<DateTime>("UpdatedDate");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -220,54 +274,75 @@ namespace S3.Services.Registration.Migrations
             modelBuilder.Entity("S3.Services.Registration.Domain.Student", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AddressId");
+                    b.Property<Guid?>("AddressId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ClassId");
+                    b.Property<Guid?>("ClassId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateOfBirth");
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("Gender")
                         .IsRequired()
+                        .HasColumnType("nvarchar(6)")
                         .HasMaxLength(6);
 
-                    b.Property<bool>("IsSignedUp");
+                    b.Property<bool>("IsSignedUp")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
-                    b.Property<bool>("OfferingAllClassSubjects");
+                    b.Property<bool>("OfferingAllClassSubjects")
+                        .HasColumnType("bit");
 
-                    b.Property<Guid?>("ParentId");
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
                     b.Property<string>("RegNumber")
                         .IsRequired()
+                        .HasColumnType("nvarchar(12)")
                         .HasMaxLength(12);
 
-                    b.Property<string>("Roles");
+                    b.Property<string>("Roles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SchoolId");
+                    b.Property<Guid>("SchoolId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Subjects");
+                    b.Property<string>("Subjects")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedDate");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -286,15 +361,19 @@ namespace S3.Services.Registration.Migrations
             modelBuilder.Entity("S3.Services.Registration.Domain.Subject", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<DateTime>("UpdatedDate");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -307,49 +386,67 @@ namespace S3.Services.Registration.Migrations
             modelBuilder.Entity("S3.Services.Registration.Domain.Teacher", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AddressId");
+                    b.Property<Guid?>("AddressId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateOfBirth");
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("Gender")
                         .IsRequired()
+                        .HasColumnType("nvarchar(6)")
                         .HasMaxLength(6);
 
-                    b.Property<int?>("GradeLevel");
+                    b.Property<int?>("GradeLevel")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("IsSignedUp");
+                    b.Property<bool>("IsSignedUp")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
                     b.Property<string>("Position")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<string>("Roles");
+                    b.Property<string>("Roles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SchoolId");
+                    b.Property<Guid>("SchoolId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("Step");
+                    b.Property<int?>("Step")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedDate");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -362,7 +459,8 @@ namespace S3.Services.Registration.Migrations
                 {
                     b.HasBaseType("S3.Services.Registration.Domain.Address");
 
-                    b.Property<Guid>("ParentId");
+                    b.Property<Guid>("ParentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("ParentId")
                         .IsUnique()
@@ -375,7 +473,8 @@ namespace S3.Services.Registration.Migrations
                 {
                     b.HasBaseType("S3.Services.Registration.Domain.Address");
 
-                    b.Property<Guid>("SchoolId");
+                    b.Property<Guid>("SchoolId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("SchoolId")
                         .IsUnique()
@@ -388,7 +487,8 @@ namespace S3.Services.Registration.Migrations
                 {
                     b.HasBaseType("S3.Services.Registration.Domain.Address");
 
-                    b.Property<Guid>("StudentId");
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("StudentId")
                         .IsUnique()
@@ -401,7 +501,8 @@ namespace S3.Services.Registration.Migrations
                 {
                     b.HasBaseType("S3.Services.Registration.Domain.Address");
 
-                    b.Property<Guid>("TeacherId");
+                    b.Property<Guid>("TeacherId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("TeacherId")
                         .IsUnique()
@@ -423,7 +524,8 @@ namespace S3.Services.Registration.Migrations
                     b.HasOne("S3.Services.Registration.Domain.School", "School")
                         .WithMany("Classes")
                         .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("S3.Services.Registration.Domain.School", b =>
@@ -438,12 +540,14 @@ namespace S3.Services.Registration.Migrations
                     b.HasOne("S3.Services.Registration.Domain.Class", "Class")
                         .WithMany()
                         .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("S3.Services.Registration.Domain.Teacher", "Teacher")
                         .WithMany("ScoresEntryTasks")
                         .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("S3.Services.Registration.Domain.Student", b =>
@@ -459,7 +563,8 @@ namespace S3.Services.Registration.Migrations
                     b.HasOne("S3.Services.Registration.Domain.School", "School")
                         .WithMany("Students")
                         .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("S3.Services.Registration.Domain.Teacher", b =>
@@ -467,7 +572,8 @@ namespace S3.Services.Registration.Migrations
                     b.HasOne("S3.Services.Registration.Domain.School", "School")
                         .WithMany("Teachers")
                         .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("S3.Services.Registration.Domain.ParentAddress", b =>
@@ -475,7 +581,8 @@ namespace S3.Services.Registration.Migrations
                     b.HasOne("S3.Services.Registration.Domain.Parent", "Parent")
                         .WithOne("Address")
                         .HasForeignKey("S3.Services.Registration.Domain.ParentAddress", "ParentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("S3.Services.Registration.Domain.SchoolAddress", b =>
@@ -483,7 +590,8 @@ namespace S3.Services.Registration.Migrations
                     b.HasOne("S3.Services.Registration.Domain.School", "School")
                         .WithOne("Address")
                         .HasForeignKey("S3.Services.Registration.Domain.SchoolAddress", "SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("S3.Services.Registration.Domain.StudentAddress", b =>
@@ -491,7 +599,8 @@ namespace S3.Services.Registration.Migrations
                     b.HasOne("S3.Services.Registration.Domain.Student", "Student")
                         .WithOne("Address")
                         .HasForeignKey("S3.Services.Registration.Domain.StudentAddress", "StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("S3.Services.Registration.Domain.TeacherAddress", b =>
@@ -499,7 +608,8 @@ namespace S3.Services.Registration.Migrations
                     b.HasOne("S3.Services.Registration.Domain.Teacher", "Teacher")
                         .WithOne("Address")
                         .HasForeignKey("S3.Services.Registration.Domain.TeacherAddress", "TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

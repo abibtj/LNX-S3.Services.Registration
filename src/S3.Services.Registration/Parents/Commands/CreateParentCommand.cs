@@ -22,7 +22,6 @@ namespace S3.Services.Registration.Parents.Commands
         public ParentAddress? Address { get; }
         public string[]? RolesArray { get; } // Array of roles of this person
 
-
         [JsonConstructor]
         public CreateParentCommand(
             string firstName, string? middleName, string lastName, string gender, DateTime? dateOfBirth, string phoneNumber, 

@@ -18,7 +18,8 @@ namespace S3.Services.Registration.Domain.EntityConfigurations
 
             // Relationships
             builder.HasMany(x => x.ScoresEntryTasks).WithOne(y => y.Teacher).OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(x => x.Address).WithOne(y => y.Teacher).HasForeignKey<TeacherAddress>(z => z.TeacherId).OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(x => x.Address).WithOne(y => y.Teacher).HasForeignKey<TeacherAddress>(z => z.TeacherId).OnDelete(DeleteBehavior.NoAction); // ToDo: DeleteBehavior.Cascade throwing exception, so delete manually
+            builder.HasOne(x => x.Address).WithOne().HasForeignKey<TeacherAddress>(z => z.TeacherId).OnDelete(DeleteBehavior.NoAction); // ToDo: DeleteBehavior.Cascade throwing exception, so delete manually
         }
     }
 }

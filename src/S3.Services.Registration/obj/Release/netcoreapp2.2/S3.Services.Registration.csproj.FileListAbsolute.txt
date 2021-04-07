@@ -14,7 +14,4 @@ C:\Users\Abeeb\Documents\Visual Studio 2019\Projects\S3\LNX-S3.Services.Registra
 C:\Users\Abeeb\Documents\Visual Studio 2019\Projects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Release\netcoreapp2.2\S3.Services.Registration.csproj.CopyComplete
 C:\Users\Abeeb\Documents\Visual Studio 2019\Projects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Release\netcoreapp2.2\S3.Services.Registration.dll
 C:\Users\Abeeb\Documents\Visual Studio 2019\Projects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Release\netcoreapp2.2\S3.Services.Registration.pdb
-C:\Users\Abeeb\Documents\Visual Studio 2019\Projects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Release\netcoreapp2.2\appsettings.Development.json
-C:\Users\Abeeb\Documents\Visual Studio 2019\Projects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Release\netcoreapp2.2\appsettings.docker.json
-C:\Users\Abeeb\Documents\Visual Studio 2019\Projects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Release\netcoreapp2.2\appsettings.json
-C:\Users\Abeeb\Documents\Visual Studio 2019\Projects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\bin\Release\netcoreapp2.2\Properties\launchSettings.json
+C:\Users\Abeeb\Documents\Visual Studio 2019\Projects\S3\LNX-S3.Services.Registration\src\S3.Services.Registration\obj\Release\netcoreapp2.2\S3.Services.Registration.csproj.CoreCompileInputs.cache

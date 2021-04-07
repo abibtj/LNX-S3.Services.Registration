@@ -3,6 +3,7 @@ using S3.Common.Types;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace S3.Services.Registration.Domain
@@ -22,6 +23,7 @@ namespace S3.Services.Registration.Domain
         public Guid? AddressId { get; set; }
         public virtual SchoolAddress Address { get; set; }
         public Guid? AdministratorId { get; set; }
+        [ForeignKey("AdministratorId")]
         public virtual Teacher Administrator { get; set; }
 
         public virtual ICollection<Teacher> Teachers { get; set; }
